@@ -6,7 +6,7 @@ const HomePage = () => {
   return (
     <div className="home-container">
       <div className="home-sidebar">
-        <h3>Honeypot</h3>
+        <h3>HoneyPot</h3>
         <ul>
           <li>Tableau de bord</li>
           <li>Gestion des IP</li>

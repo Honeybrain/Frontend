@@ -31,7 +31,7 @@ const Navbar = () => {
     <AppBar position="static">
       <Toolbar>
         <Typography variant="h6" className={classes.title}>
-          Honeypot Dashboard
+          Dashboard
         </Typography>
         <Button component={Link} to="/" color="inherit" className={classes.navButton}>Home</Button>
         <Button component={Link} to="/profile" color="inherit" className={classes.navButton}>Profile</Button>

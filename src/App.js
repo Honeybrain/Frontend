@@ -5,6 +5,7 @@ import Navbar from './components/Navbar';
 import HomePage from './components/HomePage';
 import LoginPage from './components/LoginPage';
 import RegisterPage from './components/RegisterPage';
+import ProfilePage from './components/ProfilePage';
 import './styles.css';
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
             <Route path="/" exact component={HomePage} />
             <Route path="/login" component={LoginPage} />
             <Route path="/register" component={RegisterPage} />
+            <Route path="/profile" component={ProfilePage}/>
           </Switch>
         </div>
       </AuthProvider>
