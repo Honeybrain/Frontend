@@ -1,11 +1,13 @@
-FROM node:14-alpine
+FROM node:18.16.0
 
+RUN mkdir -p /app
 WORKDIR /app
-COPY package*.json ./
-RUN npm install
+COPY . /app/
 
-COPY . .
+RUN npm install -f
+RUN npm install -g serve
+RUN npm run build
 
 EXPOSE 3000
 
-CMD ["npm", "start"]
+CMD ["serve", "-s", "build"]
