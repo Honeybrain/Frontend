@@ -1,6 +1,7 @@
 import React from 'react';
 import './../App';
 import '../styles.css';
+import ConfigGen from './ConfigGen';
 
 const HomePage = () => {
   return (
@@ -37,6 +38,9 @@ const HomePage = () => {
             <h4>Autres fonctionnalités</h4>
             <p>10</p>
           </div>
+        </div>
+        <div className='selector'>
+          <ConfigGen />
         </div>
       </div>
     </div>
