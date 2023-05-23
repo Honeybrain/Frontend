@@ -33,14 +33,25 @@ const Navbar = () => {
         <Typography variant="h6" className={classes.title}>
           Dashboard
         </Typography>
-        <Button component={Link} to="/" color="inherit" className={classes.navButton}>Home</Button>
-        <Button component={Link} to="/profile" color="inherit" className={classes.navButton}>Profile</Button>
-        <Button component={Link} to="/register" color="inherit" className={classes.navButton}>Register</Button>
-        <Button component={Link} to="/login" color="inherit" className={classes.navButton}>Login</Button>
-        <Button color="inherit" onClick={handleLogout} className={classes.navButton}>Logout</Button>
+        {!isLoggedIn && (
+          <>
+            <Button component={Link} to="/register" color="inherit" className={classes.navButton}>Register</Button>
+            <Button component={Link} to="/login" color="inherit" className={classes.navButton}>Login</Button>
+          </>
+        )}
+        {isLoggedIn && (
+          <>
+          <Button component={Link} to="/" color="inherit" className={classes.navButton}>Home</Button>
+          <Button component={Link} to="/profile" color="inherit" className={classes.navButton}>Profile</Button>
+          <Button component={Link} to="/blacklist" color="inherit" className={classes.navButton}>BlackList</Button>
+          <Button color="inherit" onClick={handleLogout} className={classes.navButton}>Logout</Button>
+          </>
+        )}
+        
       </Toolbar>
     </AppBar>
   );
 };
 
 export default Navbar;
+

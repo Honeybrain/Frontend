@@ -6,6 +6,9 @@ import HomePage from './components/HomePage';
 import LoginPage from './components/LoginPage';
 import RegisterPage from './components/RegisterPage';
 import ProfilePage from './components/ProfilePage';
+import HoneyPotPage from './components/HoneyPotPage'; 
+import BlacklistPage from './components/BlackListPage'; 
+
 import './styles.css';
 
 function App() {
@@ -19,6 +22,8 @@ function App() {
             <Route path="/login" component={LoginPage} />
             <Route path="/register" component={RegisterPage} />
             <Route path="/profile" component={ProfilePage}/>
+            <Route path="/honeypot" component={HoneyPotPage}/>
+            <Route path="/blacklist" component={BlacklistPage}/>
           </Switch>
         </div>
       </AuthProvider>

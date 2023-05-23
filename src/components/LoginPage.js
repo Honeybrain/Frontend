@@ -2,10 +2,15 @@ import React, { useState, useContext } from 'react';
 import axios from 'axios';
 import AuthContext from '../AuthContext';
 import '../styles.css';
+import { useHistory } from 'react-router-dom';  // importez useHistory ici
+
+
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const history = useHistory();  // Utilisez useHistory ici
+  const { login } = useContext(AuthContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -25,6 +30,9 @@ const LoginPage = () => {
       // Redirigez l'utilisateur vers la page d'accueil ou la page suivante après la connexion
       // Par exemple, en utilisant react-router-dom
       // history.push('/home');
+      login(response.data.token, {email});
+      history.push('/');
+
     } catch (error) {
       console.error('Erreur lors de la connexion:', error.response.data);
       // Gérez les erreurs ici, par exemple, en affichant un message d'erreur à l'utilisateur
@@ -41,7 +49,7 @@ const LoginPage = () => {
         <div className="input-group">
           <input onChange={(e) => setPassword(e.target.value)} type="password" name="password" placeholder="Mot de passe" required />
         </div>
-        <button type="submit" onClick={() => document.getElementById('login-form').submit()}>Se connecter</button>
+        <button type="submit">Se connecter</button>
       </form>
       <div className="form-footer">
         <p>Pas encore inscrit ? <a href="/register">Inscrivez-vous</a></p>
