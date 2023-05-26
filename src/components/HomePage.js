@@ -2,9 +2,8 @@ import React, { useState, useEffect, useContext} from 'react';
 import { useHistory } from "react-router-dom";
 import './../App';
 import '../styles.css';
-import ConfigGen from './ConfigGen';
 import AuthContext from '../AuthContext';
-
+import Dashboard from './dashboard/Dashboard';
 
 const HomePage = () => {
   const { isLoggedIn, logout } = useContext(AuthContext);
@@ -48,12 +47,17 @@ const HomePage = () => {
             ))}
           </div>
         );
+      case 'dashboard':
+          return (
+          <Dashboard>
+          </Dashboard>)
       case 'containerManager':
         
       case 'incomingConnections':
         
       case 'otherFeatures':
-       
+
+
       default:
         
     }
@@ -78,9 +82,6 @@ const HomePage = () => {
         </div>
         <div className="content-body">
           {renderContent()}
-        </div>
-        <div className='selector'>
-          <ConfigGen />
         </div>
       </div>
     </div>

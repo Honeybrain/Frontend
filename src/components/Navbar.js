@@ -43,7 +43,6 @@ const Navbar = () => {
           <>
           <Button component={Link} to="/" color="inherit" className={classes.navButton}>Home</Button>
           <Button component={Link} to="/profile" color="inherit" className={classes.navButton}>Profile</Button>
-          <Button component={Link} to="/blacklist" color="inherit" className={classes.navButton}>BlackList</Button>
           <Button color="inherit" onClick={handleLogout} className={classes.navButton}>Logout</Button>
           </>
         )}

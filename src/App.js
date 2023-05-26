@@ -6,8 +6,7 @@ import HomePage from './components/HomePage';
 import LoginPage from './components/LoginPage';
 import RegisterPage from './components/RegisterPage';
 import ProfilePage from './components/ProfilePage';
-import HoneyPotPage from './components/HoneyPotPage'; 
-import BlacklistPage from './components/BlackListPage'; 
+import HoneyPotPage from './components/HoneyPotPage';  
 
 import './styles.css';
 
@@ -23,7 +22,6 @@ function App() {
             <Route path="/register" component={RegisterPage} />
             <Route path="/profile" component={ProfilePage}/>
             <Route path="/honeypot" component={HoneyPotPage}/>
-            <Route path="/blacklist" component={BlacklistPage}/>
           </Switch>
         </div>
       </AuthProvider>

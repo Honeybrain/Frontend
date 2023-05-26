@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import '../styles.css';
+import '../../../styles.css';
+import { Grid, TextField, Box, Button, Paper, Typography  } from '@mui/material';
 
 function getRandomDummyPcIPAddresses(subnet, numServices) {
   const subnetParts = subnet.split('/');
@@ -81,63 +82,70 @@ const ConfigGenerator = () => {
   };
 
   return (
-    <div className="form-container">
-      <label className='input-group'>
-        Number of dummy PC:
-        <input
-          type="number"
-          min={0}
-          max={5}
-          value={dummyPcNumServices}
-          onChange={handleDummyPcNumServicesChange}
-        />
-      </label>
-      {dummyPcNumServices > 0 && (
-        <>
-          <br /><br />
-          <label className='input-group'>
-            IP Addresses for dummy PC:
-            {dummyPcIPAddresses.map((ipAddress, index) => (
-              <input
-                key={index}
-                type="text"
-                value={ipAddress}
-                onChange={(event) => handleDummyPcIPAddressChange(index, event)}
-              />
-            ))}
-          </label>
-        </>
-      )}
-      <br /><br />
-      <label className='input-group'>
-        IP Address for FTP:
-        <input
-          type="text"
-          value={ftpIPAddress}
-          onChange={(e) => setFtpIPAddress(e.target.value)}
-        />
-      </label>
-      <br /><br />
-      <label className='input-group'>
-        Port for FTP:
-        <input
-          type="text"
-          value={ftpPort}
-          onChange={(e) => setFtpPort(e.target.value)}
-        />
-      </label>
-      <br /><br />
-      <label className='input-group'>
-        Subnet:
-        <input
-          type="text"
-          value={subnet}
-          onChange={(e) => setSubnet(e.target.value)}
-        />
-      </label>
-      <br />
-      <button onClick={handleDownload}>Download Configuration</button>
-    </div>
+    <Paper sx={{ p: 2, width: '25em', maxWidth: '100%', margin: '1em' }}>
+      <Typography variant="h6" mb={2}>Config Generator</Typography>
+      <Grid container spacing={2} direction="column" alignItems="stretch">
+        <Grid item>
+          <TextField
+            type="number"
+            variant="outlined"
+            label="Number of dummy PC"
+            value={dummyPcNumServices}
+            onChange={handleDummyPcNumServicesChange}
+            fullWidth
+          />
+        </Grid>
+        {dummyPcIPAddresses.map((ipAddress, index) => (
+          <Grid item key={index}>
+            <TextField
+              type="text"
+              variant="outlined"
+              label={`IP Address for dummy PC ${index + 1}`}
+              value={ipAddress}
+              onChange={(event) => handleDummyPcIPAddressChange(index, event)}
+              fullWidth
+            />
+          </Grid>
+        ))}
+        <Grid item>
+          <TextField
+            type="text"
+            variant="outlined"
+            label="IP Address for FTP"
+            value={ftpIPAddress}
+            onChange={(e) => setFtpIPAddress(e.target.value)}
+            fullWidth
+          />
+        </Grid>
+        <Grid item>
+          <TextField
+            type="text"
+            variant="outlined"
+            label="Port for FTP"
+            value={ftpPort}
+            onChange={(e) => setFtpPort(e.target.value)}
+            fullWidth
+          />
+        </Grid>
+        <Grid item>
+          <TextField
+            type="text"
+            variant="outlined"
+            label="Subnet"
+            value={subnet}
+            onChange={(e) => setSubnet(e.target.value)}
+            fullWidth
+          />
+        </Grid>
+        <Grid item>
+          <Box width="100%" display="flex" justifyContent="center">
+            <Button variant="contained" color="primary" onClick={handleDownload}>
+              Download Configuration
+            </Button>
+          </Box>
+        </Grid>
+      </Grid>
+    </Paper>
   );
 };
 
