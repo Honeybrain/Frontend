@@ -82,7 +82,7 @@ const ConfigGenerator = () => {
   };
 
   return (
-    <Paper sx={{ p: 2, width: '25em', maxWidth: '100%', margin: '1em' }}>
+    <Paper sx={{ p: 2, height: '520px', width: '25em', maxWidth: '100%', margin: '1em' }}>
       <Typography variant="h6" mb={2}>Config Generator</Typography>
       <Grid container spacing={2} direction="column" alignItems="stretch">
         <Grid item>

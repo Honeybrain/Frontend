@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Typography, TextField, Button, Paper, Grid, Snackbar, Alert, List, ListItem, ListItemText } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
+import { Divider } from '@mui/material';
 
 const BlacklistPage = () => {
   const [ip, setIp] = useState('');
@@ -41,7 +42,7 @@ const BlacklistPage = () => {
   };
 
   return (
-    <Paper sx={{ p: 2, width: '25em', maxWidth: '100%', margin: '1em' }}>
+    <Paper sx={{ p: 2, height: '520px', width: '25em', maxWidth: '100%', margin: '1em', overflow: 'hidden' }}>
       <Typography variant="h6" mb={2}>Block an IP</Typography>
       <Grid container spacing={2} direction="column" alignItems="stretch" component="form" onSubmit={handleSubmit}>
         <Grid item>
@@ -65,10 +66,15 @@ const BlacklistPage = () => {
           <Typography variant="h6" component="h2" gutterBottom mt={2}>
             Currently Blocked IPs
           </Typography>
-          <List>
+          <List sx={{maxHeight: '280px', overflow: 'auto'}}>
             {blacklistedIPs.map((blacklistedIP, index) => (
-              <ListItem key={index}>
+              <ListItem key={index} sx={{ 
+                my: 1, 
+                px: 2, 
+                bgcolor: index % 2 === 0 ? 'action.hover' : 'background.default',
+                borderRadius: 1 }}>
                 <ListItemText primary={blacklistedIP} />
+                {index !== blacklistedIPs.length - 1 && <Divider />}
               </ListItem>
             ))}
           </List>
