@@ -1,17 +1,18 @@
-import React, { useState } from 'react';
+import React from 'react';
 import '../../styles.css';
-import BlacklistPage from '../BlackListPage';
+import BlockIpWidget from './widgets/BlockIpWidget';
 import ConfigGen from './widgets/ConfigGenWidget';
 import { Grid } from '@mui/material';
 
 const Dashboard = () => {
-
   return (
-    <Grid container spacing={3} alignItems="flex-start" justifyContent="flex-start">
-      <Grid item xs={true}>
+    <Grid container direction="row">
+      <Grid item style={{ flexGrow: 0 }}>
         <ConfigGen />
       </Grid>
-
+      <Grid item style={{ flexGrow: 0 }}>
+        <BlockIpWidget />
+      </Grid>
     </Grid>
   );
 };
