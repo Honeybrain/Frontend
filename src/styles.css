@@ -57,6 +57,7 @@ body {
   .home-container {
     display: flex;
     margin: 20px;
+    margin-right: 0; /* Supprimez la marge à droite */
   }
 
   .home-sidebar {
@@ -96,7 +97,7 @@ body {
 
   .home-content {
     flex-grow: 1;
-    padding: 20px;
+    padding: 0 20px;
     display: flex;
     flex-direction: column;
     gap: 20px;

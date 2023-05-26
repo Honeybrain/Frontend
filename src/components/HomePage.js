@@ -76,10 +76,6 @@ const HomePage = () => {
         </ul>
       </div>
       <div className="home-content">
-        <div className="content-header">
-          <h2>{currentContent}</h2>
-          <button>Actions</button>
-        </div>
         <div className="content-body">
           {renderContent()}
         </div>
