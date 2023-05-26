@@ -35,7 +35,7 @@ const BlacklistPage = () => {
     e.preventDefault();
     try {
       const response = await axios.post('http://localhost:8000/honeypot/blacklist');
-      { ip };
+      // { ip };
       console.log(response.data);
       setIp('');
       setOpen(true);
