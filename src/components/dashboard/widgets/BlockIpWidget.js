@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Typography, TextField, Button, Paper, Grid, Snackbar, Alert, List, ListItem, ListItemText } from '@mui/material';
-import CloseIcon from '@mui/icons-material/Close';
+import { Typography, TextField, Button, Paper, Grid, Snackbar, Alert, List, ListItem, ListItemText, ListItemSecondaryAction, IconButton } from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
 import { Divider } from '@mui/material';
 
 const BlacklistPage = () => {
   const [ip, setIp] = useState('');
   const [blacklistedIPs, setBlacklistedIPs] = useState([]);
   const [open, setOpen] = useState(false);
+  const [alertText, setAlertText] = useState('');
 
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
@@ -34,6 +35,18 @@ const BlacklistPage = () => {
     try {
       const response = await axios.post('http://localhost:8000/honeypot/blacklist', { ip });
       setIp('');
+      setAlertText('IP blocked successfully');
+      setOpen(true);
+      fetchBlacklistedIPs();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleUnblock = async (ip) => {
+    try {
+      await axios.post('http://localhost:8000/honeypot/whitelist', { ip });
+      setAlertText('IP unblocked successfully');
       setOpen(true);
       fetchBlacklistedIPs();
     } catch (error) {
@@ -72,8 +85,14 @@ const BlacklistPage = () => {
                 my: 1, 
                 px: 2, 
                 bgcolor: index % 2 === 0 ? 'action.hover' : 'background.default',
-                borderRadius: 1 }}>
+                borderRadius: 1 
+              }}>
                 <ListItemText primary={blacklistedIP} />
+                <ListItemSecondaryAction>
+                  <IconButton edge="end" aria-label="delete" onClick={() => handleUnblock(blacklistedIP)}>
+                    <DeleteIcon color="error" />
+                  </IconButton>
+                </ListItemSecondaryAction>
                 {index !== blacklistedIPs.length - 1 && <Divider />}
               </ListItem>
             ))}
@@ -81,12 +100,12 @@ const BlacklistPage = () => {
         </Grid>
         <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
           <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
-            IP blocked successfully
+            {alertText}
           </Alert>
         </Snackbar>
       </Grid>
     </Paper>
   );
-};
+} 
 
 export default BlacklistPage;

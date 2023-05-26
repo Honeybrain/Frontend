@@ -1,16 +1,14 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import axios from 'axios';
 import AuthContext from '../AuthContext';
 import '../styles.css';
 import { useHistory } from 'react-router-dom';  // importez useHistory ici
 
-
-
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const history = useHistory();  // Utilisez useHistory ici
-  const { login } = useContext(AuthContext);
+  const { login, isLoggedIn } = useContext(AuthContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
