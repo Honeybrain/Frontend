@@ -26,7 +26,7 @@ const LogViewerWidget = () => {
 
   return (
     <Grid item xs={12}>
-      <Paper sx={{ p: 2, height: '520px', maxWidth: '100%', margin: '1em' }}>
+      <Paper sx={{ p: 2, height: '520px', width: 'calc(100% - 60px)', maxWidth: '100%', margin: '1em', overflow: 'auto' }}>
         <Typography variant="h6" mb={2}>Honeypot Connections Viewer</Typography>
         <MonacoEditor
           width="100%"
