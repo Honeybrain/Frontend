@@ -9,6 +9,11 @@ const ContainerMonitorWidget = () => {
 
   useEffect(() => {
     fetchContainers();
+    const interval = setInterval(fetchContainers, 10000); // Mettre à jour les informations toutes les 10 secondes
+
+    return () => {
+      clearInterval(interval); // Effacer l'intervalle lorsque le composant est démonté
+    };
   }, []);
 
   const fetchContainers = async () => {

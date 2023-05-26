@@ -7,22 +7,21 @@ const LogViewerWidget = () => {
   const [logs, setLogs] = useState('');
 
   useEffect(() => {
-    fetchLogs();
+    const fetchLogs = async () => {
+      try {
+        const response = await axios.get('http://localhost:8000/honeypot/logs');
+        setLogs(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    const interval = setInterval(fetchLogs, 1000); // Mettre à jour les logs toutes les 5 secondes
+
+    return () => {
+      clearInterval(interval); // Effacer l'intervalle lorsque le composant est démonté
+    };
   }, []);
-
-  const fetchLogs = async () => {
-    try {
-      const response = await axios.get('http://localhost:8000/honeypot/logs');
-      setLogs(response.data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const options = {
-    selectOnLineNumbers: true,
-    readOnly: true,
-  };
 
   return (
     <Grid item xs={12}>
@@ -34,7 +33,7 @@ const LogViewerWidget = () => {
           language="plaintext"
           theme="vs"
           value={logs}
-          options={options}
+          options={{ selectOnLineNumbers: true, readOnly: true }}
         />
       </Paper>
     </Grid>

@@ -19,6 +19,10 @@ const BlacklistPage = () => {
 
   useEffect(() => {
     fetchBlacklistedIPs();
+    const interval = setInterval(fetchBlacklistedIPs, 5000); // Mettre à jour la liste toutes les 5 secondes
+    return () => {
+      clearInterval(interval);
+    };
   }, []);
 
   const fetchBlacklistedIPs = async () => {
