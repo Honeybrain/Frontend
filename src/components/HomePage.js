@@ -1,12 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext} from 'react';
+import { useHistory } from "react-router-dom";
 import './../App';
 import '../styles.css';
 import ConfigGen from './ConfigGen';
+import AuthContext from '../AuthContext';
 
 
 const HomePage = () => {
+  const { isLoggedIn, logout } = useContext(AuthContext);
+  const history = useHistory();
   const [currentContent, setCurrentContent] = useState('dashboard');
   const [connections, setConnections] = useState([]);
+
+  useEffect(() => {
+    if (!isLoggedIn) {
+      history.push("/login");
+    }
+  }, [isLoggedIn, history]);
 
   useEffect(() => {
     if (currentContent === 'ipManagement') {
