@@ -1,71 +1,144 @@
 import React, { useState } from 'react';
 import '../styles.css';
 
-const modules = [
-  { name: 'Dummy PC', id: 1, key: 'pc', max: 25 },
-  { name: 'Database', id: 2, key: 'db', max: 5 },
-  { name: 'Example', id: 3, key: 'ex', max: 50 },
-];
+function getRandomDummyPcIPAddresses(subnet, numServices) {
+  const subnetParts = subnet.split('/');
+  const baseIP = subnetParts[0];
+  const subnetMask = parseInt(subnetParts[1]);
+  const maxNumServices = Math.pow(2, 32 - subnetMask) - 2;
+  const ipAddresses = [];
 
-function ModuleSelector() {
-  const [moduleCounts, setModuleCounts] = useState({});
+  if (numServices > maxNumServices)
+    numServices = maxNumServices;
+  for (let i = 0; i < numServices; i++) {
+    const randomIP = generateRandomIP(baseIP, subnetMask);
+    ipAddresses.push(randomIP);
+  }
+  return ipAddresses;
+};
 
-  const handleModuleCountChange = (event) => {
-    const moduleId = parseInt(event.target.name);
-    let count = parseInt(event.target.value);
+function generateRandomIP(baseIP, subnetMask) {
+  const baseIPParts = baseIP.split('.');
+  const hostRange = Math.pow(2, 32 - subnetMask) - 2;
+  const randomIPParts = [];
 
-    if (count > event.target.max) {
-      count = event.target.max;
+  for (let i = 0; i < 4; i++) {
+    if (i < 3)
+      randomIPParts.push(baseIPParts[i]);
+    else {
+      const randomHost = Math.floor(Math.random() * hostRange) + 1;
+      randomIPParts.push(randomHost);
     }
+  }
+  return randomIPParts.join('.');
+};
 
-    setModuleCounts((prevState) => ({
-      ...prevState,
-      [moduleId]: count,
-    }));
+const ConfigGenerator = () => {
+  const [dummyPcNumServices, setDummyPcNumServices] = useState(2);
+  const [ftpIPAddress, setFtpIPAddress] = useState('192.168.1.10');
+  const [ftpPort, setFtpPort] = useState('21');
+  const [subnet, setSubnet] = useState('192.168.1.0/24');
+  const [dummyPcIPAddresses, setDummyPcIPAddresses] = useState(getRandomDummyPcIPAddresses(subnet, 2));
+
+  const handleDummyPcNumServicesChange = (event) => {
+    const numServices = parseInt(event.target.value) > 5 ? 5 : parseInt(event.target.value);
+    setDummyPcNumServices(numServices);
+
+    if (numServices === 0) {
+      setDummyPcIPAddresses([]);
+    } else {
+      const randomIPAddresses = getRandomDummyPcIPAddresses(subnet, numServices);
+      setDummyPcIPAddresses(randomIPAddresses);
+    }
   };
 
-  const handleGenerateConfig = () => {
-    const config = modules.reduce((acc, module) => {
-      const moduleKey = module.key;
-      const count = moduleCounts[module.id] || 0;
-      return {
-        ...acc,
-        [moduleKey]: count,
-      };
-    }, {});
-
-    const jsonBlob = new Blob([JSON.stringify(config, null, 2)], { type: 'application/json' });
-    const url = URL.createObjectURL(jsonBlob);
-
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = 'HoneyBrain_config.json';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+  const handleDummyPcIPAddressChange = (index, event) => {
+    const updatedIPAddresses = [...dummyPcIPAddresses];
+    updatedIPAddresses[index] = event.target.value;
+    setDummyPcIPAddresses(updatedIPAddresses);
   };
 
+  const handleDownload = () => {
+    const configData = {
+      dummy_pc: {
+        num_services: dummyPcNumServices,
+        ip_addresses: dummyPcIPAddresses,
+      },
+      ftp: {
+        ip_address: ftpIPAddress,
+        port: ftpPort,
+      },
+      subnet: subnet,
+    };
+
+    const dataStr = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(configData, null, 4));
+    const downloadAnchorNode = document.createElement('a');
+    downloadAnchorNode.setAttribute('href', dataStr);
+    downloadAnchorNode.setAttribute('download', 'config.json');
+    document.body.appendChild(downloadAnchorNode); // required for Firefox
+    downloadAnchorNode.click();
+    downloadAnchorNode.remove();
+  };
 
   return (
     <div className="form-container">
-      <h2>Module Selector</h2>
-      {modules.map((module) => (
-        <div className="input-group" key={module.key}>
-          {module.name}
-          <input
-            type="number"
-            name={module.id}
-            max={module.max}
-            min={0}
-            value={moduleCounts[module.id] || 0}
-            onChange={handleModuleCountChange}
-            onBlur={handleModuleCountChange}
-          />
-        </div>
-      ))}
-      <button onClick={handleGenerateConfig}>Download Config</button>
+      <label className='input-group'>
+        Number of dummy PC:
+        <input
+          type="number"
+          min={0}
+          max={5}
+          value={dummyPcNumServices}
+          onChange={handleDummyPcNumServicesChange}
+        />
+      </label>
+      {dummyPcNumServices > 0 && (
+        <>
+          <br /><br />
+          <label className='input-group'>
+            IP Addresses for dummy PC:
+            {dummyPcIPAddresses.map((ipAddress, index) => (
+              <input
+                key={index}
+                type="text"
+                value={ipAddress}
+                onChange={(event) => handleDummyPcIPAddressChange(index, event)}
+              />
+            ))}
+          </label>
+        </>
+      )}
+      <br /><br />
+      <label className='input-group'>
+        IP Address for FTP:
+        <input
+          type="text"
+          value={ftpIPAddress}
+          onChange={(e) => setFtpIPAddress(e.target.value)}
+        />
+      </label>
+      <br /><br />
+      <label className='input-group'>
+        Port for FTP:
+        <input
+          type="text"
+          value={ftpPort}
+          onChange={(e) => setFtpPort(e.target.value)}
+        />
+      </label>
+      <br /><br />
+      <label className='input-group'>
+        Subnet:
+        <input
+          type="text"
+          value={subnet}
+          onChange={(e) => setSubnet(e.target.value)}
+        />
+      </label>
+      <br />
+      <button onClick={handleDownload}>Download Configuration</button>
     </div>
   );
-}
+};
 
-export default ModuleSelector;
+export default ConfigGenerator;
