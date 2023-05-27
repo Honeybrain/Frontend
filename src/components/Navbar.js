@@ -35,7 +35,6 @@ const Navbar = () => {
         </Typography>
         {!isLoggedIn && (
           <>
-            <Button component={Link} to="/register" color="inherit" className={classes.navButton}>Register</Button>
             <Button component={Link} to="/login" color="inherit" className={classes.navButton}>Login</Button>
           </>
         )}

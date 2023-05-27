@@ -49,9 +49,6 @@ const LoginPage = () => {
         </div>
         <button type="submit">Se connecter</button>
       </form>
-      <div className="form-footer">
-        <p>Pas encore inscrit ? <a href="/register">Inscrivez-vous</a></p>
-      </div>
     </div>
   );
 };
