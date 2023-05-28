@@ -4,6 +4,7 @@ import '../App';
 import '../styles.css';
 import AuthContext from '../AuthContext';
 import Dashboard from './dashboard/Dashboard';
+import ConfigGen from './ConfigGenWidget';
 
 const HomePage = () => {
   const { isLoggedIn, logout } = useContext(AuthContext);
@@ -51,12 +52,11 @@ const HomePage = () => {
         return (
           <Dashboard>
           </Dashboard>)
+      case 'otherFeatures':
+        return (<ConfigGen />)
       case 'containerManager':
 
       case 'incomingConnections':
-
-      case 'otherFeatures':
-
 
       default:
 
