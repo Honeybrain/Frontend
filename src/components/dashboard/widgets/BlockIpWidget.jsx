@@ -83,13 +83,13 @@ const BlacklistPage = () => {
           <Typography variant="h6" component="h2" gutterBottom mt={2}>
             Currently Blocked IPs
           </Typography>
-          <List sx={{maxHeight: '280px', overflow: 'auto'}}>
+          <List sx={{ maxHeight: '280px', overflow: 'auto' }}>
             {blacklistedIPs.map((blacklistedIP, index) => (
-              <ListItem key={index} sx={{ 
-                my: 1, 
-                px: 2, 
+              <ListItem key={index} sx={{
+                my: 1,
+                px: 2,
                 bgcolor: index % 2 === 0 ? 'action.hover' : 'background.default',
-                borderRadius: 1 
+                borderRadius: 1
               }}>
                 <ListItemText primary={blacklistedIP} />
                 <ListItemSecondaryAction>
@@ -110,6 +110,6 @@ const BlacklistPage = () => {
       </Grid>
     </Paper>
   );
-} 
+}
 
 export default BlacklistPage;

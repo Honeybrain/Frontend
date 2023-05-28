@@ -28,7 +28,7 @@ const LoginPage = () => {
       // Redirigez l'utilisateur vers la page d'accueil ou la page suivante après la connexion
       // Par exemple, en utilisant react-router-dom
       // history.push('/home');
-      login(response.data.token, {email});
+      login(response.data.token, { email });
       history.push('/');
 
     } catch (error) {

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext} from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useHistory } from "react-router-dom";
 import '../App';
 import '../styles.css';
@@ -48,18 +48,18 @@ const HomePage = () => {
           </div>
         );
       case 'dashboard':
-          return (
+        return (
           <Dashboard>
           </Dashboard>)
       case 'containerManager':
-        
+
       case 'incomingConnections':
-        
+
       case 'otherFeatures':
 
 
       default:
-        
+
     }
   }
 

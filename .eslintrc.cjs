@@ -8,6 +8,7 @@ module.exports = {
     'eslint-config-prettier',
     "plugin:import/recommended",
     "plugin:jsx-a11y/recommended",
+    "prettier:recommended"
   ],
   parserOptions: { ecmaVersion: 'latest', sourceType: 'module' },
   settings: { react: { version: '18.2' } },

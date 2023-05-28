@@ -5,7 +5,7 @@ import Navbar from './components/Navbar';
 import HomePage from './components/HomePage';
 import LoginPage from './components/LoginPage';
 import ProfilePage from './components/ProfilePage';
-import HoneyPotPage from './components/HoneyPotPage'; 
+import HoneyPotPage from './components/HoneyPotPage';
 
 function App() {
   return (
@@ -15,9 +15,9 @@ function App() {
           <Navbar />
           <Switch>
             <Route path="/" exact component={HomePage} />
-            <Route path="/login" component={LoginPage} />
-            <Route path="/profile" component={ProfilePage}/>
-            <Route path="/honeypot" component={HoneyPotPage}/>
+            <Route path="/login" compjonent={LoginPage} />
+            <Route path="/profile" component={ProfilePage} />
+            <Route path="/honeypot" component={HoneyPotPage} />
           </Switch>
         </div>
       </AuthProvider>
