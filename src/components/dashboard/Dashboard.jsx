@@ -7,16 +7,16 @@ import { Grid } from '@mui/material';
 
 const Dashboard = () => {
   return (
-    <Grid container direction="column">
-      <Grid container item direction="row">
-        <Grid item>
+    <Grid container direction="column" style={{ height: '100%' }}>
+      <Grid item container>
+        <Grid item xs={4}>
           <BlockIpWidget />
         </Grid>
-        <Grid item>
+        <Grid item xs={4}>
           <ContainerMonitorWidget />
         </Grid>
       </Grid>
-      <Grid item style={{ flexGrow: 1, width: '100%' }}>
+      <Grid item style={{ flexGrow: 1 }}>
         <LogViewerWidget />
       </Grid>
     </Grid>

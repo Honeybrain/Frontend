@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Grid, Paper, Typography } from '@mui/material';
+import { Grid, Paper, Typography, Box } from '@mui/material';
 import MonacoEditor from 'react-monaco-editor';
 
 const LogViewerWidget = () => {
@@ -24,19 +24,21 @@ const LogViewerWidget = () => {
   }, []);
 
   return (
-    <Grid item xs={12}>
-      <Paper sx={{ p: 2, height: '520px', width: 'calc(100% - 60px)', maxWidth: '100%', margin: '1em', overflow: 'auto' }}>
+    <Grid item xs={12} style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+      <Paper sx={{ p: 2, flex: 1, display: 'flex', flexDirection: 'column', margin: '1em', overflow: 'auto' }}>
         <Typography variant="h6" mb={2}>Honeypot Connections Viewer</Typography>
-        <MonacoEditor
-          width="100%"
-          height="90%"
-          language="plaintext"
-          theme="vs"
-          value={logs}
-          options={{ selectOnLineNumbers: true, readOnly: true }}
-        />
+        <Box flex={1}>
+          <MonacoEditor
+            width="100%"
+            height="100%"
+            language="plaintext"
+            theme="vs"
+            value={logs}
+            options={{ selectOnLineNumbers: true, readOnly: true }}
+          />
+        </Box>
       </Paper>
-    </Grid>
+    </Grid >
   );
 };
 
