@@ -5,7 +5,7 @@ import '../styles.css';
 import AuthContext from '../AuthContext';
 import Dashboard from './dashboard/Dashboard';
 import ListConnections from './dashboard/pages/ListConnections';
-import ConfigGen from './ConfigGenWidget';
+import Others from './dashboard/pages/Others';
 
 const HomePage = () => {
   const { isLoggedIn, logout } = useContext(AuthContext);
@@ -54,7 +54,7 @@ const HomePage = () => {
           <Dashboard>
           </Dashboard>)
       case 'otherFeatures':
-        return (<ConfigGen />)
+        return (<Others />)
       case 'containerManager':
 
       case 'incomingConnections':
