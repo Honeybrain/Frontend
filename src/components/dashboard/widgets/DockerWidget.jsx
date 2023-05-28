@@ -50,6 +50,7 @@ const ContainerMonitorWidget = () => {
               justifyContent: 'space-between',
               alignItems: 'stretch',
               gap: 2,
+              marginBottom: 2,  // Ajoutez une marge en bas
             }}
           >
             {containers.map((container, index) => (

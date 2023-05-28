@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext} from 'react';
 import { useHistory } from "react-router-dom";
-import './../App';
+import '../App';
 import '../styles.css';
 import AuthContext from '../AuthContext';
 import Dashboard from './dashboard/Dashboard';
