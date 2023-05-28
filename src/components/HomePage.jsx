@@ -4,6 +4,7 @@ import '../App';
 import '../styles.css';
 import AuthContext from '../AuthContext';
 import Dashboard from './dashboard/Dashboard';
+import ListConnections from './dashboard/pages/ListConnections';
 import ConfigGen from './ConfigGenWidget';
 
 const HomePage = () => {
@@ -57,7 +58,7 @@ const HomePage = () => {
       case 'containerManager':
 
       case 'incomingConnections':
-
+        return (<ListConnections></ListConnections>)
       default:
 
     }
