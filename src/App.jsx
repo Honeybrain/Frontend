@@ -15,7 +15,7 @@ function App() {
           <Navbar />
           <Switch>
             <Route path="/" exact component={HomePage} />
-            <Route path="/login" compjonent={LoginPage} />
+            <Route path="/login" component={LoginPage} />
             <Route path="/profile" component={ProfilePage} />
             <Route path="/honeypot" component={HoneyPotPage} />
           </Switch>
