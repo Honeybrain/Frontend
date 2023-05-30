@@ -42,7 +42,7 @@ const Others = () => {
     const [dummyPcIPAddresses, setDummyPcIPAddresses] = useState(getRandomDummyPcIPAddresses(subnet, 2));
 
     const handleDummyPcNumServicesChange = (event) => {
-        const numServices = parseInt(event.target.value) > 5 ? 5 : parseInt(event.target.value);
+        const numServices = parseInt(event.target.value) > 5 ? 5 : parseInt(event.target.value) < 0 ? 0 : parseInt(event.target.value);
         setDummyPcNumServices(numServices);
 
         if (numServices === 0) {
