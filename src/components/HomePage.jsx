@@ -5,6 +5,7 @@ import '../styles.css';
 import AuthContext from '../AuthContext';
 import Dashboard from './dashboard/Dashboard';
 import ListConnections from './dashboard/pages/ListConnections';
+import ContainerManager from './dashboard/widgets/ContainerManager';
 import Others from './dashboard/pages/Others';
 
 const HomePage = () => {
@@ -23,13 +24,15 @@ const HomePage = () => {
     if (currentContent === 'ipManagement') {
       fetchConnections();
     }
+    if (currentContent === 'containerManager') {
+      fetchConnections();
+    }
   }, [currentContent]);
 
   const fetchConnections = async () => {
-    // Replace this with your actual API call or data fetching
-    const response = await fetch('your-api-endpoint');
+    const response = await fetch(''); 
     const data = await response.json();
-    setConnections(data);
+    setContainers(data);
   };
 
   const handleMenuClick = (content) => {
@@ -56,7 +59,7 @@ const HomePage = () => {
       case 'otherFeatures':
         return (<Others />)
       case 'containerManager':
-
+        return <ContainerManager />
       case 'incomingConnections':
         return (<ListConnections></ListConnections>)
       default:

@@ -8,11 +8,14 @@ import ProfilePage from './components/ProfilePage';
 import HoneyPotPage from './components/HoneyPotPage';
 import { ThemeProvider } from '@mui/material/styles';
 import theme from './components/theme';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   return (
     <Router>
       <AuthProvider>
+      <ToastContainer />
         <ThemeProvider theme={theme}>
           <div className="App">
             <Navbar />

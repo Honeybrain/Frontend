@@ -208,3 +208,32 @@ body {
 .dark-mode input::placeholder {
   color: rgba(255, 255, 255, 0.5);
 }
+
+/* ContainerManager */
+
+.container-manager {
+  padding: 20px;
+  background-color: #f0f0f0;
+}
+
+.container-manager h2 {
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.container-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.container-item {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+/* message erreur login */
+.error-message {
+  color: red;
+}

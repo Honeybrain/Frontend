@@ -1,14 +1,18 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import axios from 'axios';
 import AuthContext from '../AuthContext';
 import '../styles.css';
-import { useHistory } from 'react-router-dom';  // importez useHistory ici
+import { useHistory } from 'react-router-dom';  
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const history = useHistory();  // Utilisez useHistory ici
-  const { login, isLoggedIn } = useContext(AuthContext);
+  const history = useHistory();  
+  const { login } = useContext(AuthContext);
+
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -22,24 +26,27 @@ const LoginPage = () => {
 
       // Stockez le token d'authentification et les autres données de l'utilisateur, si nécessaire
       const token = response.data.token;
-      // Stockez le token dans localStorage ou dans les cookies pour le réutiliser dans d'autres requêtes
       localStorage.setItem('auth-token', token);
 
-      // Redirigez l'utilisateur vers la page d'accueil ou la page suivante après la connexion
-      // Par exemple, en utilisant react-router-dom
-      // history.push('/home');
-      login(response.data.token, { email });
-      history.push('/');
+      // Show a success toast message
+      toast.success("Connexion réussie! Vous serez redirigé dans quelques secondes.");
+
+      // After 2 seconds, do the login and redirection
+      setTimeout(() => {
+        login(response.data.token, { email });
+        history.push('/');
+      }, 2000);
 
     } catch (error) {
       console.error('Erreur lors de la connexion:', error.response.data);
-      // Gérez les erreurs ici, par exemple, en affichant un message d'erreur à l'utilisateur
+      setErrorMessage('Nom d\'utilisateur et/ou mot de passe incorrect.');
     }
   };
 
   return (
     <div className="form-container">
       <h2>Connexion</h2>
+      {errorMessage && <p className="error-message">{errorMessage}</p>}
       <form onSubmit={handleSubmit} id="login-form">
         <div className="input-group">
           <input onChange={(e) => setEmail(e.target.value)} type="email" name="email" placeholder="E-mail" required />
