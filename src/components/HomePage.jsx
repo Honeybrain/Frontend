@@ -2,9 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { useHistory } from "react-router-dom";
 import '../App';
 import '../styles.css';
-import ConfigGen from './ConfigGen';
 import UserParams from './UserParams';
-
 import AuthContext from '../AuthContext';
 import Dashboard from './dashboard/Dashboard';
 import ListConnections from './dashboard/pages/ListConnections';
@@ -64,12 +62,8 @@ const HomePage = () => {
       case 'containerManager':
         return <ContainerManager />
       case 'incomingConnections':
-
-      case 'userParams': return <UserParams />;
-        
-      case 'otherFeatures':
-       
         return (<ListConnections></ListConnections>)
+      case 'userParams': return <UserParams />;
       default:
 
     }
