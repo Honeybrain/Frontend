@@ -115,6 +115,7 @@ body {
 }
 
 .home-content .content-body {
+  overflow: auto;
   background-color: #ffffff;
   padding: 20px;
   border-radius: 10px;

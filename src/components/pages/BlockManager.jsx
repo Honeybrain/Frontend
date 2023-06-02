@@ -63,11 +63,11 @@ const BlockManager = () => {
         <Typography variant="h4" mb={2}>Gestion des IP</Typography>
         <Box
           sx={{
-            height: 'calc(100% - 36px)',
+            height: '100%',
             overflow: 'auto',
           }}
         >
-            <Typography variant="h6" mb={2}>Block an IP</Typography>
+        <Typography variant="h6" mb={2}>Block an IP</Typography>
         <Grid container spacing={2} direction="column" alignItems="stretch" component="form" onSubmit={handleSubmit}>
           <Grid item>
             <TextField
@@ -97,12 +97,6 @@ const BlockManager = () => {
             </Alert>
           </Snackbar>
         </Grid>
-        <Box
-          sx={{
-            height: 'calc(100% - 230px)',
-            overflow: 'auto',
-          }}
-        >
           <Box
             sx={{
               display: 'flex',
@@ -111,9 +105,10 @@ const BlockManager = () => {
               alignItems: 'stretch',
               gap: 2,
               marginBottom: 3,  // Ajoutez une marge en bas
+              
             }}
           >
-            <List sx={{ overflow: 'auto' }}>
+            <List>
               {blacklistedIPs.map((blacklistedIP, index) => (
                 <ListItem key={index} sx={{
                   my: 1,
@@ -132,7 +127,6 @@ const BlockManager = () => {
               ))}
             </List>
           </Box>
-        </Box>
         </Box>
       </Box>
   );
