@@ -2,7 +2,6 @@ import React, { useState, useEffect, useContext } from 'react';
 import { useHistory } from "react-router-dom";
 import '../App';
 import '../styles.css';
-import UserParams from './UserParams';
 import AuthContext from '../AuthContext';
 import Dashboard from './dashboard/Dashboard';
 import ListConnections from './pages/ListConnections';
@@ -63,7 +62,6 @@ const HomePage = () => {
         return <ContainerManager />
       case 'incomingConnections':
         return (<ListConnections></ListConnections>)
-      case 'userParams': return <UserParams />;
       default:
 
     }
@@ -78,7 +76,6 @@ const HomePage = () => {
           <li onClick={() => handleMenuClick('ipManagement')}>Gestion des IP</li>
           <li onClick={() => handleMenuClick('containerManager')}>Manager des conteneurs</li>
           <li onClick={() => handleMenuClick('incomingConnections')}>Connexions entrantes</li>
-          <li onClick={() => handleMenuClick('userParams')}>Paramètres utilisateurs</li>
           <li onClick={() => handleMenuClick('otherFeatures')}>Autres fonctionnalités</li>
         </ul>
       </div>
