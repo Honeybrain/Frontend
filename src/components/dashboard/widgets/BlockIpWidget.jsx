@@ -60,40 +60,11 @@ const BlacklistPage = () => {
 
   return (
     <Grid item xs={12}>
-      <Paper sx={{ p: 2, height: '420px', width: '25em', maxWidth: '100%', margin: '1em', overflow: 'hidden' }}>
-        <Typography variant="h6" mb={2}>Block an IP</Typography>
-        <Grid container spacing={2} direction="column" alignItems="stretch" component="form" onSubmit={handleSubmit}>
-          <Grid item>
-            <TextField
-              variant="outlined"
-              required
-              fullWidth
-              id="ip"
-              label="IP Address"
-              autoFocus
-              value={ip}
-              onChange={(e) => setIp(e.target.value)}
-            />
-          </Grid>
-          <Grid item>
-            <Button type="submit" variant="contained" color="primary">
-              Block IP
-            </Button>
-          </Grid>
-          <Grid item>
-            <Typography variant="h6" component="h2" gutterBottom mt={2}>
-              Currently Blocked IPs
-            </Typography>
-          </Grid>
-          <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-            <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
-              {alertText}
-            </Alert>
-          </Snackbar>
-        </Grid>
+      <Paper sx={{ p: 2, height: '360px', width: '25em', maxWidth: '100%', margin: '1em', overflow: 'hidden'}}>
+        <Typography variant="h6" mb={2}>IP bloquées</Typography>
         <Box
           sx={{
-            height: 'calc(100% - 230px)',
+            height: '88%',
             overflow: 'auto',
           }}
         >
@@ -104,9 +75,12 @@ const BlacklistPage = () => {
               justifyContent: 'space-between',
               alignItems: 'stretch',
               gap: 2,
-              marginBottom: 3,  // Ajoutez une marge en bas
+              marginBottom: 2,  // Ajoutez une marge en bas
             }}
           >
+            { blacklistedIPs.length == 0 && <h4>Aucune ip bloquée !</h4>
+
+            }
             <List sx={{ overflow: 'auto' }}>
               {blacklistedIPs.map((blacklistedIP, index) => (
                 <ListItem key={index} sx={{

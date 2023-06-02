@@ -35,11 +35,11 @@ const ContainerMonitorWidget = () => {
 
   return (
     <Grid item xs={12}>
-      <Paper sx={{ p: 2, height: '420px', width: '25em', maxWidth: '100%', margin: '1em', overflow: 'hidden' }}>
-        <Typography variant="h6" mb={2}>Honeypot services</Typography>
+      <Paper sx={{ p: 2, height: '360px', width: '25em', maxWidth: '100%', margin: '1em', overflow: 'hidden' }}>
+        <Typography variant="h6" mb={2}>Services honeypot</Typography>
         <Box
           sx={{
-            height: 'calc(100% - 36px)',
+            height: '88%',
             overflow: 'auto',
           }}
         >

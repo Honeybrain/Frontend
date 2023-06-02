@@ -6,6 +6,7 @@ import AuthContext from '../AuthContext';
 import Dashboard from './dashboard/Dashboard';
 import ListConnections from './pages/ListConnections';
 import ContainerManager from './pages/ContainerManager';
+import BlockManager from './pages/BlockManager';
 import Others from './pages/Others';
 
 const HomePage = () => {
@@ -21,9 +22,6 @@ const HomePage = () => {
   }, [isLoggedIn, history]);
 
   useEffect(() => {
-    if (currentContent === 'ipManagement') {
-      fetchConnections();
-    }
     if (currentContent === 'containerManager') {
       fetchConnections();
     }
@@ -41,17 +39,6 @@ const HomePage = () => {
 
   const renderContent = () => {
     switch (currentContent) {
-      case 'ipManagement':
-        return (
-          <div>
-            {connections.map((connection, index) => (
-              <div key={index}>
-                <p>{connection.ip}</p>
-                <p>{connection.dateTime}</p>
-              </div>
-            ))}
-          </div>
-        );
       case 'dashboard':
         return (
           <Dashboard>
@@ -62,6 +49,8 @@ const HomePage = () => {
         return <ContainerManager />
       case 'incomingConnections':
         return (<ListConnections></ListConnections>)
+      case 'ipManagement':
+        return (<BlockManager></BlockManager>)
       default:
 
     }
