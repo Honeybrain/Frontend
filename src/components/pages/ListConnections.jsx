@@ -25,14 +25,17 @@ const ListConnections = () => {
 
     return (
         <Box flex={1}>
-            <MonacoEditor
-                width="100%"
-                height="100%"
-                language="plaintext"
-                theme="vs"
-                value={logs}
-                options={{ selectOnLineNumbers: true, readOnly: true }}
-            />
+            <Typography variant="h4" mb={2}>Connexions entrantes</Typography>
+            <Box sx={{ height: "90%"}}>
+                <MonacoEditor
+                    width="100%"
+                    height="100%"
+                    language="plaintext"
+                    theme="vs"
+                    value={logs}
+                    options={{ selectOnLineNumbers: true, readOnly: true }}
+                />
+            </Box>
         </Box>
     );
 };

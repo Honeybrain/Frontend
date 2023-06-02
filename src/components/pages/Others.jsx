@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../../../styles.css';
+import '../../styles.css';
 import { Grid, TextField, Box, Button, Paper, Typography } from '@mui/material';
 
 function getRandomDummyPcIPAddresses(subnet, numServices) {

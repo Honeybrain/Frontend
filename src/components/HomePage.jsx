@@ -5,9 +5,9 @@ import '../styles.css';
 import UserParams from './UserParams';
 import AuthContext from '../AuthContext';
 import Dashboard from './dashboard/Dashboard';
-import ListConnections from './dashboard/pages/ListConnections';
-import ContainerManager from './dashboard/widgets/ContainerManager';
-import Others from './dashboard/pages/Others';
+import ListConnections from './pages/ListConnections';
+import ContainerManager from './pages/ContainerManager';
+import Others from './pages/Others';
 
 const HomePage = () => {
   const { isLoggedIn, logout } = useContext(AuthContext);
