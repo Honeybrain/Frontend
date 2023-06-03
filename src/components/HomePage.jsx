@@ -7,6 +7,7 @@ import Dashboard from './dashboard/Dashboard';
 import ListConnections from './pages/ListConnections';
 import ContainerManager from './pages/ContainerManager';
 import BlockManager from './pages/BlockManager';
+import UserParams from './pages/UserParams';
 import Others from './pages/Others';
 
 const HomePage = () => {
@@ -51,6 +52,8 @@ const HomePage = () => {
         return (<ListConnections></ListConnections>)
       case 'ipManagement':
         return (<BlockManager></BlockManager>)
+      case 'userParams':
+        return <UserParams />;
       default:
 
     }
@@ -65,6 +68,7 @@ const HomePage = () => {
           <li onClick={() => handleMenuClick('ipManagement')}>Gestion des IP</li>
           <li onClick={() => handleMenuClick('containerManager')}>Manager des conteneurs</li>
           <li onClick={() => handleMenuClick('incomingConnections')}>Connexions entrantes</li>
+          <li onClick={() => handleMenuClick('userParams')}>Paramètres utilisateurs</li>
           <li onClick={() => handleMenuClick('otherFeatures')}>Autres fonctionnalités</li>
         </ul>
       </div>

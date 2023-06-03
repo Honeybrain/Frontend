@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import '../styles.css';
+import '../../styles.css';
 
 const UserParams = () => {
     const [email, setEmail] = useState('');
