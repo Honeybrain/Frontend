@@ -9,8 +9,7 @@ import ContainerManager from './pages/ContainerManager';
 import BlockManager from './pages/BlockManager';
 import UserParams from './pages/UserParams';
 import Others from './pages/Others';
-import TutorialPage from './TutorialPage';
-
+import IPManagementHelp from '../TutorielPopUp/IpManagementHelp';
 
 const HomePage = () => {
   const { isLoggedIn, logout } = useContext(AuthContext);
@@ -62,7 +61,12 @@ const HomePage = () => {
       case 'incomingConnections':
         return (<ListConnections></ListConnections>)
       case 'ipManagement':
-        return (<BlockManager></BlockManager>)
+        return (
+          <div>
+            <BlockManager></BlockManager>
+            <IPManagementHelp />
+          </div>
+        );
       case 'userParams':
         return <UserParams />;
       default:
@@ -89,12 +93,6 @@ const HomePage = () => {
           {renderContent()}
         </div>
       </div>
-      {showTutorial && (
-        <div className="tutorial-modal">
-          <TutorialPage />
-          <button onClick={closeTutorial}>Fermer</button>
-        </div>
-      )}
     </div>
   );
 };
