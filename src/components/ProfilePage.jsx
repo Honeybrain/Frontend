@@ -3,8 +3,7 @@ import { Grid, TextField, Box, Button, Paper, Typography } from '@mui/material';
 
 const ProfilePage = () => {
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [state, setState] = useState(0);
+  const [newEmail, setNewEmail] = useState('');
   const [submitted, setSubmitted] = useState(false);
 
   const handleSubmit = (e) => {
@@ -27,6 +26,26 @@ const ProfilePage = () => {
       });
   }
 
+  const changeEmail = (e) => {
+    e.preventDefault();
+
+    fetch("http://localhost:8000/user/changeEmail", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ newEmail }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data); // Affiche la réponse du serveur
+        setEmailSubmitted(false);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+    }
+
   return (
     <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: 'calc(100vh - 110px)'}}>
       <Paper sx={{ p: 2, width: '25em' }}>
@@ -48,14 +67,15 @@ const ProfilePage = () => {
           </>
         )}   
         </Box>
-        <Box component="form" sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+        <Box component="form" sx={{ display: 'flex', flexDirection: 'column', gap: 2 }} onSubmit={changeEmail}>
           <Typography variant="h6">Changement d'adresse email</Typography>
           <TextField
-            onChange={(e) => setEmail(e.target.value)}
             type="email"
             name="email"
-            label="New e-mail"
+            label="Nouvel e-mail"
+            value = {newEmail}
             required
+            onChange={(e) => setEmail(e.target.value)}
           />
           <Button type="submit" variant="contained" color="primary">Valider</Button>
         </Box>
