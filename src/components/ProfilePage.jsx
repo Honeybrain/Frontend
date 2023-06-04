@@ -75,7 +75,7 @@ const ProfilePage = () => {
             label="Nouvel e-mail"
             value = {newEmail}
             required
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e) => setNewEmail(e.target.value)}
           />
           <Button type="submit" variant="contained" color="primary">Valider</Button>
         </Box>
