@@ -13,11 +13,12 @@ const useStyles = makeStyles({
   },
   navButton: {
     '&:hover': {
-      backgroundColor: '#778899',
-      color: theme.palette.primary.main,
+      color: theme.palette.primary.main , 
+      backgroundColor: 'white !important',
     },
   },
 });
+
 
 const Navbar = () => {
   const { isLoggedIn, logout } = useContext(AuthContext);
@@ -35,6 +36,7 @@ const Navbar = () => {
         </Typography>
         {!isLoggedIn && (
           <>
+          
             <Button component={Link} to="/login" color="inherit" className={classes.navButton}>Login</Button>
           </>
         )}
