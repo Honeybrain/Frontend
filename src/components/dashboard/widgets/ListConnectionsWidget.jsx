@@ -9,12 +9,15 @@ const LogViewerWidget = () => {
   useEffect(() => {
     const fetchLogs = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/honeypot/logs');
-        setLogs(response.data);
+          console.log(`Bearer ${localStorage.getItem('token')}`);
+          const response = await axios.get('http://localhost:8000/honeypot/logs', {
+              headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+          });
+          setLogs(response.data);
       } catch (error) {
-        console.error(error);
+          console.error(error);
       }
-    };
+  };
 
     const interval = setInterval(fetchLogs, 1000); // Mettre à jour les logs toutes les 5 secondes
 

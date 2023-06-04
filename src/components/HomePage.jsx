@@ -9,12 +9,23 @@ import ContainerManager from './pages/ContainerManager';
 import BlockManager from './pages/BlockManager';
 import UserParams from './pages/UserParams';
 import Others from './pages/Others';
+import TutorialPage from './TutorialPage';
+
 
 const HomePage = () => {
   const { isLoggedIn, logout } = useContext(AuthContext);
   const history = useHistory();
   const [currentContent, setCurrentContent] = useState('dashboard');
   const [connections, setConnections] = useState([]);
+  const [showTutorial, setShowTutorial] = useState(false);
+
+  const openTutorial = () => {
+    setShowTutorial(true);
+  };
+
+  const closeTutorial = () => {
+    setShowTutorial(false);
+  };
 
   useEffect(() => {
     if (!isLoggedIn) {
@@ -70,6 +81,7 @@ const HomePage = () => {
           <li onClick={() => handleMenuClick('incomingConnections')}>Connexions entrantes</li>
           <li onClick={() => handleMenuClick('userParams')}>Paramètres utilisateurs</li>
           <li onClick={() => handleMenuClick('otherFeatures')}>Autres fonctionnalités</li>
+          <li onClick={openTutorial}>Voir le tutoriel</li>
         </ul>
       </div>
       <div className="home-content">
@@ -77,6 +89,12 @@ const HomePage = () => {
           {renderContent()}
         </div>
       </div>
+      {showTutorial && (
+        <div className="tutorial-modal">
+          <TutorialPage />
+          <button onClick={closeTutorial}>Fermer</button>
+        </div>
+      )}
     </div>
   );
 };

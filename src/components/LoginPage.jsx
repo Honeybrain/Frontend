@@ -24,15 +24,12 @@ const LoginPage = () => {
       });
       console.log("Réponse du serveur:", response);
 
-      // Stockez le token d'authentification et les autres données de l'utilisateur, si nécessaire
-      const token = response.data.token;
-      localStorage.setItem('auth-token', token);
-
       // Show a success toast message
       toast.success("Connexion réussie! Vous serez redirigé dans quelques secondes.");
 
       // After 2 seconds, do the login and redirection
       setTimeout(() => {
+        console.log('voici le token du user :', response.data.token)
         login(response.data.token, { email });
         history.push('/');
       }, 2000);

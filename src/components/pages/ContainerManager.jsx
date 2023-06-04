@@ -1,20 +1,29 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Grid, Paper, Typography, Card, CardContent, Box } from '@mui/material';
 import ErrorIcon from '@mui/icons-material/Error';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import AuthContext from '../../AuthContext';
 
 const ContainerManager = () => {
   const [containers, setContainers] = useState([]);
+  const { token } = useContext(AuthContext);
 
   useEffect(() => {
     fetchContainers();
   }, []);
 
   const fetchContainers = async () => {
-    const response = await fetch('http://localhost:8000/honeypot/containers'); // Remplacer par votre endpoint réel
+    const token = localStorage.getItem('token');
+    const response = await fetch('http://localhost:8000/honeypot/containers', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`, 
+      },
+    });
     const data = await response.json();
     setContainers(data);
-  };
+};
 
   const getContainerStatus = (status) => {
     if (status.startsWith('Up')) {

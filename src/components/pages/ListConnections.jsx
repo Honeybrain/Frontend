@@ -9,7 +9,9 @@ const ListConnections = () => {
     useEffect(() => {
         const fetchLogs = async () => {
             try {
-                const response = await axios.get('http://localhost:8000/honeypot/logs');
+                const response = await axios.get('http://localhost:8000/honeypot/logs', { 
+                    headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+                });
                 setLogs(response.data);
             } catch (error) {
                 console.error(error);

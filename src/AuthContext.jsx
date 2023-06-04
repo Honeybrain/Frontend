@@ -9,22 +9,25 @@ export const AuthProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState(null);
   const history = useHistory(); 
+  const [token, setToken] = useState(null);
 
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
     const storedToken = localStorage.getItem('token');
-
+  
     if (storedUser && storedToken) {
       setUser(JSON.parse(storedUser));
+      setToken(storedToken); // Ajoutez cette ligne
       setIsLoggedIn(true);
     }
   }, []);
-
+  
   const login = (token, userData) => {
     console.log("Logging in", token, userData); 
     localStorage.setItem('token', token);
     localStorage.setItem('user', JSON.stringify(userData));
     setUser(userData);
+    // setToken(token); // Ajoutez cette ligne
     setIsLoggedIn(true);
   };
 
@@ -39,6 +42,7 @@ export const AuthProvider = ({ children }) => {
         localStorage.removeItem('token');
         localStorage.removeItem('user');
         setUser(null);
+        setToken(null); 
         setIsLoggedIn(false);
 
         // Ajouter cette ligne ici pour afficher un message de succès à la déconnexion
@@ -62,8 +66,8 @@ export const AuthProvider = ({ children }) => {
 
 
   return (
-    <AuthContext.Provider value={{ isLoggedIn, user, login, logout }}>
-      {children}
+    <AuthContext.Provider value={{ isLoggedIn, user, login, logout, token }}>
+    {children}
     </AuthContext.Provider>
   );
 };

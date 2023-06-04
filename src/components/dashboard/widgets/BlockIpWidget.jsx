@@ -27,36 +27,41 @@ const BlacklistPage = () => {
 
   const fetchBlacklistedIPs = async () => {
     try {
-      const response = await axios.get('http://localhost:8000/honeypot/blacklist');
+      const response = await axios.get('http://localhost:8000/honeypot/blacklist', { 
+          headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+      });
       setBlacklistedIPs(response.data);
     } catch (error) {
       console.error(error);
     }
-  };
+};
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await axios.post('http://localhost:8000/honeypot/blacklist', { ip });
-      setIp('');
-      setAlertText('IP blocked successfully');
-      setOpen(true);
-      fetchBlacklistedIPs();
-    } catch (error) {
-      console.error(error);
-    }
-  };
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  try {
+    const response = await axios.post('http://localhost:8000/honeypot/blacklist', { ip }, {
+        headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+    });
+    setIp('');
+    setOpen(true);
+    fetchBlacklistedIPs();
+  } catch (error) {
+    console.error(error);
+  }
+};
 
-  const handleUnblock = async (ip) => {
-    try {
-      await axios.post('http://localhost:8000/honeypot/whitelist', { ip });
-      setAlertText('IP unblocked successfully');
-      setOpen(true);
-      fetchBlacklistedIPs();
-    } catch (error) {
-      console.error(error);
-    }
-  };
+const handleUnblock = async (ip) => {
+  try {
+    await axios.post('http://localhost:8000/honeypot/whitelist', { ip }, {
+        headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+    });
+    setAlertText('IP unblocked successfully');
+    setOpen(true);
+    fetchBlacklistedIPs();
+  } catch (error) {
+    console.error(error);
+  }
+};
 
   return (
     <Grid item xs={12}>

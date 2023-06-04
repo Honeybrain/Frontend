@@ -17,13 +17,12 @@ const ContainerMonitorWidget = () => {
   }, []);
 
   const fetchContainers = async () => {
-    try {
-      const response = await axios.get('http://localhost:8000/honeypot/containers');
-      setContainers(response.data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+    const response = await axios.get('http://localhost:8000/honeypot/containers', {
+        headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+    });
+    const data = await response.json();
+    setContainers(data);
+};
 
   const getContainerStatus = (status) => {
     if (status.startsWith('Up')) {
