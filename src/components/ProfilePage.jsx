@@ -70,8 +70,8 @@ const ProfilePage = () => {
         <Box component="form" sx={{ display: 'flex', flexDirection: 'column', gap: 2 }} onSubmit={changeEmail}>
           <Typography variant="h6">Changement d'adresse email</Typography>
           <TextField
-            type="email"
-            name="email"
+            type="newEmail"
+            name="newEmail"
             label="Nouvel e-mail"
             value = {newEmail}
             required
