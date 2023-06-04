@@ -22,14 +22,16 @@ export const AuthProvider = ({ children }) => {
     }
   }, []);
   
-  const login = (token, userData) => {
-    console.log("Logging in", token, userData); 
-    localStorage.setItem('token', token);
-    localStorage.setItem('user', JSON.stringify(userData));
-    setUser(userData);
-    // setToken(token); // Ajoutez cette ligne
-    setIsLoggedIn(true);
-  };
+const login = (token, userData) => {
+  console.log("Logging in", token, userData); 
+  localStorage.setItem('token', token);
+  localStorage.setItem('user', JSON.stringify(userData));
+  setUser(userData);
+  setIsLoggedIn(true);
+
+  // Redirection to home page
+  history.push('/');
+};
 
   const logout = async () => {
     try {

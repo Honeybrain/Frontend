@@ -1,6 +1,6 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { AuthProvider } from './AuthContext';
+import React, { useContext } from 'react';
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
+import AuthContext, { AuthProvider } from './AuthContext';  
 import Navbar from './components/Navbar';
 import HomePage from './components/HomePage';
 import LoginPage from './components/LoginPage';
@@ -12,18 +12,51 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
+
+  const PrivateRoute = ({ component: Component, ...rest }) => {
+    const { isLoggedIn } = useContext(AuthContext);
+    return (
+      <Route
+        {...rest}
+        render={props =>
+          isLoggedIn ? (
+            <Component {...props} />
+          ) : (
+            <Redirect to="/login" />
+          )
+        }
+      />
+    );
+  };
+
+  const PublicRoute = ({ component: Component, ...rest }) => {
+    const { isLoggedIn } = useContext(AuthContext);
+    return (
+      <Route
+        {...rest}
+        render={props =>
+          !isLoggedIn ? (
+            <Component {...props} />
+          ) : (
+            <Redirect to="/" />
+          )
+        }
+      />
+    );
+  };
+
   return (
     <Router>
       <AuthProvider>
-      <ToastContainer />
+        <ToastContainer />
         <ThemeProvider theme={theme}>
           <div className="App">
             <Navbar />
             <Switch>
-              <Route path="/" exact component={HomePage} />
-              <Route path="/login" component={LoginPage} />
-              <Route path="/profile" component={ProfilePage} />
-              <Route path="/honeypot" component={HoneyPotPage} />
+              <PublicRoute path="/login" component={LoginPage} />
+              <PrivateRoute path="/" exact component={HomePage} />
+              <PrivateRoute path="/profile" component={ProfilePage} />
+              <PrivateRoute path="/honeypot" component={HoneyPotPage} />
             </Switch>
           </div>
         </ThemeProvider>
@@ -32,4 +65,4 @@ function App() {
   )
 }
 
-export default App
+export default App;
