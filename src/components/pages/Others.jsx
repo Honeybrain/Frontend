@@ -88,100 +88,112 @@ const Others = () => {
 
     return (
         <Box flex={1} display="flex" justifyContent="center" alignItems="center">
-            <Paper sx={{ p: 2, width: '25em' }}>
-                <Grid container justifyContent="space-between" alignItems="center" mb={2}>
+            <Paper sx={{ p: 2, width: '50em' }}>
+                <Grid container justifyContent="space-between" alignItems="center" >
                     <Grid item>
-                    <Typography variant="h6" mb={2}>Config Generator</Typography>
+                        <Typography variant="h5">Config Generator</Typography>
                     </Grid>
                     <Grid item>
                         <HelpModal helpText="
-                        Cette fonctionnalité, nommée Config Generator, permet à l'utilisateur de générer et de télécharger un fichier de configuration pour un réseau avec des adresses IP spécifiques.
+                            Cette fonctionnalité, nommée Config Generator, permet à l'utilisateur de générer et de télécharger un fichier de configuration pour un réseau avec des adresses IP spécifiques.
 
-                        L'utilisateur peut spécifier le nombre de faux ordinateurs (dummy PC), leur adresse IP, l'adresse IP et le port d'un serveur FTP, ainsi que le sous-réseau du réseau.
+                            L'utilisateur peut spécifier le nombre de faux ordinateurs (dummy PC), leur adresse IP, l'adresse IP et le port d'un serveur FTP, ainsi que le sous-réseau du réseau.
 
-                        Cela permet de configurer le HoneyBrain depuis le Dashboard." />
+                            Cela permet de configurer le HoneyBrain depuis le Dashboard." />
                     </Grid>
                 </Grid>
-                <Grid container spacing={2} direction="column" alignItems="stretch">
-                    <Grid item>
-                        <TextField
-                            type="number"
-                            variant="outlined"
-                            label="Number of dummy PC"
-                            value={dummyPcNumServices}
-                            onChange={handleDummyPcNumServicesChange}
-                            fullWidth
-                        />
-                    </Grid>
-                    {dummyPcIPAddresses.map((ipAddress, index) => (
-                        <Grid item key={index}>
-                            <TextField
-                                type="text"
-                                variant="outlined"
-                                label={`IP Address for dummy PC ${index + 1}`}
-                                value={ipAddress}
-                                onChange={(event) => handleDummyPcIPAddressChange(index, event)}
-                                fullWidth
-                            />
+                <Grid container spacing={2} mb={3} direction="row">
+                    {/* General Configuration */}
+                    <Grid item xs={6}>
+                        <Typography variant="h6" mb={2}>General Configuration</Typography>
+                        <Grid container spacing={2} direction="column" alignItems="stretch">
+                            <Grid item>
+                                <TextField
+                                    type="text"
+                                    variant="outlined"
+                                    label="Network interface"
+                                    value={netinterface}
+                                    onChange={(e) => setNetinterface(e.target.value)}
+                                    fullWidth
+                                />
+                            </Grid>
+                            <Grid item>
+                                <TextField
+                                    type="text"
+                                    variant="outlined"
+                                    label="Subnet"
+                                    value={subnet}
+                                    onChange={(e) => setSubnet(e.target.value)}
+                                    fullWidth
+                                />
+                            </Grid>
+                            <Grid item>
+                                <TextField
+                                    type="text"
+                                    variant="outlined"
+                                    label="Dockerfile path"
+                                    value={dockerPath}
+                                    onChange={(e) => setDockerPath(e.target.value)}
+                                    fullWidth
+                                />
+                            </Grid>
                         </Grid>
-                    ))}
-                    <Grid item>
-                        <TextField
-                            type="text"
-                            variant="outlined"
-                            label="IP Address for FTP"
-                            value={ftpIPAddress}
-                            onChange={(e) => setFtpIPAddress(e.target.value)}
-                            fullWidth
-                        />
                     </Grid>
-                    <Grid item>
-                        <TextField
-                            type="text"
-                            variant="outlined"
-                            label="Port for FTP"
-                            value={ftpPort}
-                            onChange={(e) => setFtpPort(e.target.value)}
-                            fullWidth
-                        />
+                    {/* Services Configuration */}
+                    <Grid item xs={6}>
+                        <Typography variant="h6" mb={2}>Services</Typography>
+                        <Grid container spacing={2} direction="column" alignItems="stretch">
+                            <Grid item>
+                                <TextField
+                                    type="number"
+                                    variant="outlined"
+                                    label="Number of dummy PC"
+                                    value={dummyPcNumServices}
+                                    onChange={handleDummyPcNumServicesChange}
+                                    fullWidth
+                                />
+                            </Grid>
+                            {dummyPcIPAddresses.map((ipAddress, index) => (
+                                <Grid item key={index}>
+                                    <TextField
+                                        type="text"
+                                        variant="outlined"
+                                        label={`IP Address for dummy PC ${index + 1}`}
+                                        value={ipAddress}
+                                        onChange={(event) => handleDummyPcIPAddressChange(index, event)}
+                                        fullWidth
+                                    />
+                                </Grid>
+                            ))}
+                            <Grid item>
+                                <TextField
+                                    type="text"
+                                    variant="outlined"
+                                    label="IP Address for FTP"
+                                    value={ftpIPAddress}
+                                    onChange={(e) => setFtpIPAddress(e.target.value)}
+                                    fullWidth
+                                />
+                            </Grid>
+                            <Grid item>
+                                <TextField
+                                    type="text"
+                                    variant="outlined"
+                                    label="Port for FTP"
+                                    value={ftpPort}
+                                    onChange={(e) => setFtpPort(e.target.value)}
+                                    fullWidth
+                                />
+                            </Grid>
+                        </Grid>
                     </Grid>
-                    <Grid item>
-                        <TextField
-                            type="text"
-                            variant="outlined"
-                            label="Network interface"
-                            value={netinterface}
-                            onChange={(e) => setNetinterface(e.target.value)}
-                            fullWidth
-                        />
-                    </Grid>
-                    <Grid item>
-                        <TextField
-                            type="text"
-                            variant="outlined"
-                            label="Subnet"
-                            value={subnet}
-                            onChange={(e) => setSubnet(e.target.value)}
-                            fullWidth
-                        />
-                    </Grid>
-                    <Grid item>
-                        <TextField
-                            type="text"
-                            variant="outlined"
-                            label="Dockerfile path"
-                            value={dockerPath}
-                            onChange={(e) => setDockerPath(e.target.value)}
-                            fullWidth
-                        />
-                    </Grid>
-                    <Grid item>
-                        <Box width="100%" display="flex" justifyContent="center">
-                            <Button variant="contained" color="primary" onClick={handleDownload}>
-                                Download Configuration
-                            </Button>
-                        </Box>
-                    </Grid>
+                </Grid>
+                <Grid item>
+                    <Box width="100%" display="flex" justifyContent="center">
+                        <Button variant="contained" color="primary" onClick={handleDownload}>
+                            Download Configuration
+                        </Button>
+                    </Box>
                 </Grid>
             </Paper>
         </Box>
