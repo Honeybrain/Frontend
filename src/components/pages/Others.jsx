@@ -39,7 +39,9 @@ const Others = () => {
     const [dummyPcNumServices, setDummyPcNumServices] = useState(2);
     const [ftpIPAddress, setFtpIPAddress] = useState('192.168.1.10');
     const [ftpPort, setFtpPort] = useState('21');
+    const [netinterface, setNetinterface] = useState('eth0');
     const [subnet, setSubnet] = useState('192.168.1.0/24');
+    const [dockerPath, setDockerPath] = useState('/home/shop/Dockerfile');
     const [dummyPcIPAddresses, setDummyPcIPAddresses] = useState(getRandomDummyPcIPAddresses(subnet, 2));
 
     const handleDummyPcNumServicesChange = (event) => {
@@ -70,13 +72,15 @@ const Others = () => {
                 ip_address: ftpIPAddress,
                 port: ftpPort,
             },
+            interface: netinterface,
             subnet: subnet,
+            docker: dockerPath,
         };
 
         const dataStr = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(configData, null, 4));
         const downloadAnchorNode = document.createElement('a');
         downloadAnchorNode.setAttribute('href', dataStr);
-        downloadAnchorNode.setAttribute('download', 'config.json');
+        downloadAnchorNode.setAttribute('download', 'honeybrain_config.json');
         document.body.appendChild(downloadAnchorNode); // required for Firefox
         downloadAnchorNode.click();
         downloadAnchorNode.remove();
@@ -86,11 +90,11 @@ const Others = () => {
         <Box flex={1} display="flex" justifyContent="center" alignItems="center">
             <Paper sx={{ p: 2, width: '25em' }}>
                 <Typography variant="h6" mb={2}>Config Generator
-                <HelpModal helpText="           
-                    Cette fonctionnalité, nommée Config Generator, permet à l'utilisateur de générer et de télécharger un fichier de configuration pour un réseau avec des adresses IP spécifiques. 
+                <HelpModal helpText="
+                    Cette fonctionnalité, nommée Config Generator, permet à l'utilisateur de générer et de télécharger un fichier de configuration pour un réseau avec des adresses IP spécifiques.
 
                     L'utilisateur peut spécifier le nombre de faux ordinateurs (dummy PC), leur adresse IP, l'adresse IP et le port d'un serveur FTP, ainsi que le sous-réseau du réseau.
-                    
+
                     Cela permet de configurer le HoneyBrain depuis le Dashboard." /></Typography>
                 <Grid container spacing={2} direction="column" alignItems="stretch">
                     <Grid item>
@@ -139,9 +143,29 @@ const Others = () => {
                         <TextField
                             type="text"
                             variant="outlined"
+                            label="Network interface"
+                            value={netinterface}
+                            onChange={(e) => setNetinterface(e.target.value)}
+                            fullWidth
+                        />
+                    </Grid>
+                    <Grid item>
+                        <TextField
+                            type="text"
+                            variant="outlined"
                             label="Subnet"
                             value={subnet}
                             onChange={(e) => setSubnet(e.target.value)}
+                            fullWidth
+                        />
+                    </Grid>
+                    <Grid item>
+                        <TextField
+                            type="text"
+                            variant="outlined"
+                            label="Dockerfile path"
+                            value={dockerPath}
+                            onChange={(e) => setDockerPath(e.target.value)}
                             fullWidth
                         />
                     </Grid>
