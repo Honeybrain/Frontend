@@ -72,90 +72,89 @@ const BlockManager = () => {
   };
 
   return (
-    <Box flex={1}>
-      <Grid container justifyContent="space-between" alignItems="center" mb={2}>
-        <Grid item>
-          <Typography variant="h4">Gestion des IP</Typography>
-        </Grid>
-        <Grid item>
-          <HelpModal helpText="
-          Vous pouvez ajouter une addresse IP à la liste noire. Cela signifie que toute tentative d'accès au honeypot à partir de cette adresse IP sera bloquée. 
+    <Grid container direction="column">
+      <Grid item>
+        <Grid container justifyContent="space-between" alignItems="center" mb={2}>
+          <Grid item>
+            <Typography variant="h4">Gestion des IP</Typography>
+          </Grid>
+          <Grid item>
+            <HelpModal helpText="
+            Vous pouvez ajouter une addresse IP à la liste noire. Cela signifie que toute tentative d'accès au honeypot à partir de cette adresse IP sera bloquée. 
 
-          Une liste de toutes les adresses IP actuellement bloquées est affichée à l'écran. Pour chaque adresse IP de la liste, un bouton de suppression est disponible.
+            Une liste de toutes les adresses IP actuellement bloquées est affichée à l'écran. Pour chaque adresse IP de la liste, un bouton de suppression est disponible.
 
-          Pour supprimer une adresse IP de la liste noire, vous avez un boutton permettant cette suppression. 
+            Pour supprimer une adresse IP de la liste noire, vous avez un boutton permettant cette suppression. 
 
-          Une notification apparaît à l'écran pour vous informer de l'action qui a été effectuée."/>
+            - Une notification apparaît à l'écran pour vous informer de l'action qui a été effectuée."/>
+          </Grid>
         </Grid>
       </Grid>
-      <Box
-        sx={{
-          height: '100%',
-          overflow: 'auto',
-        }}
-      >
-      <Typography variant="h6" mb={2}>Block an IP</Typography>
-      <Grid container spacing={2} direction="column" alignItems="stretch" component="form" onSubmit={handleSubmit}>
-        <Grid item>
-          <TextField
-            variant="outlined"
-            required
-            fullWidth
-            id="ip"
-            label="IP Address"
-            autoFocus
-            value={ip}
-            onChange={(e) => setIp(e.target.value)}
-          />
+      <Grid item xs sx={{ marginBottom: 0.4 }}>
+        <Typography variant="h6" mb={2}>Block an IP</Typography>
+        <Grid container spacing={2} direction="column" alignItems="stretch" component="form" onSubmit={handleSubmit}>
+          <Grid item>
+            <TextField
+              variant="outlined"
+              required
+              fullWidth
+              id="ip"
+              label="IP Address"
+              autoFocus
+              value={ip}
+              onChange={(e) => setIp(e.target.value)}
+            />
+          </Grid>
+          <Grid item>
+            <Button type="submit" variant="contained" color="primary">
+              Block IP
+            </Button>
+          </Grid>
+          <Grid item>
+            <Typography variant="h6" component="h2" gutterBottom mt={2}>
+              Currently Blocked IPs
+            </Typography>
+          </Grid>
+          <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+            <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+              {alertText}
+            </Alert>
+          </Snackbar>
         </Grid>
-        <Grid item>
-          <Button type="submit" variant="contained" color="primary">
-            Block IP
-          </Button>
-        </Grid>
-        <Grid item>
-          <Typography variant="h6" component="h2" gutterBottom mt={2}>
-            Currently Blocked IPs
-          </Typography>
-        </Grid>
-        <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-          <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
-            {alertText}
-          </Alert>
-        </Snackbar>
       </Grid>
+      <Grid item xs>
         <Box
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'space-between',
-            alignItems: 'stretch',
-            gap: 2,
-            marginBottom: 3,  // Ajoutez une marge en bas
-            
-          }}
-        >
-          <List>
-            {blacklistedIPs.map((blacklistedIP, index) => (
-              <ListItem key={index} sx={{
-                my: 1,
-                px: 2,
-                bgcolor: index % 2 === 0 ? 'action.hover' : 'background.default',
-                borderRadius: 1
-              }}>
-                <ListItemText primary={blacklistedIP} />
-                <ListItemSecondaryAction>
-                  <IconButton edge="end" aria-label="delete" onClick={() => handleUnblock(blacklistedIP)}>
-                    <DeleteIcon color="error" />
-                  </IconButton>
-                </ListItemSecondaryAction>
-                {index !== blacklistedIPs.length - 1 && <Divider />}
-              </ListItem>
-            ))}
-          </List>
-        </Box>
-      </Box>
-    </Box>
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'space-between',
+              alignItems: 'stretch',
+              height: '100%', 
+              maxHeight: 'calc(100vh - 440px)', // Set max height
+              overflow: 'auto',
+            }}
+          >
+            <List>
+              {blacklistedIPs.map((blacklistedIP, index) => (
+                <ListItem key={index} sx={{
+                  my: 1,
+                  px: 2,
+                  bgcolor: index % 2 === 0 ? 'action.hover' : 'background.default',
+                  borderRadius: 1
+                }}>
+                  <ListItemText primary={blacklistedIP} />
+                  <ListItemSecondaryAction>
+                    <IconButton edge="end" aria-label="delete" onClick={() => handleUnblock(blacklistedIP)}>
+                      <DeleteIcon color="error" />
+                    </IconButton>
+                  </ListItemSecondaryAction>
+                  {index !== blacklistedIPs.length - 1 && <Divider />}
+                </ListItem>
+              ))}
+            </List>
+          </Box>
+      </Grid>
+    </Grid>
   );
 };
 
