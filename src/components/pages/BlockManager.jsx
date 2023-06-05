@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Typography, TextField, Button, Paper, Grid, Snackbar, Alert, List, ListItem, ListItemText, ListItemSecondaryAction, IconButton, Box } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Divider } from '@mui/material';
+import HelpModal from '../../TutorielPopUp/HelpModal';
 
 const BlockManager = () => {
     const [ip, setIp] = useState('');
@@ -72,7 +73,16 @@ const BlockManager = () => {
 
   return (
     <Box flex={1}>
-        <Typography variant="h4" mb={2}>Gestion des IP</Typography>
+        <Typography variant="h4" mb={2}>Gestion des IP
+        <HelpModal helpText="
+          - Vous pouvez ajouter une addresse IP à la liste noire. Cela signifie que toute tentative d'accès au honeypot à partir de cette adresse IP sera bloquée. 
+
+          - Une liste de toutes les adresses IP actuellement bloquées est affichée à l'écran. Pour chaque adresse IP de la liste, un bouton de suppression est disponible.
+
+          - Pour supprimer une adresse IP de la liste noire, vous avez un boutton permettant cette suppression. 
+
+          - Une notification apparaît à l'écran pour vous informer de l'action qui a été effectuée."/>
+        </Typography>
         <Box
           sx={{
             height: '100%',
