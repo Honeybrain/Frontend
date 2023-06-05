@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Typography, TextField, Button, Paper, Grid, Snackbar, Alert, List, ListItem, ListItemText, ListItemSecondaryAction, IconButton, Box } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Divider } from '@mui/material';
+import HelpModal from '../../../TutorielPopUp/HelpModal';
 
 const BlacklistPage = () => {
   const [ip, setIp] = useState('');
@@ -66,7 +67,21 @@ const handleUnblock = async (ip) => {
   return (
     <Grid item xs={12}>
       <Paper sx={{ p: 2, height: '360px', width: '25em', maxWidth: '100%', margin: '1em', overflow: 'hidden'}}>
-        <Typography variant="h6" mb={2}>IP bloquées</Typography>
+        <Grid container justifyContent="space-between" alignItems="center" mb={2}>
+          <Grid item>
+            <Typography variant="h6" mb={2}>IP bloquées</Typography>
+          </Grid>
+          <Grid item>
+            <HelpModal helpText="
+            Avec le widget IP bloquées, vous pouvez voir les addresses IP de la liste noire. Cela signifie que toute tentative d'accès au honeypot à partir de cette adresse IP sera bloquée. 
+
+            Pour chaque adresse IP de la liste, un bouton de suppression est disponible.
+
+            Pour supprimer une adresse IP de la liste noire, vous avez un boutton permettant cette suppression. 
+
+            Une notification apparaît à l'écran pour vous informer de l'action qui a été effectuée."/>
+          </Grid>
+        </Grid>
         <Box
           sx={{
             height: '88%',

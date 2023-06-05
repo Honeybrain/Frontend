@@ -33,7 +33,7 @@ const HelpModal = ({ helpText }) => {
       </IconButton>
       <Modal
         open={open}
-
+        onClose={handleClose}
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
         className={classes.modal}
@@ -44,15 +44,19 @@ const HelpModal = ({ helpText }) => {
         }}
       >
         <Box className={classes.paper}>
-          <Typography variant="h6" id="modal-modal-title">
-            Aide
-          </Typography>
-          <Typography variant="body2" id="modal-modal-description" style={{ whiteSpace: 'pre-line' }}>
-            {helpText}
-          </Typography>
-          <Button variant="contained" color="primary" style={{top:14}} onClick={handleClose}>
-            Fermer
-          </Button>
+          <Box mb={2}>
+            <Typography variant="h5" id="modal-modal-title">
+              Aide
+            </Typography>
+            <Typography variant="body2" id="modal-modal-description" style={{ whiteSpace: 'pre-line' }}>
+              {helpText}
+            </Typography>
+          </Box>
+          <Box display="flex" justifyContent="flex-end">
+            <Button variant="contained" color="primary" onClick={handleClose}>
+              Fermer
+            </Button>
+          </Box>
         </Box>
       </Modal>
     </div>

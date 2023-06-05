@@ -89,13 +89,19 @@ const Others = () => {
     return (
         <Box flex={1} display="flex" justifyContent="center" alignItems="center">
             <Paper sx={{ p: 2, width: '25em' }}>
-                <Typography variant="h6" mb={2}>Config Generator
-                <HelpModal helpText="
-                    Cette fonctionnalité, nommée Config Generator, permet à l'utilisateur de générer et de télécharger un fichier de configuration pour un réseau avec des adresses IP spécifiques.
+                <Grid container justifyContent="space-between" alignItems="center" mb={2}>
+                    <Grid item>
+                    <Typography variant="h6" mb={2}>Config Generator</Typography>
+                    </Grid>
+                    <Grid item>
+                        <HelpModal helpText="
+                        Cette fonctionnalité, nommée Config Generator, permet à l'utilisateur de générer et de télécharger un fichier de configuration pour un réseau avec des adresses IP spécifiques.
 
-                    L'utilisateur peut spécifier le nombre de faux ordinateurs (dummy PC), leur adresse IP, l'adresse IP et le port d'un serveur FTP, ainsi que le sous-réseau du réseau.
+                        L'utilisateur peut spécifier le nombre de faux ordinateurs (dummy PC), leur adresse IP, l'adresse IP et le port d'un serveur FTP, ainsi que le sous-réseau du réseau.
 
-                    Cela permet de configurer le HoneyBrain depuis le Dashboard." /></Typography>
+                        Cela permet de configurer le HoneyBrain depuis le Dashboard." />
+                    </Grid>
+                </Grid>
                 <Grid container spacing={2} direction="column" alignItems="stretch">
                     <Grid item>
                         <TextField

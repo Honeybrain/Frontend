@@ -28,13 +28,19 @@ const ListConnections = () => {
 
     return (
         <Box flex={1}>
-            <Typography variant="h4" mb={2}>Connexions entrantes
-            <HelpModal helpText="
-            La fonctionnalité Connexions entrantes offre une vue en temps réel des logs de connexions au système de honeypot. 
-            
-            Ces logs sont généralement des enregistrements d'événements produits par le système, en particulier des tentatives de connexion entrantes. 
-            
-            Un honeypot est une ressource de réseau mise en place pour attirer et détecter les tentatives d'accès non autorisées."/></Typography>
+            <Grid container justifyContent="space-between" alignItems="center" mb={2}>
+                <Grid item>
+                <Typography variant="h4" mb={2}>Connexions entrantes</Typography>
+                </Grid>
+                <Grid item>
+                    <HelpModal helpText="
+                La fonctionnalité Connexions entrantes offre une vue en temps réel des logs de connexions au système de honeypot. 
+                
+                Ces logs sont généralement des enregistrements d'événements produits par le système, en particulier des tentatives de connexion entrantes. 
+                
+                Un honeypot est une ressource de réseau mise en place pour attirer et détecter les tentatives d'accès non autorisées."/>
+                </Grid>
+            </Grid>
             <Box sx={{ height: "90%"}}>
                 <MonacoEditor
                     width="100%"
