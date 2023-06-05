@@ -4,7 +4,7 @@ import '../App';
 import '../styles.css';
 import AuthContext from '../AuthContext';
 import Dashboard from './dashboard/Dashboard';
-import ListConnections from './pages/ListConnections';
+import ConnectionsManager from './pages/ConnectionsManager';
 import ContainerManager from './pages/ContainerManager';
 import BlockManager from './pages/BlockManager';
 import Others from './pages/Others';
@@ -39,21 +39,15 @@ const HomePage = () => {
   const renderContent = () => {
     switch (currentContent) {
       case 'dashboard':
-        return (
-          <Dashboard>
-          </Dashboard>)
+        return (<Dashboard />)
       case 'otherFeatures':
         return (<Others />)
       case 'containerManager':
         return <ContainerManager />
       case 'incomingConnections':
-        return (<ListConnections></ListConnections>)
+        return (<ConnectionsManager />)
       case 'ipManagement':
-        return (
-          <div>
-            <BlockManager></BlockManager>
-          </div>
-        );
+        return (<div><BlockManager /></div>);
       default:
 
     }
