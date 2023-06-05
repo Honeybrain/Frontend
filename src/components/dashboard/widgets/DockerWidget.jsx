@@ -56,39 +56,31 @@ const ContainerMonitorWidget = () => {
         </Grid>
         <Box
           sx={{
-            height: '88%',
+            height: '80%', 
             overflow: 'auto',
+            '& > *': {
+              marginBottom: '16px', // Add a margin to each child
+            },
           }}
         >
-          <Box
-            sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'space-between',
-              alignItems: 'stretch',
-              gap: 2,
-              marginBottom: 2,  // Ajoutez une marge en bas
-            }}
-          >
-            {containers.map((container, index) => (
-              <Card variant="outlined" key={index}>
-                <CardContent>
-                  <Box
-                    sx={{
-                      display: 'flex',
-                      justifyContent: 'space-between',
-                      alignItems: 'flex-start',
-                    }}
-                  >
-                    <Typography variant="h6">{container.name}</Typography>
-                    {getContainerStatus(container.status)}
-                  </Box>
-                  <Typography variant="body2" color="text.secondary">Status: {container.status}</Typography>
-                  <Typography variant="body2" color="text.secondary">IP: {container.ip.split('/')[0]}</Typography>
-                </CardContent>
-              </Card>
-            ))}
-          </Box>
+          {containers.map((container, index) => (
+            <Card variant="outlined" key={index}>
+              <CardContent>
+                <Box
+                  sx={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'flex-start',
+                  }}
+                >
+                  <Typography variant="h6">{container.name}</Typography>
+                  {getContainerStatus(container.status)}
+                </Box>
+                <Typography variant="body2" color="text.secondary">Status: {container.status}</Typography>
+                <Typography variant="body2" color="text.secondary">IP: {container.ip.split('/')[0]}</Typography>
+              </CardContent>
+            </Card>
+          ))}
         </Box>
       </Paper>
     </Grid>

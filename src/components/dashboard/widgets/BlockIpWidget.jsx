@@ -84,42 +84,34 @@ const handleUnblock = async (ip) => {
         </Grid>
         <Box
           sx={{
-            height: '88%',
+            height: '80%', 
             overflow: 'auto',
+            '& > *': {
+              marginBottom: '16px', // Add a margin to each child
+            },
           }}
         >
-          <Box
-            sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'space-between',
-              alignItems: 'stretch',
-              gap: 2,
-              marginBottom: 2,  // Ajoutez une marge en bas
-            }}
-          >
-            { blacklistedIPs.length == 0 && <h4>Aucune ip bloquée !</h4>
+          { blacklistedIPs.length == 0 && <h4>Aucune ip bloquée !</h4>
 
-            }
-            <List sx={{ overflow: 'auto' }}>
-              {blacklistedIPs.map((blacklistedIP, index) => (
-                <ListItem key={index} sx={{
-                  my: 1,
-                  px: 2,
-                  bgcolor: index % 2 === 0 ? 'action.hover' : 'background.default',
-                  borderRadius: 1
-                }}>
-                  <ListItemText primary={blacklistedIP} />
-                  <ListItemSecondaryAction>
-                    <IconButton edge="end" aria-label="delete" onClick={() => handleUnblock(blacklistedIP)}>
-                      <DeleteIcon color="error" />
-                    </IconButton>
-                  </ListItemSecondaryAction>
-                  {index !== blacklistedIPs.length - 1 && <Divider />}
-                </ListItem>
-              ))}
-            </List>
-          </Box>
+          }
+          <List sx={{ overflow: 'auto' }}>
+            {blacklistedIPs.map((blacklistedIP, index) => (
+              <ListItem key={index} sx={{
+                my: 1,
+                px: 2,
+                bgcolor: index % 2 === 0 ? 'action.hover' : 'background.default',
+                borderRadius: 1
+              }}>
+                <ListItemText primary={blacklistedIP} />
+                <ListItemSecondaryAction>
+                  <IconButton edge="end" aria-label="delete" onClick={() => handleUnblock(blacklistedIP)}>
+                    <DeleteIcon color="error" />
+                  </IconButton>
+                </ListItemSecondaryAction>
+                {index !== blacklistedIPs.length - 1 && <Divider />}
+              </ListItem>
+            ))}
+          </List>
         </Box>
       </Paper>
     </Grid>
