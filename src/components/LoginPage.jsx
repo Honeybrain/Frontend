@@ -2,14 +2,14 @@ import React, { useState, useContext } from 'react';
 import axios from 'axios';
 import AuthContext from '../AuthContext';
 import '../styles.css';
-import { useHistory } from 'react-router-dom';  
+import { useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const history = useHistory();  
+  const history = useHistory();
   const { login } = useContext(AuthContext);
 
   const [errorMessage, setErrorMessage] = useState('');
@@ -18,7 +18,7 @@ const LoginPage = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:8000/user/login', {
+      const response = await axios.post('/api/user/login', {
         email,
         password,
       });
