@@ -2,9 +2,13 @@ FROM node
 
 WORKDIR /app
 
-COPY . .
+COPY package.json ./
 
 RUN yarn install
+
+COPY . .
+
+ENV API_URL=http://host.docker.internal:8000
 
 EXPOSE 3000
 

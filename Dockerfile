@@ -2,10 +2,14 @@ FROM node
 
 WORKDIR /app
 
-COPY . .
+COPY package.json ./
 
 RUN yarn install
 RUN npm install -g serve
+
+COPY . .
+
+ENV API_URL=http://host.docker.internal:8000
 
 RUN npm run build
 
