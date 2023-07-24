@@ -28,7 +28,7 @@ const BlacklistPage = () => {
 
   const fetchBlacklistedIPs = async () => {
     try {
-      const response = await axios.get('http://localhost:8000/honeypot/blacklist', { 
+      const response = await axios.get('/api/honeypot/blacklist', {
           headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
       });
       setBlacklistedIPs(response.data);
@@ -40,7 +40,7 @@ const BlacklistPage = () => {
 const handleSubmit = async (e) => {
   e.preventDefault();
   try {
-    const response = await axios.post('http://localhost:8000/honeypot/blacklist', { ip }, {
+    const response = await axios.post('/api/honeypot/blacklist', { ip }, {
         headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
     });
     setIp('');
@@ -53,7 +53,7 @@ const handleSubmit = async (e) => {
 
 const handleUnblock = async (ip) => {
   try {
-    await axios.post('http://localhost:8000/honeypot/whitelist', { ip }, {
+    await axios.post('/api/honeypot/whitelist', { ip }, {
         headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
     });
     setAlertText('IP unblocked successfully');
@@ -73,18 +73,18 @@ const handleUnblock = async (ip) => {
           </Grid>
           <Grid item>
             <HelpModal helpText="
-            Avec le widget IP bloquées, vous pouvez voir les addresses IP de la liste noire. Cela signifie que toute tentative d'accès au honeypot à partir de cette adresse IP sera bloquée. 
+            Avec le widget IP bloquées, vous pouvez voir les addresses IP de la liste noire. Cela signifie que toute tentative d'accès au honeypot à partir de cette adresse IP sera bloquée.
 
             Pour chaque adresse IP de la liste, un bouton de suppression est disponible.
 
-            Pour supprimer une adresse IP de la liste noire, vous avez un boutton permettant cette suppression. 
+            Pour supprimer une adresse IP de la liste noire, vous avez un boutton permettant cette suppression.
 
             Une notification apparaît à l'écran pour vous informer de l'action qui a été effectuée."/>
           </Grid>
         </Grid>
         <Box
           sx={{
-            height: '80%', 
+            height: '80%',
             overflow: 'auto',
             '& > *': {
               marginBottom: '16px', // Add a margin to each child

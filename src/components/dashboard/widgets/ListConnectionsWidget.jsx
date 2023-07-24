@@ -11,7 +11,7 @@ const LogViewerWidget = () => {
     const fetchLogs = async () => {
       try {
           console.log(`Bearer ${localStorage.getItem('token')}`);
-          const response = await axios.get('http://localhost:8000/honeypot/logs', {
+          const response = await axios.get('/api/honeypot/logs', {
               headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
           });
           setLogs(response.data);
@@ -36,10 +36,10 @@ const LogViewerWidget = () => {
           </Grid>
           <Grid item>
             <HelpModal helpText="
-                Le widget Connexions entrantes offre une vue en temps réel des logs de connexions au système de honeypot. 
-                
-                Ces logs sont généralement des enregistrements d'événements produits par le système, en particulier des tentatives de connexion entrantes. 
-                
+                Le widget Connexions entrantes offre une vue en temps réel des logs de connexions au système de honeypot.
+
+                Ces logs sont généralement des enregistrements d'événements produits par le système, en particulier des tentatives de connexion entrantes.
+
                 Un honeypot est une ressource de réseau mise en place pour attirer et détecter les tentatives d'accès non autorisées."/>
           </Grid>
         </Grid>
