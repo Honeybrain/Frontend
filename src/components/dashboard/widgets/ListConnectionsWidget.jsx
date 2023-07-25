@@ -3,8 +3,10 @@ import axios from 'axios';
 import { Grid, Paper, Typography, Box } from '@mui/material';
 import MonacoEditor from 'react-monaco-editor';
 import HelpModal from '../../../TutorielPopUp/HelpModal';
+import { useTranslation } from 'react-i18next';
 
 const LogViewerWidget = () => {
+  const { t } = useTranslation();
   const [logs, setLogs] = useState('');
 
   useEffect(() => {
@@ -23,7 +25,7 @@ const LogViewerWidget = () => {
     const interval = setInterval(fetchLogs, 1000); // Mettre à jour les logs toutes les 5 secondes
 
     return () => {
-      clearInterval(interval); // Effacer l'intervalle lorsque le composant est démonté
+      clearInterval(interval); // Clear the interval when the component is unmounted
     };
   }, []);
 
@@ -32,15 +34,10 @@ const LogViewerWidget = () => {
       <Paper sx={{ p: 2, flex: 1, display: 'flex', flexDirection: 'column', margin: '1em', overflow: 'auto' }}>
         <Grid container justifyContent="space-between" alignItems="center" mb={2}>
           <Grid item>
-            <Typography variant="h6" mb={2}>Connexions entrantes</Typography>
+            <Typography variant="h6" mb={2}>{t('logViewerWidget.incomingConnections')}</Typography>
           </Grid>
           <Grid item>
-            <HelpModal helpText="
-                Le widget Connexions entrantes offre une vue en temps réel des logs de connexions au système de honeypot.
-
-                Ces logs sont généralement des enregistrements d'événements produits par le système, en particulier des tentatives de connexion entrantes.
-
-                Un honeypot est une ressource de réseau mise en place pour attirer et détecter les tentatives d'accès non autorisées."/>
+            <HelpModal helpText={t('logViewerWidget.helpText')}/>
           </Grid>
         </Grid>
         <Box flex={1}>

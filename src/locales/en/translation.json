@@ -1,0 +1,69 @@
+{
+    "navbar": {
+      "dashboard": "Dashboard",
+      "login": "Login",
+      "logout": "Logout",
+      "profile": "Profile",
+      "home": "Home"
+    },
+    "loginPage": {
+      "login": "Login",
+      "emailPlaceholder": "E-mail",
+      "passwordPlaceholder": "Password",
+      "submit": "Login",
+      "errorMessage": "Incorrect username and/or password."
+    },
+    "homePage": {
+      "dashboard": "Dashboard",
+      "ipManagement": "IP Management",
+      "containerManager": "Container Manager",
+      "incomingConnections": "Incoming Connections",
+      "otherFeatures": "Other Features"
+    },
+    "profilePage": {
+      "passwordChange": "Change Password",
+      "resetEmailSent": "You will receive an email to reset your password",
+      "emailAddress": "Email Address",
+      "resetPassword": "Reset Password",
+      "emailChange": "Change Email Address",
+      "emailUpdated": "Your email has been successfully updated",
+      "newEmail": "New Email",
+      "validate": "Validate"
+    },
+    "blacklistPage": {
+      "blockedIPs": "Blocked IPs",
+      "helpText": "With the Blocked IPs widget, you can view the blacklisted IP addresses. This means that any attempt to access the honeypot from this IP address will be blocked.\n\nFor each IP address on the list, a delete button is available.\n\nTo remove an IP address from the blacklist, you have a button allowing this deletion.\n\nA notification appears on the screen to inform you of the action that has been performed.",
+      "noBlockedIP": "No blocked IP!"
+    },
+    "containerMonitorWidget": {
+      "honeypotServices": "Honeypot Services",
+      "helpText": "Using the Container Management widget, you can see a list of all the containers currently running, as well as their status and IP address. Each container is displayed on an individual card.\n\nThe container status can be Up or Down indicating whether the container is currently running or not.\n\nThe IP address of the container is also displayed, making it easy to see the network address of the container.",
+      "status": "Status",
+      "ip": "IP"
+    },
+    "logViewerWidget": {
+      "incomingConnections": "Incoming Connections",
+      "helpText": "The Incoming Connections widget provides a real-time view of the connection logs to the honeypot system.\n\nThese logs are typically records of events produced by the system, especially incoming connection attempts.\n\nA honeypot is a network resource set up to attract and detect unauthorized access attempts."
+    },
+    "blockManager": {
+      "ipManagement": "IP Management",
+      "helpText": "You can add an IP address to the blacklist. This means that any attempt to access the honeypot from this IP address will be blocked.\n\nA list of all currently blocked IP addresses is displayed on the screen. For each IP address in the list, a deletion button is available.\n\nTo remove an IP address from the blacklist, you have a button allowing this deletion.\n\n- A notification appears on the screen to inform you of the action that has been performed.",
+      "blockAnIP": "Block an IP",
+      "ipAddress": "IP Address",
+      "blockIP": "Block IP",
+      "currentlyBlocked": "Currently Blocked IPs",
+      "blockSuccess": "IP blocked successfully",
+      "unblockSuccess": "IP unblocked successfully"
+    },
+    "listConnections": {
+      "title": "Incoming Connections",
+      "helpText": "The Incoming Connections feature provides a real-time view of connection logs to the honeypot system.\n\nThese logs are typically records of events produced by the system, especially incoming connection attempts.\n\nA honeypot is a network resource set up to attract and detect unauthorized access attempts."
+    },
+    "containerManager": {
+      "title": "Container Management",
+      "helpText": "By using Container Management, you can view a list of all containers currently running, along with their status and IP address. Each container is displayed on an individual card.\n\nThe container status can be Up or Down indicating whether the container is currently running or not.\n\nThe IP address of the container is also displayed, allowing to easily see the network address of the container.",
+      "status": "Status",
+      "ip": "IP"
+    }
+}
+  

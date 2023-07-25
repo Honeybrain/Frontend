@@ -5,12 +5,14 @@ import '../styles.css';
 import { useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useTranslation } from 'react-i18next';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const history = useHistory();
   const { login } = useContext(AuthContext);
+  const { t, i18n } = useTranslation();
 
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -25,7 +27,7 @@ const LoginPage = () => {
       console.log("Réponse du serveur:", response);
 
       // Show a success toast message
-      toast.success("Connexion réussie! Vous serez redirigé dans quelques secondes.");
+      toast.success(t("loginPage.loginSuccess"));
 
       // After 2 seconds, do the login and redirection
       setTimeout(() => {
@@ -36,22 +38,22 @@ const LoginPage = () => {
 
     } catch (error) {
       console.error('Erreur lors de la connexion:', error.response.data);
-      setErrorMessage('Nom d\'utilisateur et/ou mot de passe incorrect.');
+      setErrorMessage(t("loginPage.errorMessage"));
     }
   };
 
   return (
     <div className="form-container">
-      <h2>Connexion</h2>
+      <h2>{t("loginPage.login")}</h2>
       {errorMessage && <p className="error-message">{errorMessage}</p>}
       <form onSubmit={handleSubmit} id="login-form">
         <div className="input-group">
-          <input onChange={(e) => setEmail(e.target.value)} type="email" name="email" placeholder="E-mail" required />
+          <input onChange={(e) => setEmail(e.target.value)} type="email" name="email" placeholder={t("loginPage.emailPlaceholder")} required />
         </div>
         <div className="input-group">
-          <input onChange={(e) => setPassword(e.target.value)} type="password" name="password" placeholder="Mot de passe" required />
+          <input onChange={(e) => setPassword(e.target.value)} type="password" name="password" placeholder={t("loginPage.passwordPlaceholder")} required />
         </div>
-        <button type="submit">Se connecter</button>
+        <button type="submit">{t("loginPage.submit")}</button>
       </form>
     </div>
   );

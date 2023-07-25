@@ -10,6 +10,7 @@ import { ThemeProvider } from '@mui/material/styles';
 import theme from './components/theme';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import './i18n/i18n';
 
 function App() {
 

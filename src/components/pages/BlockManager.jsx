@@ -4,8 +4,10 @@ import { Typography, TextField, Button, Paper, Grid, Snackbar, Alert, List, List
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Divider } from '@mui/material';
 import HelpModal from '../../TutorielPopUp/HelpModal';
+import { useTranslation } from 'react-i18next';
 
 const BlockManager = () => {
+    const { t } = useTranslation();
     const [ip, setIp] = useState('');
     const [blacklistedIPs, setBlacklistedIPs] = useState([]);
     const [open, setOpen] = useState(false);
@@ -48,7 +50,7 @@ const BlockManager = () => {
               },
           });
           setIp('');
-          setAlertText('IP blocked successfully');
+          setAlertText(t('blockManager.blockSuccess'));
           setOpen(true);
           fetchBlacklistedIPs();
       } catch (error) {
@@ -63,7 +65,7 @@ const BlockManager = () => {
                   'Authorization': `Bearer ${localStorage.getItem('token')}`,
               },
           });
-          setAlertText('IP unblocked successfully');
+          setAlertText(t('blockManager.unblockSuccess'));
           setOpen(true);
           fetchBlacklistedIPs();
       } catch (error) {
@@ -76,22 +78,15 @@ const BlockManager = () => {
       <Grid item>
         <Grid container justifyContent="space-between" alignItems="center" mb={2}>
           <Grid item>
-            <Typography variant="h4">Gestion des IP</Typography>
+            <Typography variant="h4">{t('blockManager.ipManagement')}</Typography>
           </Grid>
           <Grid item>
-            <HelpModal helpText="
-            Vous pouvez ajouter une addresse IP à la liste noire. Cela signifie que toute tentative d'accès au honeypot à partir de cette adresse IP sera bloquée.
-
-            Une liste de toutes les adresses IP actuellement bloquées est affichée à l'écran. Pour chaque adresse IP de la liste, un bouton de suppression est disponible.
-
-            Pour supprimer une adresse IP de la liste noire, vous avez un boutton permettant cette suppression.
-
-            - Une notification apparaît à l'écran pour vous informer de l'action qui a été effectuée."/>
+            <HelpModal helpText={t('blockManager.helpText')}/>
           </Grid>
         </Grid>
       </Grid>
       <Grid item xs sx={{ marginBottom: 0.4 }}>
-        <Typography variant="h6" mb={2}>Block an IP</Typography>
+        <Typography variant="h6" mb={2}>{t('blockManager.blockAnIP')}</Typography>
         <Grid container spacing={2} direction="column" alignItems="stretch" component="form" onSubmit={handleSubmit}>
           <Grid item>
             <TextField
@@ -99,7 +94,7 @@ const BlockManager = () => {
               required
               fullWidth
               id="ip"
-              label="IP Address"
+              label={t('blockManager.ipAddress')}
               autoFocus
               value={ip}
               onChange={(e) => setIp(e.target.value)}
@@ -107,12 +102,12 @@ const BlockManager = () => {
           </Grid>
           <Grid item>
             <Button type="submit" variant="contained" color="primary">
-              Block IP
+              {t('blockManager.blockIP')}
             </Button>
           </Grid>
           <Grid item>
             <Typography variant="h6" component="h2" gutterBottom mt={2}>
-              Currently Blocked IPs
+              {t('blockManager.currentlyBlocked')}
             </Typography>
           </Grid>
           <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>

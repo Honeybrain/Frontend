@@ -4,8 +4,10 @@ import ErrorIcon from '@mui/icons-material/Error';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import AuthContext from '../../AuthContext';
 import HelpModal from '../../TutorielPopUp/HelpModal';
+import { useTranslation } from 'react-i18next';
 
 const ContainerManager = () => {
+  const { t } = useTranslation();
   const [containers, setContainers] = useState([]);
   const { token } = useContext(AuthContext);
 
@@ -39,15 +41,10 @@ const ContainerManager = () => {
       <Grid item>
         <Grid container justifyContent="space-between" alignItems="center" mb={2}>
           <Grid item>
-            <Typography variant="h4" mb={2}>Gestion des conteneurs</Typography>
+            <Typography variant="h4" mb={2}>{t('containerManager.title')}</Typography>
           </Grid>
           <Grid item>
-            <HelpModal helpText="
-            En utilisant le Gestion des conteneurs , vous pouvez voir une liste de tous les conteneurs actuellement en cours d'exécution, ainsi que leur état et leur adresse IP. Chaque conteneur est affiché sur une carte individuelle.
-
-            L'état du conteneur peut être Up ou Down indiquant si le conteneur est actuellement en cours d'exécution ou non.
-
-            L'adresse IP du conteneur est également affichée, permettant de voir facilement l'adresse réseau du conteneur." />
+            <HelpModal helpText={t('containerManager.helpText')} />
           </Grid>
         </Grid>
       </Grid>
@@ -75,8 +72,8 @@ const ContainerManager = () => {
                   <Typography variant="h6">{container.name}</Typography>
                   {getContainerStatus(container.status)}
                 </Box>
-                <Typography variant="body2" color="text.secondary">Status: {container.status}</Typography>
-                <Typography variant="body2" color="text.secondary">IP: {container.ip.split('/')[0]}</Typography>
+                <Typography variant="body2" color="text.secondary">{t('containerManager.status')}: {container.status}</Typography>
+                <Typography variant="body2" color="text.secondary">{t('containerManager.ip')}: {container.ip.split('/')[0]}</Typography>
               </CardContent>
             </Card>
           ))}
