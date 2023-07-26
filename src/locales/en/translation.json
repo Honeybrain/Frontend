@@ -18,7 +18,8 @@
       "ipManagement": "IP Management",
       "containerManager": "Container Manager",
       "incomingConnections": "Incoming Connections",
-      "otherFeatures": "Other Features"
+      "otherFeatures": "Other Features",
+      "history": "History Page"
     },
     "profilePage": {
       "passwordChange": "Change Password",
@@ -64,6 +65,31 @@
       "helpText": "By using Container Management, you can view a list of all containers currently running, along with their status and IP address. Each container is displayed on an individual card.\n\nThe container status can be Up or Down indicating whether the container is currently running or not.\n\nThe IP address of the container is also displayed, allowing to easily see the network address of the container.",
       "status": "Status",
       "ip": "IP"
+    },
+    "configGenerator": {
+      "title": "Config Generator",
+      "helpText": "This feature, called Config Generator, allows the user to generate and download a configuration file for a network with specific IP addresses. The user can specify the number of dummy PCs, their IP address, the IP address and port of an FTP server, as well as the network's subnet. This allows to configure the HoneyBrain from the Dashboard.",
+      "generalConfiguration": "General Configuration",
+      "services": "Services",
+      "networkInterfaceLabel": "Network interface",
+      "subnetLabel": "Subnet",
+      "dockerfilePathLabel": "Dockerfile path",
+      "numberOfDummyPCLabel": "Number of dummy PC",
+      "ipAddressForDummyPCLabel": "IP Address for dummy PC",
+      "ipAddressForFTPLabel": "IP Address for FTP",
+      "portForFTPLabel": "Port for FTP",
+      "downloadConfiguration": "Download Configuration"
+    },
+    "historyPage": {
+      "title": "Action History",
+      "search": "Search",
+      "date": "Date",
+      "time": "Time",
+      "type": "Type",
+      "user": "User",
+      "description": "Description",
+      "safe": "Safe",
+      "danger": "Danger"
     }
 }
   

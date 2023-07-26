@@ -9,6 +9,7 @@ import ConnectionsManager from './pages/ConnectionsManager';
 import ContainerManager from './pages/ContainerManager';
 import BlockManager from './pages/BlockManager';
 import Others from './pages/Others';
+import History from './pages/HistoryPage';
 
 const HomePage = () => {
   const { t } = useTranslation(); // <---- useTranslation hook
@@ -49,7 +50,9 @@ const HomePage = () => {
       case 'incomingConnections':
         return (<ConnectionsManager />)
       case 'ipManagement':
-        return (<div><BlockManager /></div>);
+        return (<div><BlockManager /></div>)
+      case 'history':
+        return <History />;
       default:
 
     }
@@ -65,6 +68,7 @@ const HomePage = () => {
           <li onClick={() => handleMenuClick('containerManager')}>{t('homePage.containerManager')}</li>
           <li onClick={() => handleMenuClick('incomingConnections')}>{t('homePage.incomingConnections')}</li>
           <li onClick={() => handleMenuClick('otherFeatures')}>{t('homePage.otherFeatures')}</li>
+          <li onClick={() => handleMenuClick('history')}>{t('homePage.history')}</li>
         </ul>
       </div>
       <div className="home-content">

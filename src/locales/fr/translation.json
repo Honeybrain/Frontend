@@ -18,7 +18,8 @@
       "ipManagement": "Gestion des IP",
       "containerManager": "Manager des conteneurs",
       "incomingConnections": "Connexions entrantes",
-      "otherFeatures": "Autres fonctionnalités"
+      "otherFeatures": "Autres fonctionnalités",
+      "history": "Historique"
     },
     "profilePage": {
       "passwordChange": "Changement de mot de passe",
@@ -64,6 +65,31 @@
       "helpText": "En utilisant le Gestion des conteneurs , vous pouvez voir une liste de tous les conteneurs actuellement en cours d'exécution, ainsi que leur état et leur adresse IP. Chaque conteneur est affiché sur une carte individuelle.\n\nL'état du conteneur peut être Up ou Down indiquant si le conteneur est actuellement en cours d'exécution ou non.\n\nL'adresse IP du conteneur est également affichée, permettant de voir facilement l'adresse réseau du conteneur.",
       "status": "État",
       "ip": "IP"
+    },
+    "configGenerator": {
+      "title": "Générateur de Configuration",
+      "helpText": "Cette fonctionnalité, nommée Config Generator, permet à l'utilisateur de générer et de télécharger un fichier de configuration pour un réseau avec des adresses IP spécifiques. L'utilisateur peut spécifier le nombre de faux ordinateurs (dummy PC), leur adresse IP, l'adresse IP et le port d'un serveur FTP, ainsi que le sous-réseau du réseau. Cela permet de configurer le HoneyBrain depuis le Dashboard.",
+      "generalConfiguration": "Configuration Générale",
+      "services": "Services",
+      "networkInterfaceLabel": "Interface réseau",
+      "subnetLabel": "Sous-réseau",
+      "dockerfilePathLabel": "Chemin du Dockerfile",
+      "numberOfDummyPCLabel": "Nombre de faux PC",
+      "ipAddressForDummyPCLabel": "Adresse IP pour le faux PC",
+      "ipAddressForFTPLabel": "Adresse IP pour le FTP",
+      "portForFTPLabel": "Port pour le FTP",
+      "downloadConfiguration": "Télécharger la Configuration"
+    },
+    "historyPage": {
+      "title": "Historique des actions",
+      "search": "Recherche",
+      "date": "Date",
+      "time": "Heure",
+      "type": "Type",
+      "user": "Utilisateur",
+      "description": "Description",
+      "safe": "Sûr",
+      "danger": "Dangereux"
     }
 }
   
