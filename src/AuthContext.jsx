@@ -1,7 +1,8 @@
 import { createContext, useState, useEffect } from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
-import { toast } from 'react-toastify';  // Ajouter cette ligne ici
+import { toast } from 'react-toastify';  
+import { useTranslation } from 'react-i18next';
 
 const AuthContext = createContext();
 
@@ -10,6 +11,7 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const history = useHistory();
   const [token, setToken] = useState(null);
+  const { t } = useTranslation();
 
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
@@ -48,7 +50,7 @@ const login = (token, userData) => {
         setIsLoggedIn(false);
 
         // Ajouter cette ligne ici pour afficher un message de succès à la déconnexion
-        toast.success("Vous avez été déconnecté avec succès", {
+        toast.success(t('AuthContext.logout'), {
           position: toast.POSITION.BOTTOM_CENTER
         });
 

@@ -11,7 +11,8 @@
       "emailPlaceholder": "E-mail",
       "passwordPlaceholder": "Mot de passe",
       "submit": "Se connecter",
-      "errorMessage": "Nom d'utilisateur et/ou mot de passe incorrect."
+      "errorMessage": "Nom d'utilisateur et/ou mot de passe incorrect.",
+      "loginSuccess": "Connexion éussi, Chargement en cours..."
     },
     "homePage": {
       "dashboard": "Tableau de bord",
@@ -89,7 +90,26 @@
       "user": "Utilisateur",
       "description": "Description",
       "safe": "Sûr",
-      "danger": "Dangereux"
+      "danger": "Dangereux",
+      "dangerHigh": "Niveau de danger : élevé",
+      "dangerMedium": "Niveau de danger : moyen",
+      "dangerLow": "Niveau de danger : faible"
+    },
+    "helpModal": {
+      "help": "Aide",
+      "helpText": "Ici vous pouvez mettre le texte d'aide en français...",
+      "close": "Fermer"
+    },
+    "HoneyPotPage": {
+      "current_connections": "Connexions actuelles",
+      "ip_connections": "Connexions IP",
+      "ip": "IP",
+      "time": "Heure",
+      "safe": "Sûr",
+      "danger": "Danger"
+    },
+    "AuthContext": {
+      "logout": "Vous avez été déconnecté avec succès"
     }
 }
   

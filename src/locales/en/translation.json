@@ -11,7 +11,8 @@
       "emailPlaceholder": "E-mail",
       "passwordPlaceholder": "Password",
       "submit": "Login",
-      "errorMessage": "Incorrect username and/or password."
+      "errorMessage": "Incorrect username and/or password.",
+      "loginSuccess": "Connection successful, Loading in progress..."
     },
     "homePage": {
       "dashboard": "Dashboard",
@@ -89,7 +90,26 @@
       "user": "User",
       "description": "Description",
       "safe": "Safe",
+      "danger": "Danger",
+      "dangerHigh": "High danger level",
+      "dangerMedium": "Medium danger level",
+      "dangerLow": "Low danger level"
+    },
+    "helpModal": {
+      "help": "Help",
+      "helpText": "Here you can put the help text in English...",
+      "close": "Close"
+    },
+    "HoneyPotPage": {
+      "current_connections": "Current Connections",
+      "ip_connections": "IP Connections",
+      "ip": "IssP",
+      "time": "Time",
+      "safe": "Safe",
       "danger": "Danger"
+    },
+    "AuthContext": {
+      "logout": "You have been successfully logged out  "
     }
 }
   

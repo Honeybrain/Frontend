@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import '../styles.css';
 import ipImage from '../Images/adressip.gif'; // Assurez-vous que le chemin d'accès à l'image est correct
 import { Card, CardContent, Typography, Chip } from '@mui/material';
@@ -6,6 +7,7 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import ErrorIcon from '@mui/icons-material/Error';
 
 const HoneyPotPage = () => {
+  const { t } = useTranslation();
   const [connections, setConnections] = useState([]);
 
   useEffect(() => {
@@ -20,22 +22,22 @@ const HoneyPotPage = () => {
   return (
     <div className="honey-pot-container">
       <Typography variant="h4" component="div" gutterBottom className="title">
-        Connexions actuelles
+        {t('HoneyPotPage:current_connections')}
       </Typography>
-      <img src={ipImage} alt="IP Connections" className="ip-image" />
+      <img src={ipImage} alt={t('HoneyPotPage:ip_connections')} className="ip-image" />
       <div className="connections-container">
         {connections.map(connection => (
           <Card key={connection.id} className="connection-card">
             <CardContent>
               <Typography variant="h5" component="div" className="ip-address">
-                IP: {connection.ipAddress}
+                {t('HoneyPotPage.ip')}: {connection.ipAddress}
               </Typography>
               <Typography variant="body2" color="text.secondary" className="ip-time">
-                Heure: {connection.time}
+                {t('HoneyPotPage.time')}: {connection.time}
               </Typography>
               <Chip
                 icon={connection.status === 'safe' ? <CheckCircleIcon /> : <ErrorIcon />}
-                label={connection.status === 'safe' ? 'Sûr' : 'Danger'}
+                label={connection.status === 'safe' ? 'safe' : 'danger'}
                 color={connection.status === 'safe' ? 'success' : 'error'}
                 className="ip-status"
               />
