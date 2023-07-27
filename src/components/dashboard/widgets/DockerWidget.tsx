@@ -1,16 +1,20 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { Grid, Typography, Card, CardContent, Box } from '@mui/material';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { Grid, Paper, Typography, Card, CardContent, Box } from '@mui/material';
 import ErrorIcon from '@mui/icons-material/Error';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import AuthContext from '../../AuthContext';
-import HelpModal from '../../TutorielPopUp/HelpModal';
+import HelpModal from "@components/HelpModal";
 
-const ContainerManager = () => {
+const ContainerMonitorWidget = () => {
   const [containers, setContainers] = useState([]);
-  const { token } = useContext(AuthContext);
 
   useEffect(() => {
     fetchContainers();
+    const interval = setInterval(fetchContainers, 10000); // Mettre à jour les informations toutes les 10 secondes
+
+    return () => {
+      clearInterval(interval); // Effacer l'intervalle lorsque le composant est démonté
+    };
   }, []);
 
   const fetchContainers = async () => {
@@ -35,33 +39,30 @@ const ContainerManager = () => {
   };
 
   return (
-    <Grid container direction="column">
-      <Grid item>
+    <Grid item xs={12}>
+      <Paper sx={{ p: 2, height: '360px', width: '25em', maxWidth: '100%', margin: '1em', overflow: 'hidden' }}>
         <Grid container justifyContent="space-between" alignItems="center" mb={2}>
           <Grid item>
-            <Typography variant="h4" mb={2}>Gestion des conteneurs</Typography>
+          <Typography variant="h6" mb={2}>Services honeypot</Typography>
           </Grid>
           <Grid item>
             <HelpModal helpText="
-            En utilisant le Gestion des conteneurs , vous pouvez voir une liste de tous les conteneurs actuellement en cours d'exécution, ainsi que leur état et leur adresse IP. Chaque conteneur est affiché sur une carte individuelle.
+            En utilisant le widget Gestion des conteneurs, vous pouvez voir une liste de tous les conteneurs actuellement en cours d'exécution, ainsi que leur état et leur adresse IP. Chaque conteneur est affiché sur une carte individuelle.
 
             L'état du conteneur peut être Up ou Down indiquant si le conteneur est actuellement en cours d'exécution ou non.
 
             L'adresse IP du conteneur est également affichée, permettant de voir facilement l'adresse réseau du conteneur." />
           </Grid>
         </Grid>
-      </Grid>
-      <Grid item xs>
-      <Box
-        sx={{
-          height: '100%',
-          maxHeight: 'calc(100vh - 220px)', // Set max height
-          overflow: 'auto',
-          '& > *': {
-            marginBottom: '16px', // Add a margin to each child
-          },
-        }}
-      >
+        <Box
+          sx={{
+            height: '80%',
+            overflow: 'auto',
+            '& > *': {
+              marginBottom: '16px', // Add a margin to each child
+            },
+          }}
+        >
           {containers.map((container, index) => (
             <Card variant="outlined" key={index}>
               <CardContent>
@@ -81,9 +82,9 @@ const ContainerManager = () => {
             </Card>
           ))}
         </Box>
-      </Grid>
+      </Paper>
     </Grid>
   );
 };
 
-export default ContainerManager;
+export default ContainerMonitorWidget;

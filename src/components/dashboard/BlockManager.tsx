@@ -1,24 +1,24 @@
-import React, { useState, useEffect } from 'react';
+import React, { SyntheticEvent } from 'react';
 import axios from 'axios';
 import { Typography, TextField, Button, Paper, Grid, Snackbar, Alert, List, ListItem, ListItemText, ListItemSecondaryAction, IconButton, Box } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Divider } from '@mui/material';
-import HelpModal from '../../TutorielPopUp/HelpModal';
+import HelpModal from "@components/HelpModal";
 
 const BlockManager = () => {
-    const [ip, setIp] = useState('');
-    const [blacklistedIPs, setBlacklistedIPs] = useState([]);
-    const [open, setOpen] = useState(false);
-    const [alertText, setAlertText] = useState('');
+    const [ip, setIp] = React.useState('');
+    const [blacklistedIPs, setBlacklistedIPs] = React.useState([]);
+    const [open, setOpen] = React.useState(false);
+    const [alertText, setAlertText] = React.useState('');
 
-    const handleClose = (event, reason) => {
-        if (reason === 'clickaway') {
-        return;
-        }
+    const handleClose = React.useCallback(() => {
+        //if (reason === 'clickaway') {
+        //  return;
+        //} // TODO
         setOpen(false);
-    };
+    }, []);
 
-    useEffect(() => {
+    React.useEffect(() => {
       fetchBlacklistedIPs();
       const interval = setInterval(fetchBlacklistedIPs, 5000); // Update the list every 5 seconds
       return () => {

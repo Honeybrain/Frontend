@@ -1,19 +1,26 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import '../styles.css';
-import ipImage from '../Images/adressip.gif'; // Assurez-vous que le chemin d'accès à l'image est correct
+import ipImage from '../Images/adressip.gif';
 import { Card, CardContent, Typography, Chip } from '@mui/material';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import ErrorIcon from '@mui/icons-material/Error';
 
-const HoneyPotPage = () => {
-  const [connections, setConnections] = useState([]);
+type ConnectionStatus = 'safe' | 'danger';
 
-  useEffect(() => {
-    // Appeler votre API pour obtenir les connexions en temps réel et les définir dans l'état
+interface Connection {
+  id: number;
+  ipAddress: string;
+  time: string;
+  status: ConnectionStatus;
+}
+
+const HoneyPotPage: React.FC = () => {
+  const [connections, setConnections] = React.useState<Connection[]>([]);
+
+  React.useEffect(() => {
     setConnections([
       { id: 1, ipAddress: '192.168.1.1', time: new Date().toLocaleString(), status: 'safe' },
       { id: 2, ipAddress: '192.168.1.2', time: new Date().toLocaleString(), status: 'danger' },
-      // Plus de connexions...
     ]);
   }, []);
 
@@ -24,7 +31,7 @@ const HoneyPotPage = () => {
       </Typography>
       <img src={ipImage} alt="IP Connections" className="ip-image" />
       <div className="connections-container">
-        {connections.map(connection => (
+        {connections.map((connection: Connection) => (
           <Card key={connection.id} className="connection-card">
             <CardContent>
               <Typography variant="h5" component="div" className="ip-address">

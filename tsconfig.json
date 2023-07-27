@@ -1,0 +1,61 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./src",
+    "target": "es2020",
+    "lib": ["dom", "dom.iterable", "esnext", "es2020"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "sourceMap": true,
+    "noImplicitAny": false,
+    "strictPropertyInitialization": false,
+    "jsx": "react-jsx",
+    "types": [
+      "vite/client",
+      "node",
+    ],
+    "paths": {
+      "@components/*": ["components/*"],
+      "@contexts/*": ["contexts/*"],
+      "@providers/*": ["providers/*"],
+      "@pages/*": ["pages/*"],
+      "@hooks/*": ["hooks/*"],
+      "@protos/*": ["protos/*"],
+      "@types/*": ["types/*"],
+    }
+  },
+  "include": ["src"],
+  "exclude": ["node_modules"],
+  "tasks": [
+    {
+      "label": "tsc watch",
+      "type": "shell",
+      "command": "./node_modules/.bin/tsc",
+      "isBackground": true,
+      "args": ["--watch", "--noEmit", "--project", "."],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "presentation": {
+        "reveal": "never",
+        "echo": false,
+        "focus": false,
+        "panel": "dedicated"
+      },
+      "problemMatcher": "$tsc-watch",
+      "runOptions": {
+        "runOn": "folderOpen"
+      }
+    }
+  ]
+}

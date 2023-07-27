@@ -1,4 +1,3 @@
-import React from 'react';
 import '../../styles.css';
 import BlockIpWidget from './widgets/BlockIpWidget';
 import LogViewerWidget from './widgets/ListConnectionsWidget';

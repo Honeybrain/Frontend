@@ -1,12 +1,11 @@
-import React, { useState } from 'react';
-import { Grid, TextField, Box, Button, Paper, Typography } from '@mui/material';
+import React from 'react';
+import { TextField, Box, Button, Paper, Typography } from '@mui/material';
 
 const ProfilePage = () => {
-  const [email, setEmail] = useState('');
-  const [newEmail, setNewEmail] = useState('');
-  const [submitted, setSubmitted] = useState(false);
-  const [submittedEmail, setSubmittedEmail] = useState(false);
-
+  const [email, setEmail] = React.useState<string>('');
+  const [newEmail, setNewEmail] = React.useState<string>('');
+  const [submitted, setSubmitted] = React.useState<boolean>(false);
+  const [submittedEmail, setSubmittedEmail] = React.useState<boolean>(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();

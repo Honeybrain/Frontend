@@ -1,18 +1,18 @@
-import React, { useState, useContext } from 'react';
+import React from 'react';
 import axios from 'axios';
-import AuthContext from '../AuthContext';
+import AuthContext from '@contexts/AuthContext';
 import '../styles.css';
 import { useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const LoginPage = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = React.useState<string>('');
+  const [password, setPassword] = React.useState<string>('');
   const history = useHistory();
-  const { login } = useContext(AuthContext);
+  const { login } = React.useContext(AuthContext);
 
-  const [errorMessage, setErrorMessage] = useState('');
+  const [errorMessage, setErrorMessage] = React.useState<string>('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -34,7 +34,7 @@ const LoginPage = () => {
         history.push('/');
       }, 2000);
 
-    } catch (error) {
+    } catch (error: any) {
       console.error('Erreur lors de la connexion:', error.response.data);
       setErrorMessage('Nom d\'utilisateur et/ou mot de passe incorrect.');
     }

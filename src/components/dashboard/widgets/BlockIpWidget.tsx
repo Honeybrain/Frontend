@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Typography, TextField, Button, Paper, Grid, Snackbar, Alert, List, ListItem, ListItemText, ListItemSecondaryAction, IconButton, Box } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Divider } from '@mui/material';
-import HelpModal from '../../../TutorielPopUp/HelpModal';
+import HelpModal from "@components/HelpModal";
 
 const BlacklistPage = () => {
   const [ip, setIp] = useState('');

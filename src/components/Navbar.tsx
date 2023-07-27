@@ -3,9 +3,9 @@ import '../styles.css';
 import { makeStyles } from '@mui/styles';
 
 import React, { useContext } from 'react';
-import AuthContext from '../AuthContext';
+import AuthContext from "@contexts/AuthContext";
 import { Link } from 'react-router-dom';
-import theme from './theme';
+import theme from '../theme';
 
 const useStyles = makeStyles({
   title: {
