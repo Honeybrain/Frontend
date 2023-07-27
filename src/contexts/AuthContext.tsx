@@ -4,7 +4,7 @@ interface AuthContextProps {
   isLoggedIn: boolean;
   user: User | null;
   login: (token: string, userData: User) => void;
-  logout: () => Promise<void>;
+  logout: () => void;
   token: string | null;
 }
 
@@ -14,7 +14,7 @@ const defaultAuth: AuthContextProps = {
   login: function (token: string, userData: User): void {
     throw new Error('Function not implemented.');
   },
-  logout: function (): Promise<void> {
+  logout: function (): void {
     throw new Error('Function not implemented.');
   },
   token: null

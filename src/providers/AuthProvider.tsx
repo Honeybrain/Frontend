@@ -1,14 +1,13 @@
 import React, { useState, useEffect, ReactNode } from 'react';
-import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import AuthContext from '@contexts/AuthContext'
+import { UserClient } from '@protos/user_grpc_pb';
+import { SignInSignUpRequest, EmailRequest, EmptyRequest } from '@protos/user_pb';
 
-interface AuthProviderProps {
-  children: ReactNode;
-}
+const client = new UserClient('http://localhost:50051', null);
 
-export const AuthProvider = ({ children }: AuthProviderProps) => {
+export const AuthProvider = ({ children }) => {
     const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
     const [user, setUser] = React.useState<User | null>(null);
     const history = useHistory();
@@ -25,22 +24,35 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       }
     }, []);
   
-    const login = (token: string, userData: User) => {
-      console.log("Logging in", token, userData);
-      localStorage.setItem('token', token);
-      localStorage.setItem('user', JSON.stringify(userData));
-      setUser(userData);
-      setIsLoggedIn(true);
+    const login = (email: string, password: string) => {
+      const request = new SignInSignUpRequest();
+      request.setEmail(email);
+      request.setPassword(password);
   
-      // Redirection to home page
-      history.push('/');
+      client.signIn(request, {}, (error, response) => {
+        if (error) {
+          console.error('Erreur lors de la connexion:', error);
+        } else {
+          const token = response.getToken();
+          console.log("Logging in", token, user);
+          localStorage.setItem('token', token);
+          localStorage.setItem('user', JSON.stringify(user));
+          setUser(user);
+          setIsLoggedIn(true);
+  
+          // Redirection to home page
+          history.push('/');
+        }
+      });
     };
   
-    const logout = async () => {
-      try {
-        const response = await axios.post('/api/user/signout');
-  
-        if (response.status === 200) {
+    const logout = () => {
+      const request = new EmptyRequest();
+
+      client.signOut(request, {}, (error, response) => {
+        if (error) {
+          console.error('Erreur lors de la déconnexion:', error);
+        } else {
           localStorage.removeItem('token');
           localStorage.removeItem('user');
           setUser(null);
@@ -54,13 +66,8 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
           setTimeout(() => {
             history.push('/login');
           }, 2000);
-  
-        } else {
-          throw new Error('Failed to log out');
         }
-      } catch (error) {
-        console.error('Erreur lors de la déconnexion:', error);
-      }
+      });
     };
   
     return (
