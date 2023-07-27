@@ -11,7 +11,7 @@ const ProfilePage = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    fetch("http://localhost:8000/user/resetPassword", {
+    fetch("/api/user/resetPassword", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -31,7 +31,7 @@ const ProfilePage = () => {
   const changeEmail = (e) => {
     e.preventDefault();
 
-    fetch("http://localhost:8000/user/changeEmail", {
+    fetch("/api/user/changeEmail", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -67,7 +67,7 @@ const ProfilePage = () => {
             />
             <Button type="submit" variant="contained" color="primary">Réinitialiser le mot de passe</Button>
           </>
-        )}   
+        )}
         </Box>
         <Box component="form" sx={{ display: 'flex', flexDirection: 'column', gap: 2 }} onSubmit={changeEmail}>
           <Typography variant="h6">Changement d'adresse email</Typography>
@@ -85,7 +85,7 @@ const ProfilePage = () => {
           />
           <Button type="submit" variant="contained" color="primary">Valider</Button>
           </>
-          )}   
+          )}
         </Box>
       </Paper>
     </Box>

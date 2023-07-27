@@ -25,10 +25,10 @@ const BlockManager = () => {
           clearInterval(interval);
       };
   }, []);
-  
+
   const fetchBlacklistedIPs = async () => {
       try {
-          const response = await axios.get('http://localhost:8000/honeypot/blacklist', {
+          const response = await axios.get('/api/honeypot/blacklist', {
               headers: {
                   'Authorization': `Bearer ${localStorage.getItem('token')}`,
               },
@@ -38,11 +38,11 @@ const BlockManager = () => {
           console.error(error);
       }
   };
-  
+
   const handleSubmit = async (e) => {
       e.preventDefault();
       try {
-          const response = await axios.post('http://localhost:8000/honeypot/blacklist', { ip }, {
+          const response = await axios.post('/api/honeypot/blacklist', { ip }, {
               headers: {
                   'Authorization': `Bearer ${localStorage.getItem('token')}`,
               },
@@ -55,10 +55,10 @@ const BlockManager = () => {
           console.error(error);
       }
   };
-  
+
   const handleUnblock = async (ip) => {
       try {
-          await axios.post('http://localhost:8000/honeypot/whitelist', { ip }, {
+          await axios.post('/api/honeypot/whitelist', { ip }, {
               headers: {
                   'Authorization': `Bearer ${localStorage.getItem('token')}`,
               },
@@ -80,11 +80,11 @@ const BlockManager = () => {
           </Grid>
           <Grid item>
             <HelpModal helpText="
-            Vous pouvez ajouter une addresse IP à la liste noire. Cela signifie que toute tentative d'accès au honeypot à partir de cette adresse IP sera bloquée. 
+            Vous pouvez ajouter une addresse IP à la liste noire. Cela signifie que toute tentative d'accès au honeypot à partir de cette adresse IP sera bloquée.
 
             Une liste de toutes les adresses IP actuellement bloquées est affichée à l'écran. Pour chaque adresse IP de la liste, un bouton de suppression est disponible.
 
-            Pour supprimer une adresse IP de la liste noire, vous avez un boutton permettant cette suppression. 
+            Pour supprimer une adresse IP de la liste noire, vous avez un boutton permettant cette suppression.
 
             - Une notification apparaît à l'écran pour vous informer de l'action qui a été effectuée."/>
           </Grid>
@@ -129,7 +129,7 @@ const BlockManager = () => {
               flexDirection: 'column',
               justifyContent: 'space-between',
               alignItems: 'stretch',
-              height: '100%', 
+              height: '100%',
               maxHeight: 'calc(100vh - 440px)', // Set max height
               overflow: 'auto',
             }}

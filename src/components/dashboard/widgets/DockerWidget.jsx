@@ -19,7 +19,7 @@ const ContainerMonitorWidget = () => {
 
   const fetchContainers = async () => {
     const token = localStorage.getItem('token');
-    const response = await fetch('http://localhost:8000/honeypot/containers', {
+    const response = await fetch('/api/honeypot/containers', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -47,16 +47,16 @@ const ContainerMonitorWidget = () => {
           </Grid>
           <Grid item>
             <HelpModal helpText="
-            En utilisant le widget Gestion des conteneurs, vous pouvez voir une liste de tous les conteneurs actuellement en cours d'exécution, ainsi que leur état et leur adresse IP. Chaque conteneur est affiché sur une carte individuelle. 
-            
-            L'état du conteneur peut être Up ou Down indiquant si le conteneur est actuellement en cours d'exécution ou non. 
-            
+            En utilisant le widget Gestion des conteneurs, vous pouvez voir une liste de tous les conteneurs actuellement en cours d'exécution, ainsi que leur état et leur adresse IP. Chaque conteneur est affiché sur une carte individuelle.
+
+            L'état du conteneur peut être Up ou Down indiquant si le conteneur est actuellement en cours d'exécution ou non.
+
             L'adresse IP du conteneur est également affichée, permettant de voir facilement l'adresse réseau du conteneur." />
           </Grid>
         </Grid>
         <Box
           sx={{
-            height: '80%', 
+            height: '80%',
             overflow: 'auto',
             '& > *': {
               marginBottom: '16px', // Add a margin to each child

@@ -15,11 +15,11 @@ const ContainerManager = () => {
 
   const fetchContainers = async () => {
     const token = localStorage.getItem('token');
-    const response = await fetch('http://localhost:8000/honeypot/containers', {
+    const response = await fetch('/api/honeypot/containers', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`, 
+        'Authorization': `Bearer ${token}`,
       },
     });
     const data = await response.json();
@@ -43,9 +43,9 @@ const ContainerManager = () => {
           </Grid>
           <Grid item>
             <HelpModal helpText="
-            En utilisant le Gestion des conteneurs , vous pouvez voir une liste de tous les conteneurs actuellement en cours d'exécution, ainsi que leur état et leur adresse IP. Chaque conteneur est affiché sur une carte individuelle. 
+            En utilisant le Gestion des conteneurs , vous pouvez voir une liste de tous les conteneurs actuellement en cours d'exécution, ainsi que leur état et leur adresse IP. Chaque conteneur est affiché sur une carte individuelle.
 
-            L'état du conteneur peut être Up ou Down indiquant si le conteneur est actuellement en cours d'exécution ou non. 
+            L'état du conteneur peut être Up ou Down indiquant si le conteneur est actuellement en cours d'exécution ou non.
 
             L'adresse IP du conteneur est également affichée, permettant de voir facilement l'adresse réseau du conteneur." />
           </Grid>
@@ -54,7 +54,7 @@ const ContainerManager = () => {
       <Grid item xs>
       <Box
         sx={{
-          height: '100%', 
+          height: '100%',
           maxHeight: 'calc(100vh - 220px)', // Set max height
           overflow: 'auto',
           '& > *': {
