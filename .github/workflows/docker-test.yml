@@ -1,0 +1,15 @@
+name: Test Docker Frontend
+
+on:
+  push:
+    branches-ignore:
+      - main
+
+jobs:
+  Docker:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build the Frontend image
+      run: |
+        docker build -t hb_dashboard_front .
