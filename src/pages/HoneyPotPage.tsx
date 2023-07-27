@@ -1,6 +1,6 @@
 import React from 'react';
 import '../styles.css';
-import ipImage from '../Images/adressip.gif';
+import ipImage from '../images/adressip.gif';
 import { Card, CardContent, Typography, Chip } from '@mui/material';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import ErrorIcon from '@mui/icons-material/Error';
