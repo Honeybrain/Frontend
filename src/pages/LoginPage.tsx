@@ -10,7 +10,7 @@ const LoginPage = () => {
   const [email, setEmail] = React.useState<string>('');
   const [password, setPassword] = React.useState<string>('');
   const history = useHistory();
-  const { login, user, token } = React.useContext(AuthContext);
+  const { login } = React.useContext(AuthContext);
 
   const [errorMessage, setErrorMessage] = React.useState<string>('');
 
