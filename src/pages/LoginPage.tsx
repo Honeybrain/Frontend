@@ -10,7 +10,7 @@ const LoginPage = () => {
   const [email, setEmail] = React.useState<string>('');
   const [password, setPassword] = React.useState<string>('');
   const history = useHistory();
-  const { login } = React.useContext(AuthContext);
+  const { login, user, token } = React.useContext(AuthContext);
 
   const [errorMessage, setErrorMessage] = React.useState<string>('');
 
@@ -18,24 +18,20 @@ const LoginPage = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('/api/user/login', {
-        email,
-        password,
-      });
-      console.log("Réponse du serveur:", response);
+      await login(email, password);
 
       // Show a success toast message
       toast.success("Connexion réussie! Vous serez redirigé dans quelques secondes.");
 
       // After 2 seconds, do the login and redirection
       setTimeout(() => {
-        console.log('voici le token du user :', response.data.token)
-        login(response.data.token, { email });
+        console.log('voici le token du user :', token)
+        // login(response.data.token, { user });
         history.push('/');
       }, 2000);
 
     } catch (error: any) {
-      console.error('Erreur lors de la connexion:', error.response.data);
+      console.error('Erreur lors de la connexion:', error);
       setErrorMessage('Nom d\'utilisateur et/ou mot de passe incorrect.');
     }
   };

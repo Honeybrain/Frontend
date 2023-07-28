@@ -2,8 +2,8 @@ import { createContext } from 'react';
 
 interface AuthContextProps {
   isLoggedIn: boolean;
-  user: User | null;
-  login: (token: string, userData: User) => void;
+  user: any | null;
+  login: (email: string, password: string) => void;
   logout: () => void;
   token: string | null;
 }
@@ -11,7 +11,7 @@ interface AuthContextProps {
 const defaultAuth: AuthContextProps = {
   isLoggedIn: false,
   user: null,
-  login: function (token: string, userData: User): void {
+  login: function (email: string, password: string): void {
     throw new Error('Function not implemented.');
   },
   logout: function (): void {
