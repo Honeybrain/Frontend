@@ -1,5 +1,4 @@
 import React from 'react';
-import axios from 'axios';
 import AuthContext from '@contexts/AuthContext';
 import '../styles.css';
 import { useHistory } from 'react-router-dom';
@@ -20,10 +19,8 @@ const LoginPage = () => {
     try {
       await login(email, password);
 
-      // Show a success toast message
       toast.success("Connexion réussie! Vous serez redirigé dans quelques secondes.");
 
-      // After 2 seconds, do the login and redirection
       setTimeout(() => {
         history.push('/');
       }, 2000);
