@@ -3,7 +3,7 @@ name: Test Docker Frontend
 on:
   push:
     branches-ignore:
-      - main
+      - S0-0.0/DockerTest
 
 jobs:
   Docker-Dev:
