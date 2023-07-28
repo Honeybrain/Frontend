@@ -37,7 +37,7 @@ const HomePage = () => {
   const renderContent = () => {
     switch (currentContent) {
       case 'dashboard':
-        return (<div />)
+        return (<Dashboard />)
       case 'otherFeatures':
         return (<Others />)
       case 'containerManager':

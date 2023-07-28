@@ -9,10 +9,10 @@ const Dashboard = () => {
     <Grid container direction="column" style={{ height: '100%' }}>
       <Grid item container>
         <Grid item xs={4}>
-          <BlockIpWidget />
+          <div />
         </Grid>
         <Grid item xs={4}>
-          <ContainerMonitorWidget />
+          <div />
         </Grid>
       </Grid>
       <Grid item style={{ flexGrow: 1 }}>

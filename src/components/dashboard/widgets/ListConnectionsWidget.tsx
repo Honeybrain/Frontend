@@ -3,29 +3,10 @@ import axios from 'axios';
 import { Grid, Paper, Typography, Box } from '@mui/material';
 import MonacoEditor from 'react-monaco-editor';
 import HelpModal from '@components/HelpModal';
+import useLogsRPC from '@hooks/backend/honeypotService/useLogsRPC';
 
 const LogViewerWidget = () => {
-  const [logs, setLogs] = useState('');
-
-  useEffect(() => {
-    const fetchLogs = async () => {
-      try {
-          console.log(`Bearer ${localStorage.getItem('token')}`);
-          const response = await axios.get('/api/honeypot/logs', {
-              headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
-          });
-          setLogs(response.data);
-      } catch (error) {
-          console.error(error);
-      }
-  };
-
-    const interval = setInterval(fetchLogs, 1000); // Mettre à jour les logs toutes les 5 secondes
-
-    return () => {
-      clearInterval(interval); // Effacer l'intervalle lorsque le composant est démonté
-    };
-  }, []);
+  const { logs } = useLogsRPC();
 
   return (
     <Grid item xs={12} style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
