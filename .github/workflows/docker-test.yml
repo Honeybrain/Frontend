@@ -3,20 +3,20 @@ name: Test Docker Frontend
 on:
   push:
     branches-ignore:
-      - S0-0.0/DockerTest
+      - main
 
 jobs:
   Docker-Dev:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: Build the Frontend image
+    - name: Build the dev Frontend image
       run: |
         docker build -f ./Dockerfile.dev -t hb_dashboard_front .
   Docker-Prod:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: Build the Frontend image
+    - name: Build the prod Frontend image
       run: |
         docker build -f ./Dockerfile -t hb_dashboard_front .
