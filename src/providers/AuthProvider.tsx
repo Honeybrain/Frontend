@@ -8,7 +8,6 @@ import { transport } from "../environment";
 
 export const AuthProvider = ({ children }) => {
     const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
-    const [user, setUser] = React.useState<any | null>(null);
     const history = useHistory();
     const [token, setToken] = React.useState<string | null>(null);
     
@@ -17,14 +16,9 @@ export const AuthProvider = ({ children }) => {
     }, []);
   
     useEffect(() => {
-      const storedUser = localStorage.getItem('user');
       const storedToken = localStorage.getItem('token');
 
-      console.log(storedUser);
-      console.log(storedToken);
-  
-      if (storedUser && storedToken) {
-        setUser(JSON.parse(storedUser));
+      if (storedToken) {
         setToken(storedToken);
         setIsLoggedIn(true);
       }
@@ -37,13 +31,9 @@ export const AuthProvider = ({ children }) => {
 
       const signinResponse = await client.signIn(request, {});
       const token = signinResponse.response.token;
-      console.log("Logging in", token, user);
       localStorage.setItem('token', token);
-      localStorage.setItem('user', JSON.stringify(user));
-      setUser(user);
       setIsLoggedIn(true);
 
-      // Redirection to home page
       history.push('/');
     }, []);
   
@@ -51,8 +41,6 @@ export const AuthProvider = ({ children }) => {
       const request: EmptyRequest = EmptyRequest.create();
       await client.signOut(request, {});
       localStorage.removeItem('token');
-      localStorage.removeItem('user');
-      setUser(null);
       setToken(null);
       setIsLoggedIn(false);
 
@@ -66,7 +54,7 @@ export const AuthProvider = ({ children }) => {
     }, []);
   
     return (
-      <AuthContext.Provider value={{ isLoggedIn, user, login, logout, token }}>
+      <AuthContext.Provider value={{ isLoggedIn, token, login, logout }}>
         {children}
       </AuthContext.Provider>
     );

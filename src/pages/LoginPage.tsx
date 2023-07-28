@@ -25,8 +25,6 @@ const LoginPage = () => {
 
       // After 2 seconds, do the login and redirection
       setTimeout(() => {
-        console.log('voici le token du user :', token)
-        // login(response.data.token, { user });
         history.push('/');
       }, 2000);
 
