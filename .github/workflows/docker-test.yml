@@ -6,10 +6,17 @@ on:
       - main
 
 jobs:
-  Docker:
+  Docker-Dev:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
     - name: Build the Frontend image
       run: |
-        docker build -t hb_dashboard_front .
+        docker build -f ./Dockerfile.dev -t hb_dashboard_front .
+  Docker-Prod:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build the Frontend image
+      run: |
+        docker build -f ./Dockerfile -t hb_dashboard_front .
