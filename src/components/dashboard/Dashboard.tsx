@@ -1,7 +1,7 @@
 import '../../styles.css';
 import BlockIpWidget from './widgets/BlockIpWidget';
 import LogViewerWidget from './widgets/ListConnectionsWidget';
-import ContainerMonitorWidget from './widgets/DockerWidget';
+import ContainerMonitorWidget from './widgets/ContainerMonitorWidget';
 import { Grid } from '@mui/material';
 
 const Dashboard = () => {
@@ -9,7 +9,7 @@ const Dashboard = () => {
     <Grid container direction="column" style={{ height: '100%' }}>
       <Grid item container>
         <Grid item xs={4}>
-          <div />
+          <ContainerMonitorWidget />
         </Grid>
         <Grid item xs={4}>
           <div />
