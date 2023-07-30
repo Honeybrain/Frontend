@@ -12,7 +12,7 @@ const Dashboard = () => {
           <ContainerMonitorWidget />
         </Grid>
         <Grid item xs={4}>
-          <div />
+          <BlockIpWidget />
         </Grid>
       </Grid>
       <Grid item style={{ flexGrow: 1 }}>
