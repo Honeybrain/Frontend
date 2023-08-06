@@ -1,7 +1,7 @@
 import React from "react";
 import { transport } from "../../../environment";
 import { BlacklistClient } from '@protos/blacklist.client';
-import { GetBlackListRequest } from '@protos/blacklist';
+import { GetBlackListRequest, PutWhiteListRequest, PutBlackListRequest} from '@protos/blacklist';
 
 const useBlackListRPC = () => {
   const client = React.useMemo(() => new BlacklistClient(transport), []);
@@ -12,8 +12,20 @@ const useBlackListRPC = () => {
 
     const stream = client.getBlackList(request);
     stream.responses.onNext((message) => {
-      setBlacklist(message?.ip);
+      setBlacklist(message?.ips);
     });
+  }, []);
+
+  const putBlackList = React.useCallback(async (ip: string) => {
+    const request: PutBlackListRequest = PutBlackListRequest.create();
+    request.ip = ip;
+    await client.putBlackList(request, {});
+  }, []);
+
+  const putWhiteList = React.useCallback(async (ip: string) => {
+    const request: PutWhiteListRequest = PutWhiteListRequest.create();
+    request.ip = ip;
+    await client.putWhiteList(request, {});;
   }, []);
 
   React.useEffect(() => {
@@ -22,6 +34,8 @@ const useBlackListRPC = () => {
 
   return {
     blacklist,
+    putBlackList,
+    putWhiteList,
   };
 };
 

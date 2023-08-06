@@ -6,8 +6,7 @@ import HelpModal from "@components/HelpModal";
 import useBlackListRPC from '@hooks/backend/honeypotService/useBlackListRPC';
 
 const BlacklistPage = () => {
-  const [ip, setIp] = React.useState('');
-  const { blacklist } = useBlackListRPC();
+  const { blacklist, putWhiteList } = useBlackListRPC();
   const [open, setOpen] = React.useState(false);
   const [alertText, setAlertText] = React.useState('');
 
@@ -18,14 +17,15 @@ const BlacklistPage = () => {
     setOpen(false);
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-  };
-
-  const handleUnblock = async (ip) => {
-
-  };
+  const handleUnblock = React.useCallback(async (ip: string) => {
+    try {
+      await putWhiteList(ip);
+      setAlertText('IP unblocked successfully');
+      setOpen(true);
+    } catch (error) {
+      console.error(error);
+    }
+  }, []);
 
   return (
     <Grid item xs={12}>

@@ -8,7 +8,6 @@ const ContainerMonitorWidget = () => {
   const { containers } = useContainersRPC();
 
   const getContainerStatus = (status) => {
-    console.log(status);
     if (status.startsWith('running')) {
       return <CheckCircleIcon color="success" />;
     } else {
