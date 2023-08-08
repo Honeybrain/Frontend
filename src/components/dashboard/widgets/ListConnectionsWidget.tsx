@@ -1,10 +1,10 @@
 import { Grid, Paper, Typography, Box } from '@mui/material';
 import MonacoEditor from 'react-monaco-editor';
 import HelpModal from '@components/HelpModal';
-import useLogsRPC from '@hooks/backend/honeypotService/useLogsRPC';
+import useDashboardRPC from '@hooks/backend/honeypotService/useDashboardRPC';
 
 const LogViewerWidget = () => {
-  const { logs } = useLogsRPC();
+  const { logs } = useDashboardRPC();
 
   return (
     <Grid item xs={12} style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>

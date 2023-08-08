@@ -2,10 +2,10 @@ import { Grid, Paper, Typography, Card, CardContent, Box } from '@mui/material';
 import ErrorIcon from '@mui/icons-material/Error';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import HelpModal from "@components/HelpModal";;
-import useContainersRPC from '@hooks/backend/honeypotService/useContainersRPC';
+import useDashboardRPC from '@hooks/backend/honeypotService/useDashboardRPC';
 
 const ContainerMonitorWidget = () => {
-  const { containers } = useContainersRPC();
+  const { containers } = useDashboardRPC();
 
   const getContainerStatus = (status) => {
     if (status.startsWith('running')) {

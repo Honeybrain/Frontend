@@ -4,9 +4,11 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { Divider } from '@mui/material';
 import HelpModal from "@components/HelpModal";
 import useBlackListRPC from '@hooks/backend/honeypotService/useBlackListRPC';
+import useDashboardRPC from '@hooks/backend/honeypotService/useDashboardRPC';
 
 const BlacklistPage = () => {
-  const { blacklist, putWhiteList } = useBlackListRPC();
+  const { putWhiteList } = useBlackListRPC();
+  const { blacklist } = useDashboardRPC();
   const [open, setOpen] = React.useState(false);
   const [alertText, setAlertText] = React.useState('');
 
