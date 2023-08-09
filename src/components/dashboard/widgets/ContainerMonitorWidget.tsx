@@ -1,37 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { Grid, Paper, Typography, Card, CardContent, Box } from '@mui/material';
 import ErrorIcon from '@mui/icons-material/Error';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import HelpModal from '../../../TutorielPopUp/HelpModal';
+import HelpModal from "@components/HelpModal";;
+import React from 'react';
+import DashboardContext from '@contexts/DashboardContext';
 
 const ContainerMonitorWidget = () => {
-  const [containers, setContainers] = useState([]);
-
-  useEffect(() => {
-    fetchContainers();
-    const interval = setInterval(fetchContainers, 10000); // Mettre à jour les informations toutes les 10 secondes
-
-    return () => {
-      clearInterval(interval); // Effacer l'intervalle lorsque le composant est démonté
-    };
-  }, []);
-
-  const fetchContainers = async () => {
-    const token = localStorage.getItem('token');
-    const response = await fetch('/api/honeypot/containers', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`,
-      },
-    });
-    const data = await response.json();
-    setContainers(data);
-  };
+  const dashboard = React.useContext(DashboardContext);
 
   const getContainerStatus = (status) => {
-    if (status.startsWith('Up')) {
+    if (status.startsWith('running')) {
       return <CheckCircleIcon color="success" />;
     } else {
       return <ErrorIcon color="error" />;
@@ -63,7 +41,7 @@ const ContainerMonitorWidget = () => {
             },
           }}
         >
-          {containers.map((container, index) => (
+          {dashboard.containers && dashboard.containers.map((container, index) => (
             <Card variant="outlined" key={index}>
               <CardContent>
                 <Box

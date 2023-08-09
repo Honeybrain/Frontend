@@ -1,31 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { Grid, Paper, Typography, Box } from '@mui/material';
 import MonacoEditor from 'react-monaco-editor';
-import HelpModal from '../../../TutorielPopUp/HelpModal';
+import HelpModal from '@components/HelpModal';
+import React from 'react';
+import DashboardContext from '@contexts/DashboardContext';
 
 const LogViewerWidget = () => {
-  const [logs, setLogs] = useState('');
-
-  useEffect(() => {
-    const fetchLogs = async () => {
-      try {
-          console.log(`Bearer ${localStorage.getItem('token')}`);
-          const response = await axios.get('/api/honeypot/logs', {
-              headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
-          });
-          setLogs(response.data);
-      } catch (error) {
-          console.error(error);
-      }
-  };
-
-    const interval = setInterval(fetchLogs, 1000); // Mettre à jour les logs toutes les 5 secondes
-
-    return () => {
-      clearInterval(interval); // Effacer l'intervalle lorsque le composant est démonté
-    };
-  }, []);
+  const dashboard = React.useContext(DashboardContext);
 
   return (
     <Grid item xs={12} style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
@@ -49,7 +29,7 @@ const LogViewerWidget = () => {
             height="100%"
             language="plaintext"
             theme="vs"
-            value={logs}
+            value={dashboard.logs}
             options={{ selectOnLineNumbers: true, readOnly: true }}
           />
         </Box>

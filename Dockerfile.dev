@@ -1,15 +1,13 @@
-FROM node
+FROM node:16-alpine3.15
 
 WORKDIR /app
 
-COPY package.json ./
-
-RUN yarn install
-
+COPY ./package.json ./
+COPY ./yarn.lock ./
 COPY . .
-
-ENV API_URL=http://host.docker.internal:8000
 
 EXPOSE 3000
 
-CMD ["npm", "run", "dev"]
+RUN yarn install --registry=https://registry.yarnpkg.com/
+
+CMD ["yarn", "start"]

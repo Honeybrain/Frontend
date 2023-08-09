@@ -1,52 +1,37 @@
-import React, { useState } from 'react';
-import { Grid, TextField, Box, Button, Paper, Typography } from '@mui/material';
+import React from 'react';
+import { TextField, Box, Button, Paper, Typography } from '@mui/material';
+import useChangeMailRPC from '@hooks/backend/userService/useChangeMailRPC';
+import useResetPasswordRPC from '@hooks/backend/userService/useResetPasswordRPC';
 
 const ProfilePage = () => {
-  const [email, setEmail] = useState('');
-  const [newEmail, setNewEmail] = useState('');
-  const [submitted, setSubmitted] = useState(false);
-  const [submittedEmail, setSubmittedEmail] = useState(false);
+  const { changeMail } = useChangeMailRPC();
+  const { resetPassword } = useResetPasswordRPC();
+  const [email, setEmail] = React.useState<string>('');
+  const [newEmail, setNewEmail] = React.useState<string>('');
+  const [submitted, setSubmitted] = React.useState<boolean>(false);
+  const [submittedEmail, setSubmittedEmail] = React.useState<boolean>(false);
 
-
-  const handleSubmit = (e) => {
+  const handleSubmit = React.useCallback(async (e) => {
     e.preventDefault();
 
-    fetch("/api/user/resetPassword", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        setSubmitted(true);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }
-
-  const changeEmail = (e) => {
-    e.preventDefault();
-
-    fetch("/api/user/changeEmail", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ newEmail }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data); // Affiche la réponse du serveur
-        setSubmittedEmail(true);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    try {
+      await resetPassword(email);
+      setSubmitted(true);
+    } catch (error) {
+      console.error(error);
     }
+  }, [setSubmitted]);
+
+  const changeEmail = React.useCallback(async (e) => {
+    e.preventDefault();
+
+    try {
+      await changeMail(email);
+      setSubmittedEmail(true);
+    } catch (error) {
+      console.error(error);
+    }
+  }, [setSubmitted]);
 
   return (
     <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: 'calc(100vh - 110px)'}}>

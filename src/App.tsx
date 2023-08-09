@@ -1,20 +1,21 @@
 import React, { useContext } from 'react';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
-import AuthContext, { AuthProvider } from './AuthContext';  
-import Navbar from './components/Navbar';
-import HomePage from './components/HomePage';
-import LoginPage from './components/LoginPage';
-import ProfilePage from './components/ProfilePage';
-import HoneyPotPage from './components/HoneyPotPage';
+import AuthContext from "@contexts/AuthContext";
+import Navbar from '@components/Navbar';
+import HomePage from '@pages/HomePage';
+import LoginPage from '@pages/LoginPage';
+import ProfilePage from '@pages/ProfilePage';
+import HoneyPotPage from '@pages/HoneyPotPage';
 import { ThemeProvider } from '@mui/material/styles';
-import theme from './components/theme';
+import theme from './theme';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { AuthProvider } from '@providers/AuthProvider';
 
 function App() {
 
   const PrivateRoute = ({ component: Component, ...rest }) => {
-    const { isLoggedIn } = useContext(AuthContext);
+    const { isLoggedIn } = React.useContext(AuthContext);
     return (
       <Route
         {...rest}
@@ -30,7 +31,7 @@ function App() {
   };
 
   const PublicRoute = ({ component: Component, ...rest }) => {
-    const { isLoggedIn } = useContext(AuthContext);
+    const { isLoggedIn } = React.useContext(AuthContext);
     return (
       <Route
         {...rest}

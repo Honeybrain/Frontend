@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import '../../styles.css';
 import { Grid, TextField, Box, Button, Paper, Typography } from '@mui/material';
-import HelpModal from '../../TutorielPopUp/HelpModal';
+import HelpModal from '@components/HelpModal';
 
-function getRandomDummyPcIPAddresses(subnet, numServices) {
+const getRandomDummyPcIPAddresses = (subnet: string, numServices: number) => {
     const subnetParts = subnet.split('/');
     const baseIP = subnetParts[0];
     const subnetMask = parseInt(subnetParts[1]);
     const maxNumServices = Math.pow(2, 32 - subnetMask) - 2;
-    const ipAddresses = [];
+    const ipAddresses: string[] = [];
 
     if (numServices > maxNumServices)
         numServices = maxNumServices;
@@ -19,32 +19,32 @@ function getRandomDummyPcIPAddresses(subnet, numServices) {
     return ipAddresses;
 };
 
-function generateRandomIP(baseIP, subnetMask) {
+const generateRandomIP = (baseIP: string, subnetMask: number) => {
     const baseIPParts = baseIP.split('.');
     const hostRange = Math.pow(2, 32 - subnetMask) - 2;
-    const randomIPParts = [];
+    const randomIPParts: string[] = [];
 
     for (let i = 0; i < 4; i++) {
         if (i < 3)
             randomIPParts.push(baseIPParts[i]);
         else {
             const randomHost = Math.floor(Math.random() * hostRange) + 1;
-            randomIPParts.push(randomHost);
+            randomIPParts.push(randomHost.toString());
         }
     }
     return randomIPParts.join('.');
 };
 
 const Others = () => {
-    const [dummyPcNumServices, setDummyPcNumServices] = useState(2);
-    const [ftpIPAddress, setFtpIPAddress] = useState('192.168.1.10');
-    const [ftpPort, setFtpPort] = useState('21');
-    const [netinterface, setNetinterface] = useState('eth0');
-    const [subnet, setSubnet] = useState('192.168.1.0/24');
-    const [dockerPath, setDockerPath] = useState('/home/shop/Dockerfile');
-    const [dummyPcIPAddresses, setDummyPcIPAddresses] = useState(getRandomDummyPcIPAddresses(subnet, 2));
+    const [dummyPcNumServices, setDummyPcNumServices] = useState<number>(2);
+    const [ftpIPAddress, setFtpIPAddress] = useState<string>('192.168.1.10');
+    const [ftpPort, setFtpPort] = useState<string>('21');
+    const [netinterface, setNetinterface] = useState<string>('eth0');
+    const [subnet, setSubnet] = useState<string>('192.168.1.0/24');
+    const [dockerPath, setDockerPath] = useState<string>('/home/shop/Dockerfile');
+    const [dummyPcIPAddresses, setDummyPcIPAddresses] = useState<string[]>(getRandomDummyPcIPAddresses(subnet, 2));
 
-    const handleDummyPcNumServicesChange = (event) => {
+    const handleDummyPcNumServicesChange = (event: ChangeEvent<HTMLInputElement>) => {
         const numServices = parseInt(event.target.value) > 5 ? 5 : parseInt(event.target.value) < 0 ? 0 : parseInt(event.target.value);
         setDummyPcNumServices(numServices);
 
@@ -56,7 +56,7 @@ const Others = () => {
         }
     };
 
-    const handleDummyPcIPAddressChange = (index, event) => {
+    const handleDummyPcIPAddressChange = (index: number, event: ChangeEvent<HTMLInputElement>) => {
         const updatedIPAddresses = [...dummyPcIPAddresses];
         updatedIPAddresses[index] = event.target.value;
         setDummyPcIPAddresses(updatedIPAddresses);
@@ -160,7 +160,7 @@ const Others = () => {
                                         variant="outlined"
                                         label={`IP Address for dummy PC ${index + 1}`}
                                         value={ipAddress}
-                                        onChange={(event) => handleDummyPcIPAddressChange(index, event)}
+                                        onChange={(event: any) => handleDummyPcIPAddressChange(index, event)}
                                         fullWidth
                                     />
                                 </Grid>

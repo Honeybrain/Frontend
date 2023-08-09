@@ -1,13 +1,11 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useHistory } from "react-router-dom";
-import '../App';
-import '../styles.css';
-import AuthContext from '../AuthContext';
-import Dashboard from './dashboard/Dashboard';
-import ConnectionsManager from './pages/ConnectionsManager';
-import ContainerManager from './pages/ContainerManager';
-import BlockManager from './pages/BlockManager';
-import Others from './pages/Others';
+import AuthContext from '@contexts/AuthContext';
+import Dashboard from '@components/dashboard/Dashboard';
+import ConnectionsManager from '@components/dashboard/ConnectionsManager';
+import ContainerManager from '@components/dashboard/ContainerManager';
+import BlockManager from '@components/dashboard/BlockManager';
+import Others from '@components/dashboard/Others';
 
 const HomePage = () => {
   const { isLoggedIn, logout } = useContext(AuthContext);
@@ -29,7 +27,7 @@ const HomePage = () => {
   const fetchConnections = async () => {
     const response = await fetch(''); 
     const data = await response.json();
-    setContainers(data);
+    // setContainers(data); TODO
   };
 
   const handleMenuClick = (content) => {

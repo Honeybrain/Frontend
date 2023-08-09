@@ -2,32 +2,16 @@ import React, { useState, useEffect, useContext } from 'react';
 import { Grid, Typography, Card, CardContent, Box } from '@mui/material';
 import ErrorIcon from '@mui/icons-material/Error';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import AuthContext from '../../AuthContext';
-import HelpModal from '../../TutorielPopUp/HelpModal';
+import AuthContext from "@contexts/AuthContext";
+import HelpModal from "@components/HelpModal";
+import useContainersRPC from '@hooks/backend/honeypotService/useContainersRPC';
 
-const ContainerManager = () => {
-  const [containers, setContainers] = useState([]);
+const ContainerManager: React.FC = () => {
+  const { containers } = useContainersRPC();
   const { token } = useContext(AuthContext);
 
-  useEffect(() => {
-    fetchContainers();
-  }, []);
-
-  const fetchContainers = async () => {
-    const token = localStorage.getItem('token');
-    const response = await fetch('/api/honeypot/containers', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`,
-      },
-    });
-    const data = await response.json();
-    setContainers(data);
-  };
-
-  const getContainerStatus = (status) => {
-    if (status.startsWith('Up')) {
+  const getContainerStatus = (status: string) => {
+    if (status.startsWith('running')) {
       return <CheckCircleIcon color="success" />;
     } else {
       return <ErrorIcon color="error" />;
@@ -62,7 +46,7 @@ const ContainerManager = () => {
           },
         }}
       >
-          {containers.map((container, index) => (
+          {containers && containers.map((container, index) => (
             <Card variant="outlined" key={index}>
               <CardContent>
                 <Box

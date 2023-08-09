@@ -6,6 +6,7 @@ package-lock.json
 *.swp
 .DS_Store
 .vscode
+yarn.lock
 
 # Build artifacts to exclude
 /build
