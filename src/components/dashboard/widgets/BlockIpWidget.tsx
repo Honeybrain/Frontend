@@ -73,7 +73,6 @@ const BlacklistPage = () => {
                   </IconButton>
                 </ListItemSecondaryAction>
               </ListItem>
-              {dashboard.blacklist && index !== dashboard.blacklist.length - 1 && <Divider />}
             </React.Fragment>
           ))}
           </List>
