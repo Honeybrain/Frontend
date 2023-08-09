@@ -6,11 +6,12 @@ import { ContainersClient } from "@protos/containers.client";
 const useContainersRPC = () => {
   const client = React.useMemo(() => new ContainersClient(transport), []);
   const [containers, setContainers] = React.useState<Container[]>();
+  const controller = new AbortController();
 
   const streamContainers = React.useCallback(async () => {
     const request: ContainersRequest = ContainersRequest.create();
 
-    const stream = client.streamContainers(request);
+    const stream = client.streamContainers(request, { abort: controller.signal });
     stream.responses.onNext((message) => {
       setContainers(message?.containers);
     });
@@ -18,6 +19,10 @@ const useContainersRPC = () => {
 
   React.useEffect(() => {
     streamContainers();
+
+    return () => {
+      controller.abort();
+    }
   }, []);
 
   return {

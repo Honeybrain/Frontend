@@ -8,7 +8,7 @@ const useDashboardRPC = () => {
   const [containers, setContainers] = React.useState<Container[]>();
   const [logs, setLogs] = React.useState<string | undefined>('');
   const [blacklist, setBlacklist] = React.useState<string[] | undefined>();
-  const controller = new AbortController()
+  const controller = new AbortController();
 
   const streamDashboardInformation = React.useCallback(async () => {
     const request: DashboardRequest = DashboardRequest.create();
@@ -25,7 +25,7 @@ const useDashboardRPC = () => {
     streamDashboardInformation();
 
     return () => {
-      controller.abort()
+      controller.abort();
     }
   }, []);
 
