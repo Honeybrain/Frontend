@@ -4,9 +4,11 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import HelpModal from "@components/HelpModal";;
 import React from 'react';
 import DashboardContext from '@contexts/DashboardContext';
+import { useTranslation } from 'react-i18next';
 
 const ContainerMonitorWidget = () => {
   const dashboard = React.useContext(DashboardContext);
+  const { t } = useTranslation();
 
   const getContainerStatus = (status) => {
     if (status.startsWith('running')) {
@@ -21,15 +23,10 @@ const ContainerMonitorWidget = () => {
       <Paper sx={{ p: 2, height: '360px', width: '25em', maxWidth: '100%', margin: '1em', overflow: 'hidden' }}>
         <Grid container justifyContent="space-between" alignItems="center" mb={2}>
           <Grid item>
-          <Typography variant="h6" mb={2}>Services honeypot</Typography>
+          <Typography variant="h6" mb={2}>{t('containerMonitorWidget.honeypotServices')}</Typography>
           </Grid>
           <Grid item>
-            <HelpModal helpText="
-            En utilisant le widget Gestion des conteneurs, vous pouvez voir une liste de tous les conteneurs actuellement en cours d'exécution, ainsi que leur état et leur adresse IP. Chaque conteneur est affiché sur une carte individuelle.
-
-            L'état du conteneur peut être Up ou Down indiquant si le conteneur est actuellement en cours d'exécution ou non.
-
-            L'adresse IP du conteneur est également affichée, permettant de voir facilement l'adresse réseau du conteneur." />
+            <HelpModal helpText={t('containerMonitorWidget.helpText')} />
           </Grid>
         </Grid>
         <Box
@@ -54,8 +51,8 @@ const ContainerMonitorWidget = () => {
                   <Typography variant="h6">{container.name}</Typography>
                   {getContainerStatus(container.status)}
                 </Box>
-                <Typography variant="body2" color="text.secondary">Status: {container.status}</Typography>
-                <Typography variant="body2" color="text.secondary">IP: {container.ip.split('/')[0]}</Typography>
+                <Typography variant="body2" color="text.secondary">{t('containerMonitorWidget.status')}: {container.status}</Typography>
+                <Typography variant="body2" color="text.secondary">{t('containerMonitorWidget.ip')}: {container.ip.split('/')[0]}</Typography>
               </CardContent>
             </Card>
           ))}

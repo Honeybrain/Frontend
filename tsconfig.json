@@ -30,6 +30,7 @@
       "@hooks/*": ["hooks/*"],
       "@protos/*": ["protos/*"],
       "@types/*": ["types/*"],
+      "@locales/*": ["locales/*"],
     }
   },
   "include": ["src"],

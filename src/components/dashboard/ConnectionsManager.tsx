@@ -2,23 +2,20 @@ import { Grid, Typography, Box } from '@mui/material';
 import MonacoEditor from 'react-monaco-editor';
 import HelpModal from '@components/HelpModal';
 import useLogsRPC from '@hooks/backend/honeypotService/useLogsRPC';
+import { useTranslation } from 'react-i18next';
 
 const ListConnections = () => {
 	const { logs } = useLogsRPC();
+	const { t } = useTranslation();
 
 	return (
 		<Box flex={1}>
 			<Grid container justifyContent="space-between" alignItems="center" mb={2}>
 				<Grid item>
-					<Typography variant="h4" mb={2}>Connexions entrantes</Typography>
+					<Typography variant="h4" mb={2}>{t('listConnections.title')}</Typography>
 				</Grid>
 				<Grid item>
-						<HelpModal helpText="
-				La fonctionnalité Connexions entrantes offre une vue en temps réel des logs de connexions au système de honeypot.
-
-				Ces logs sont généralement des enregistrements d'événements produits par le système, en particulier des tentatives de connexion entrantes.
-
-				Un honeypot est une ressource de réseau mise en place pour attirer et détecter les tentatives d'accès non autorisées."/>
+					<HelpModal helpText={t('listConnections.helpText')}/>
 				</Grid>
 			</Grid>
 			<Box sx={{ height: "90%"}}>

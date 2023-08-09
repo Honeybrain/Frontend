@@ -2,6 +2,7 @@ import React from 'react';
 import { Modal, Box, Typography, IconButton, Button } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import HelpIcon from '@mui/icons-material/Help';
+import { useTranslation } from 'react-i18next';
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -10,9 +11,9 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
   },
   paper: {
-    backgroundColor: theme.palette.background.paper,
-    boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3),
+    // backgroundColor: theme.palette.background.paper,
+    // boxShadow: theme.shadows[5],
+    // padding: theme.spacing(2, 4, 3),
     borderRadius: '10px',
     maxWidth: '500px',
     width: '100%',
@@ -22,6 +23,7 @@ const useStyles = makeStyles((theme) => ({
 const HelpModal = ({ helpText }) => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
+  const { t } = useTranslation();
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -46,15 +48,15 @@ const HelpModal = ({ helpText }) => {
         <Box className={classes.paper}>
           <Box mb={2}>
             <Typography variant="h5" id="modal-modal-title">
-              Aide
+              {t('helpModal.help')}
             </Typography>
-            <Typography variant="body2" id="modal-modal-description" style={{ whiteSpace: 'pre-line' }}>
+            <Typography variant="body2" id="modal-modal-description" style={{ whiteSpace: 'pre-line', marginTop: 15 }}>
               {helpText}
             </Typography>
           </Box>
           <Box display="flex" justifyContent="flex-end">
             <Button variant="contained" color="primary" onClick={handleClose}>
-              Fermer
+              {t('helpModal.close')}
             </Button>
           </Box>
         </Box>

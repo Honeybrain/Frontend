@@ -11,9 +11,9 @@ import theme from './theme';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { AuthProvider } from '@providers/AuthProvider';
+import './i18n/i18n';
 
 function App() {
-
   const PrivateRoute = ({ component: Component, ...rest }) => {
     const { isLoggedIn } = React.useContext(AuthContext);
     return (
