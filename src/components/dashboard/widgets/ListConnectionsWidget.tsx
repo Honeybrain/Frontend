@@ -1,10 +1,11 @@
 import { Grid, Paper, Typography, Box } from '@mui/material';
 import MonacoEditor from 'react-monaco-editor';
 import HelpModal from '@components/HelpModal';
-import useDashboardRPC from '@hooks/backend/honeypotService/useDashboardRPC';
+import React from 'react';
+import DashboardContext from '@contexts/DashboardContext';
 
 const LogViewerWidget = () => {
-  const { logs } = useDashboardRPC();
+  const dashboard = React.useContext(DashboardContext);
 
   return (
     <Grid item xs={12} style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
@@ -28,7 +29,7 @@ const LogViewerWidget = () => {
             height="100%"
             language="plaintext"
             theme="vs"
-            value={logs}
+            value={dashboard.logs}
             options={{ selectOnLineNumbers: true, readOnly: true }}
           />
         </Box>

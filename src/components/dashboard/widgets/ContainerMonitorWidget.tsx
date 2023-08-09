@@ -2,10 +2,11 @@ import { Grid, Paper, Typography, Card, CardContent, Box } from '@mui/material';
 import ErrorIcon from '@mui/icons-material/Error';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import HelpModal from "@components/HelpModal";;
-import useDashboardRPC from '@hooks/backend/honeypotService/useDashboardRPC';
+import React from 'react';
+import DashboardContext from '@contexts/DashboardContext';
 
 const ContainerMonitorWidget = () => {
-  const { containers } = useDashboardRPC();
+  const dashboard = React.useContext(DashboardContext);
 
   const getContainerStatus = (status) => {
     if (status.startsWith('running')) {
@@ -40,7 +41,7 @@ const ContainerMonitorWidget = () => {
             },
           }}
         >
-          {containers && containers.map((container, index) => (
+          {dashboard.containers && dashboard.containers.map((container, index) => (
             <Card variant="outlined" key={index}>
               <CardContent>
                 <Box

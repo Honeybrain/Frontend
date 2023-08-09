@@ -29,7 +29,7 @@ const useBlackListRPC = () => {
   }, []);
 
   React.useEffect(() => {
-    getBlackList();
+    // getBlackList();
   }, []);
 
   return {

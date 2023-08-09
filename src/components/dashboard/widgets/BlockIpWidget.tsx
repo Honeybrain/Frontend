@@ -4,11 +4,11 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { Divider } from '@mui/material';
 import HelpModal from "@components/HelpModal";
 import useBlackListRPC from '@hooks/backend/honeypotService/useBlackListRPC';
-import useDashboardRPC from '@hooks/backend/honeypotService/useDashboardRPC';
+import DashboardContext from '@contexts/DashboardContext';
 
 const BlacklistPage = () => {
   const { putWhiteList } = useBlackListRPC();
-  const { blacklist } = useDashboardRPC();
+  const dashboard = React.useContext(DashboardContext);
   const [open, setOpen] = React.useState(false);
   const [alertText, setAlertText] = React.useState('');
 
@@ -56,10 +56,11 @@ const BlacklistPage = () => {
             },
           }}
         >
-          { blacklist && blacklist.length == 0 && <h4>Aucune ip bloquée !</h4> }
+          { dashboard.blacklist && dashboard.blacklist.length == 0 && <h4>Aucune ip bloquée !</h4> }
           <List sx={{ overflow: 'auto' }}>
-            {blacklist && blacklist.map((blacklistedIP, index) => (
-              <ListItem key={index} sx={{
+          {dashboard.blacklist && dashboard.blacklist.map((blacklistedIP, index) => (
+            <React.Fragment key={index}>
+              <ListItem sx={{
                 my: 1,
                 px: 2,
                 bgcolor: index % 2 === 0 ? 'action.hover' : 'background.default',
@@ -71,9 +72,10 @@ const BlacklistPage = () => {
                     <DeleteIcon color="error" />
                   </IconButton>
                 </ListItemSecondaryAction>
-                {index !== blacklist.length - 1 && <Divider />}
               </ListItem>
-            ))}
+              {dashboard.blacklist && index !== dashboard.blacklist.length - 1 && <Divider />}
+            </React.Fragment>
+          ))}
           </List>
         </Box>
       </Paper>

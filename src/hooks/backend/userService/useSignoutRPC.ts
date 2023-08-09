@@ -8,7 +8,7 @@ const useSignOutRPC = () => {
 
   const signOut = React.useCallback(async () => {
     const request: EmptyRequest = EmptyRequest.create();
-    await client.signOut(request, {});
+    await client.signOut(request);
   }, []);
 
   return {
