@@ -2,6 +2,7 @@ import React from 'react';
 import { TextField, Box, Button, Paper, Typography } from '@mui/material';
 import useChangeMailRPC from '@hooks/backend/userService/useChangeMailRPC';
 import useResetPasswordRPC from '@hooks/backend/userService/useResetPasswordRPC';
+import { useTranslation } from "react-i18next";
 
 const ProfilePage = () => {
   const { changeMail } = useChangeMailRPC();
@@ -10,6 +11,7 @@ const ProfilePage = () => {
   const [newEmail, setNewEmail] = React.useState<string>('');
   const [submitted, setSubmitted] = React.useState<boolean>(false);
   const [submittedEmail, setSubmittedEmail] = React.useState<boolean>(false);
+  const { t } = useTranslation();
 
   const handleSubmit = React.useCallback(async (e) => {
     e.preventDefault();
@@ -37,38 +39,38 @@ const ProfilePage = () => {
     <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: 'calc(100vh - 110px)'}}>
       <Paper sx={{ p: 2, width: '25em' }}>
         <Box component="form" sx={{ display: 'flex', flexDirection: 'column', gap: 2, marginBottom: 4 }} onSubmit={handleSubmit}>
-          <Typography variant="h6">Changement de mot de passe</Typography>
-          {submitted && (<Typography>Vous allez recevoir un email permettant de réinitialiser votre mot de passe</Typography>)
+          <Typography variant="h6">{t('profilePage.passwordChange')}</Typography>
+          {submitted && (<Typography>{t('profilePage.resetEmailSent')}</Typography>)
           }
           {!submitted && (
           <>
             <TextField
               type="email"
               name='email'
-              label="Adresse email"
+              label={t('profilePage.emailAddress')}
               value={email}
               required
               onChange={(e) => setEmail(e.target.value)}
             />
-            <Button type="submit" variant="contained" color="primary">Réinitialiser le mot de passe</Button>
+            <Button type="submit" variant="contained" color="primary">{t('profilePage.resetPassword')}</Button>
           </>
         )}
         </Box>
         <Box component="form" sx={{ display: 'flex', flexDirection: 'column', gap: 2 }} onSubmit={changeEmail}>
-          <Typography variant="h6">Changement d'adresse email</Typography>
-          {submittedEmail && (<Typography>Votre Email a bien été modifié.</Typography>)
+          <Typography variant="h6">{t('profilePage.emailChange')}</Typography>
+          {submittedEmail && (<Typography>{t('profilePage.emailUpdated')}</Typography>)
           }
           {!submittedEmail && (
           <>
           <TextField
             type="newEmail"
             name="newEmail"
-            label="Nouvel e-mail"
+            label={t('profilePage.newEmail')}
             value = {newEmail}
             required
             onChange={(e) => setNewEmail(e.target.value)}
           />
-          <Button type="submit" variant="contained" color="primary">Valider</Button>
+          <Button type="submit" variant="contained" color="primary">{t('profilePage.validate')}</Button>
           </>
           )}
         </Box>

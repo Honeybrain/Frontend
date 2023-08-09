@@ -6,6 +6,8 @@ import React, { useContext } from 'react';
 import AuthContext from "@contexts/AuthContext";
 import { Link } from 'react-router-dom';
 import theme from '../theme';
+import { useTranslation } from "react-i18next";
+import LanguageSwitcher from '../i18n/LanguageSwitcher';
 
 const useStyles = makeStyles({
   title: {
@@ -22,6 +24,7 @@ const useStyles = makeStyles({
 
 const Navbar = () => {
   const { isLoggedIn, logout } = useContext(AuthContext);
+  const { t } = useTranslation();
 
   const handleLogout = () => {
     logout();
@@ -32,26 +35,23 @@ const Navbar = () => {
     <AppBar position="static">
       <Toolbar>
         <Typography variant="h6" className={classes.title}>
-          Dashboard
+          {t('navbar.dashboard')}
         </Typography>
         {!isLoggedIn && (
           <>
-          
-            <Button component={Link} to="/login" color="inherit" className={classes.navButton}>Login</Button>
+            <Button component={Link} to="/login" color="inherit" className={classes.navButton}>{t('navbar.login')}</Button>
           </>
         )}
         {isLoggedIn && (
           <>
-            <Button component={Link} to="/" color="inherit" className={classes.navButton}>Accueil</Button>
-            <Button component={Link} to="/profile" color="inherit" className={classes.navButton}>Profil</Button>
-            <Button color="inherit" onClick={handleLogout} className={classes.navButton}>Déconnexion</Button>
+            <Button component={Link} to="/" color="inherit" className={classes.navButton}>{t('navbar.home')}</Button>
+            <Button component={Link} to="/profile" color="inherit" className={classes.navButton}>{t('navbar.profile')}</Button>
+            <Button color="inherit" onClick={handleLogout} className={classes.navButton}>{t('navbar.logout')}</Button>
           </>
         )}
-
       </Toolbar>
     </AppBar>
   );
 };
 
 export default Navbar;
-

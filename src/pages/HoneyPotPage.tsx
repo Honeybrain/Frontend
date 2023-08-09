@@ -4,6 +4,7 @@ import ipImage from '../images/adressip.gif';
 import { Card, CardContent, Typography, Chip } from '@mui/material';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import ErrorIcon from '@mui/icons-material/Error';
+import { useTranslation } from 'react-i18next';
 
 type ConnectionStatus = 'safe' | 'danger';
 
@@ -16,6 +17,7 @@ interface Connection {
 
 const HoneyPotPage: React.FC = () => {
   const [connections, setConnections] = React.useState<Connection[]>([]);
+  const { t } = useTranslation();
 
   React.useEffect(() => {
     setConnections([
@@ -27,22 +29,22 @@ const HoneyPotPage: React.FC = () => {
   return (
     <div className="honey-pot-container">
       <Typography variant="h4" component="div" gutterBottom className="title">
-        Connexions actuelles
+        {t('HoneyPotPage:current_connections')}
       </Typography>
-      <img src={ipImage} alt="IP Connections" className="ip-image" />
+      <img src={ipImage} alt={t('HoneyPotPage:ip_connections')} className="ip-image" />
       <div className="connections-container">
         {connections.map((connection: Connection) => (
           <Card key={connection.id} className="connection-card">
             <CardContent>
               <Typography variant="h5" component="div" className="ip-address">
-                IP: {connection.ipAddress}
+                {t('HoneyPotPage.ip')}: {connection.ipAddress}
               </Typography>
               <Typography variant="body2" color="text.secondary" className="ip-time">
-                Heure: {connection.time}
+                {t('HoneyPotPage.time')}: {connection.time}
               </Typography>
               <Chip
                 icon={connection.status === 'safe' ? <CheckCircleIcon /> : <ErrorIcon />}
-                label={connection.status === 'safe' ? 'Sûr' : 'Danger'}
+                label={connection.status === 'safe' ? 'safe' : 'danger'}
                 color={connection.status === 'safe' ? 'success' : 'error'}
                 className="ip-status"
               />

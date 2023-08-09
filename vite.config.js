@@ -54,6 +54,10 @@ export default ({ mode }) => {
           find: "@protos",
           replacement: path.resolve(__dirname, "./src/protos"),
         },
+        {
+          find: "@locales",
+          replacement: path.resolve(__dirname, "./src/locales"),
+        },
       ],
     },
   });

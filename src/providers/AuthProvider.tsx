@@ -4,6 +4,7 @@ import { toast } from 'react-toastify';
 import AuthContext from '@contexts/AuthContext'
 import useSignInRPC from '@hooks/backend/userService/useSignInRPC';
 import useSignOutRPC from '@hooks/backend/userService/useSignoutRPC';
+import { useTranslation } from 'react-i18next';
 
 export const AuthProvider = ({ children }) => {
     const { signIn } = useSignInRPC();
@@ -11,6 +12,7 @@ export const AuthProvider = ({ children }) => {
     const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
     const history = useHistory();
     const [token, setToken] = React.useState<string | null>(null);
+    const { t } = useTranslation();
   
     useEffect(() => {
       const storedToken = localStorage.getItem('token');
@@ -39,7 +41,7 @@ export const AuthProvider = ({ children }) => {
         setToken(null);
         setIsLoggedIn(false);
 
-        toast.success("Vous avez été déconnecté avec succès", {
+        toast.success(t('AuthContext.logout'), {
           position: toast.POSITION.BOTTOM_CENTER
         });
 

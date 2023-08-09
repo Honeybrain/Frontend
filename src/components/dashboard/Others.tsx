@@ -2,6 +2,7 @@ import React, { ChangeEvent, useState } from 'react';
 import '../../styles.css';
 import { Grid, TextField, Box, Button, Paper, Typography } from '@mui/material';
 import HelpModal from '@components/HelpModal';
+import { useTranslation } from 'react-i18next';
 
 const getRandomDummyPcIPAddresses = (subnet: string, numServices: number) => {
     const subnetParts = subnet.split('/');
@@ -43,6 +44,7 @@ const Others = () => {
     const [subnet, setSubnet] = useState<string>('192.168.1.0/24');
     const [dockerPath, setDockerPath] = useState<string>('/home/shop/Dockerfile');
     const [dummyPcIPAddresses, setDummyPcIPAddresses] = useState<string[]>(getRandomDummyPcIPAddresses(subnet, 2));
+    const { t } = useTranslation();
 
     const handleDummyPcNumServicesChange = (event: ChangeEvent<HTMLInputElement>) => {
         const numServices = parseInt(event.target.value) > 5 ? 5 : parseInt(event.target.value) < 0 ? 0 : parseInt(event.target.value);
@@ -91,27 +93,22 @@ const Others = () => {
             <Paper sx={{ p: 2, width: '50em' }}>
                 <Grid container justifyContent="space-between" alignItems="center" >
                     <Grid item>
-                        <Typography variant="h5">Config Generator</Typography>
+                        <Typography variant="h5">{t('configGenerator.title')}</Typography>
                     </Grid>
                     <Grid item>
-                        <HelpModal helpText="
-                            Cette fonctionnalité, nommée Config Generator, permet à l'utilisateur de générer et de télécharger un fichier de configuration pour un réseau avec des adresses IP spécifiques.
-
-                            L'utilisateur peut spécifier le nombre de faux ordinateurs (dummy PC), leur adresse IP, l'adresse IP et le port d'un serveur FTP, ainsi que le sous-réseau du réseau.
-
-                            Cela permet de configurer le HoneyBrain depuis le Dashboard." />
+                        <HelpModal helpText={t('configGenerator.helpText')} />
                     </Grid>
                 </Grid>
                 <Grid container spacing={2} mb={3} direction="row">
                     {/* General Configuration */}
                     <Grid item xs={6}>
-                        <Typography variant="h6" mb={2}>General Configuration</Typography>
+                        <Typography variant="h6" mb={2}>{t('configGenerator.generalConfiguration')}</Typography>
                         <Grid container spacing={2} direction="column" alignItems="stretch">
                             <Grid item>
                                 <TextField
                                     type="text"
                                     variant="outlined"
-                                    label="Network interface"
+                                    label={t('configGenerator.networkInterfaceLabel')}
                                     value={netinterface}
                                     onChange={(e) => setNetinterface(e.target.value)}
                                     fullWidth
@@ -121,7 +118,7 @@ const Others = () => {
                                 <TextField
                                     type="text"
                                     variant="outlined"
-                                    label="Subnet"
+                                    label={t('configGenerator.subnetLabel')}
                                     value={subnet}
                                     onChange={(e) => setSubnet(e.target.value)}
                                     fullWidth
@@ -131,7 +128,7 @@ const Others = () => {
                                 <TextField
                                     type="text"
                                     variant="outlined"
-                                    label="Dockerfile path"
+                                    label={t('configGenerator.dockerfilePathLabel')}
                                     value={dockerPath}
                                     onChange={(e) => setDockerPath(e.target.value)}
                                     fullWidth
@@ -141,13 +138,13 @@ const Others = () => {
                     </Grid>
                     {/* Services Configuration */}
                     <Grid item xs={6}>
-                        <Typography variant="h6" mb={2}>Services</Typography>
+                        <Typography variant="h6" mb={2}>{t('configGenerator.services')}</Typography>
                         <Grid container spacing={2} direction="column" alignItems="stretch">
                             <Grid item>
                                 <TextField
                                     type="number"
                                     variant="outlined"
-                                    label="Number of dummy PC"
+                                    label={t('configGenerator.numberOfDummyPCLabel')}
                                     value={dummyPcNumServices}
                                     onChange={handleDummyPcNumServicesChange}
                                     fullWidth
@@ -158,7 +155,7 @@ const Others = () => {
                                     <TextField
                                         type="text"
                                         variant="outlined"
-                                        label={`IP Address for dummy PC ${index + 1}`}
+                                        label={t('configGenerator.ipAddressForDummyPCLabel') + ' ' + (index + 1)}
                                         value={ipAddress}
                                         onChange={(event: any) => handleDummyPcIPAddressChange(index, event)}
                                         fullWidth
@@ -169,7 +166,7 @@ const Others = () => {
                                 <TextField
                                     type="text"
                                     variant="outlined"
-                                    label="IP Address for FTP"
+                                    label={t('configGenerator.ipAddressForFTPLabel')}
                                     value={ftpIPAddress}
                                     onChange={(e) => setFtpIPAddress(e.target.value)}
                                     fullWidth
@@ -179,7 +176,7 @@ const Others = () => {
                                 <TextField
                                     type="text"
                                     variant="outlined"
-                                    label="Port for FTP"
+                                    label={t('configGenerator.portForFTPLabel')}
                                     value={ftpPort}
                                     onChange={(e) => setFtpPort(e.target.value)}
                                     fullWidth
@@ -191,7 +188,7 @@ const Others = () => {
                 <Grid item>
                     <Box width="100%" display="flex" justifyContent="center">
                         <Button variant="contained" color="primary" onClick={handleDownload}>
-                            Download Configuration
+                            {t('configGenerator.downloadConfiguration')}
                         </Button>
                     </Box>
                 </Grid>

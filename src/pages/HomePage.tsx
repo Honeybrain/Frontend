@@ -6,11 +6,13 @@ import ConnectionsManager from '@components/dashboard/ConnectionsManager';
 import ContainerManager from '@components/dashboard/ContainerManager';
 import BlockManager from '@components/dashboard/BlockManager';
 import Others from '@components/dashboard/Others';
+import { useTranslation } from "react-i18next";
 
 const HomePage = () => {
   const { isLoggedIn, logout } = useContext(AuthContext);
   const history = useHistory();
   const [currentContent, setCurrentContent] = useState('dashboard');
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (!isLoggedIn) {
@@ -56,11 +58,11 @@ const HomePage = () => {
       <div className="home-sidebar">
         <h3>HoneyPot</h3>
         <ul>
-          <li onClick={() => handleMenuClick('dashboard')}>Tableau de bord</li>
-          <li onClick={() => handleMenuClick('ipManagement')}>Gestion des IP</li>
-          <li onClick={() => handleMenuClick('containerManager')}>Manager des conteneurs</li>
-          <li onClick={() => handleMenuClick('incomingConnections')}>Connexions entrantes</li>
-          <li onClick={() => handleMenuClick('otherFeatures')}>Autres fonctionnalités</li>
+          <li onClick={() => handleMenuClick('dashboard')}>{t('homePage.dashboard')}</li>
+          <li onClick={() => handleMenuClick('ipManagement')}>{t('homePage.ipManagement')}</li>
+          <li onClick={() => handleMenuClick('containerManager')}>{t('homePage.containerManager')}</li>
+          <li onClick={() => handleMenuClick('incomingConnections')}>{t('homePage.incomingConnections')}</li>
+          <li onClick={() => handleMenuClick('otherFeatures')}>{t('homePage.otherFeatures')}</li>
         </ul>
       </div>
       <div className="home-content">
