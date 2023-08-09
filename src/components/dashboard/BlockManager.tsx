@@ -4,71 +4,41 @@ import { Typography, TextField, Button, Paper, Grid, Snackbar, Alert, List, List
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Divider } from '@mui/material';
 import HelpModal from "@components/HelpModal";
+import useBlackListRPC from '@hooks/backend/honeypotService/useBlackListRPC';
 
 const BlockManager = () => {
-    const [ip, setIp] = React.useState('');
-    const [blacklistedIPs, setBlacklistedIPs] = React.useState([]);
-    const [open, setOpen] = React.useState(false);
-    const [alertText, setAlertText] = React.useState('');
+  const { blacklist, putBlackList, putWhiteList } = useBlackListRPC();
+  const [ip, setIp] = React.useState('');
+  const [open, setOpen] = React.useState(false);
+  const [alertText, setAlertText] = React.useState('');
 
-    const handleClose = React.useCallback(() => {
-        //if (reason === 'clickaway') {
-        //  return;
-        //} // TODO
-        setOpen(false);
-    }, []);
-
-    React.useEffect(() => {
-      fetchBlacklistedIPs();
-      const interval = setInterval(fetchBlacklistedIPs, 5000); // Update the list every 5 seconds
-      return () => {
-          clearInterval(interval);
-      };
+  const handleClose = React.useCallback(() => {
+    //if (reason === 'clickaway') {
+    //  return;
+    //} // TODO
+    setOpen(false);
   }, []);
 
-  const fetchBlacklistedIPs = async () => {
-      try {
-          const response = await axios.get('/api/honeypot/blacklist', {
-              headers: {
-                  'Authorization': `Bearer ${localStorage.getItem('token')}`,
-              },
-          });
-          setBlacklistedIPs(response.data);
-      } catch (error) {
-          console.error(error);
-      }
-  };
-
   const handleSubmit = async (e) => {
-      e.preventDefault();
-      try {
-          const response = await axios.post('/api/honeypot/blacklist', { ip }, {
-              headers: {
-                  'Authorization': `Bearer ${localStorage.getItem('token')}`,
-              },
-          });
-          setIp('');
-          setAlertText('IP blocked successfully');
-          setOpen(true);
-          fetchBlacklistedIPs();
-      } catch (error) {
-          console.error(error);
-      }
+    e.preventDefault();
+    try {
+      await putBlackList(ip);
+      setIp('');
+      setAlertText('IP blocked successfully');
+      setOpen(true);
+    } catch (error) {
+        console.error(error);
+    }
   };
 
   const handleUnblock = async (ip) => {
-      try {
-          await axios.post('/api/honeypot/whitelist', { ip }, {
-              headers: {
-                  'Authorization': `Bearer ${localStorage.getItem('token')}`,
-              },
-          });
-          setAlertText('IP unblocked successfully');
-          setOpen(true);
-          fetchBlacklistedIPs();
-      } catch (error) {
-          console.error(error);
-      }
+    try {
+      await putWhiteList(ip);
+      setAlertText('IP unblocked successfully');
+      setOpen(true);
+    } catch (error) {
+        console.error(error);
+    }
   };
 
   return (
@@ -135,7 +105,7 @@ const BlockManager = () => {
             }}
           >
             <List>
-              {blacklistedIPs.map((blacklistedIP, index) => (
+              {blacklist && blacklist.map((blacklistedIP, index) => (
                 <ListItem key={index} sx={{
                   my: 1,
                   px: 2,
@@ -148,7 +118,7 @@ const BlockManager = () => {
                       <DeleteIcon color="error" />
                     </IconButton>
                   </ListItemSecondaryAction>
-                  {index !== blacklistedIPs.length - 1 && <Divider />}
+                  {index !== blacklist.length - 1 && <Divider />}
                 </ListItem>
               ))}
             </List>

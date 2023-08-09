@@ -6,11 +6,12 @@ import { GetBlackListRequest, PutWhiteListRequest, PutBlackListRequest} from '@p
 const useBlackListRPC = () => {
   const client = React.useMemo(() => new BlacklistClient(transport), []);
   const [blacklist, setBlacklist] = React.useState<string[] | undefined>();
+  const controller = new AbortController()
 
   const getBlackList = React.useCallback(async () => {
     const request: GetBlackListRequest = GetBlackListRequest.create();
 
-    const stream = client.getBlackList(request);
+    const stream = client.getBlackList(request, { abort: controller.signal });
     stream.responses.onNext((message) => {
       setBlacklist(message?.ips);
     });
@@ -29,7 +30,11 @@ const useBlackListRPC = () => {
   }, []);
 
   React.useEffect(() => {
-    // getBlackList();
+    getBlackList();
+
+    return () => {
+      controller.abort()
+    }
   }, []);
 
   return {
