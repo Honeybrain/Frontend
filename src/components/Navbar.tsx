@@ -7,7 +7,7 @@ import AuthContext from "@contexts/AuthContext";
 import { Link } from 'react-router-dom';
 import theme from '../theme';
 import { useTranslation } from "react-i18next";
-import LanguageSwitcher from '../i18n/LanguageSwitcher';
+import LanguageSwitcher from './LanguageSwitcher';
 
 const useStyles = makeStyles({
   title: {
@@ -37,6 +37,7 @@ const Navbar = () => {
         <Typography variant="h6" className={classes.title}>
           {t('navbar.dashboard')}
         </Typography>
+        <LanguageSwitcher />
         {!isLoggedIn && (
           <>
             <Button component={Link} to="/login" color="inherit" className={classes.navButton}>{t('navbar.login')}</Button>
