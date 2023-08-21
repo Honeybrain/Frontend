@@ -1,12 +1,10 @@
 # Files and directories to exclude from the Docker build context
-node_modules
 package-lock.json
 *.log
 *.pid
 *.swp
 .DS_Store
 .vscode
-yarn.lock
 
 # Build artifacts to exclude
 /build
