@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Typography, TextField, Button, Paper, Grid, Snackbar, Alert, List, ListItem, ListItemText, ListItemSecondaryAction, IconButton, Box } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Divider } from '@mui/material';
+import HelpModal from '../../../TutorielPopUp/HelpModal';
 
 const BlacklistPage = () => {
   const [ip, setIp] = useState('');
@@ -27,7 +28,7 @@ const BlacklistPage = () => {
 
   const fetchBlacklistedIPs = async () => {
     try {
-      const response = await axios.get('http://localhost:8000/honeypot/blacklist', { 
+      const response = await axios.get('/api/honeypot/blacklist', {
           headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
       });
       setBlacklistedIPs(response.data);
@@ -39,7 +40,7 @@ const BlacklistPage = () => {
 const handleSubmit = async (e) => {
   e.preventDefault();
   try {
-    const response = await axios.post('http://localhost:8000/honeypot/blacklist', { ip }, {
+    const response = await axios.post('/api/honeypot/blacklist', { ip }, {
         headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
     });
     setIp('');
@@ -52,7 +53,7 @@ const handleSubmit = async (e) => {
 
 const handleUnblock = async (ip) => {
   try {
-    await axios.post('http://localhost:8000/honeypot/whitelist', { ip }, {
+    await axios.post('/api/honeypot/whitelist', { ip }, {
         headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
     });
     setAlertText('IP unblocked successfully');
@@ -66,45 +67,51 @@ const handleUnblock = async (ip) => {
   return (
     <Grid item xs={12}>
       <Paper sx={{ p: 2, height: '360px', width: '25em', maxWidth: '100%', margin: '1em', overflow: 'hidden'}}>
-        <Typography variant="h6" mb={2}>IP bloquées</Typography>
+        <Grid container justifyContent="space-between" alignItems="center" mb={2}>
+          <Grid item>
+            <Typography variant="h6" mb={2}>IP bloquées</Typography>
+          </Grid>
+          <Grid item>
+            <HelpModal helpText="
+            Avec le widget IP bloquées, vous pouvez voir les addresses IP de la liste noire. Cela signifie que toute tentative d'accès au honeypot à partir de cette adresse IP sera bloquée.
+
+            Pour chaque adresse IP de la liste, un bouton de suppression est disponible.
+
+            Pour supprimer une adresse IP de la liste noire, vous avez un boutton permettant cette suppression.
+
+            Une notification apparaît à l'écran pour vous informer de l'action qui a été effectuée."/>
+          </Grid>
+        </Grid>
         <Box
           sx={{
-            height: '88%',
+            height: '80%',
             overflow: 'auto',
+            '& > *': {
+              marginBottom: '16px', // Add a margin to each child
+            },
           }}
         >
-          <Box
-            sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'space-between',
-              alignItems: 'stretch',
-              gap: 2,
-              marginBottom: 2,  // Ajoutez une marge en bas
-            }}
-          >
-            { blacklistedIPs.length == 0 && <h4>Aucune ip bloquée !</h4>
+          { blacklistedIPs.length == 0 && <h4>Aucune ip bloquée !</h4>
 
-            }
-            <List sx={{ overflow: 'auto' }}>
-              {blacklistedIPs.map((blacklistedIP, index) => (
-                <ListItem key={index} sx={{
-                  my: 1,
-                  px: 2,
-                  bgcolor: index % 2 === 0 ? 'action.hover' : 'background.default',
-                  borderRadius: 1
-                }}>
-                  <ListItemText primary={blacklistedIP} />
-                  <ListItemSecondaryAction>
-                    <IconButton edge="end" aria-label="delete" onClick={() => handleUnblock(blacklistedIP)}>
-                      <DeleteIcon color="error" />
-                    </IconButton>
-                  </ListItemSecondaryAction>
-                  {index !== blacklistedIPs.length - 1 && <Divider />}
-                </ListItem>
-              ))}
-            </List>
-          </Box>
+          }
+          <List sx={{ overflow: 'auto' }}>
+            {blacklistedIPs.map((blacklistedIP, index) => (
+              <ListItem key={index} sx={{
+                my: 1,
+                px: 2,
+                bgcolor: index % 2 === 0 ? 'action.hover' : 'background.default',
+                borderRadius: 1
+              }}>
+                <ListItemText primary={blacklistedIP} />
+                <ListItemSecondaryAction>
+                  <IconButton edge="end" aria-label="delete" onClick={() => handleUnblock(blacklistedIP)}>
+                    <DeleteIcon color="error" />
+                  </IconButton>
+                </ListItemSecondaryAction>
+                {index !== blacklistedIPs.length - 1 && <Divider />}
+              </ListItem>
+            ))}
+          </List>
         </Box>
       </Paper>
     </Grid>

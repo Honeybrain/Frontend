@@ -5,11 +5,13 @@ const ProfilePage = () => {
   const [email, setEmail] = useState('');
   const [newEmail, setNewEmail] = useState('');
   const [submitted, setSubmitted] = useState(false);
+  const [submittedEmail, setSubmittedEmail] = useState(false);
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    fetch("http://localhost:8000/user/resetPassword", {
+    fetch("/api/user/resetPassword", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -29,7 +31,7 @@ const ProfilePage = () => {
   const changeEmail = (e) => {
     e.preventDefault();
 
-    fetch("http://localhost:8000/user/changeEmail", {
+    fetch("/api/user/changeEmail", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -39,7 +41,7 @@ const ProfilePage = () => {
       .then((response) => response.json())
       .then((data) => {
         console.log(data); // Affiche la réponse du serveur
-        setEmailSubmitted(false);
+        setSubmittedEmail(true);
       })
       .catch((error) => {
         console.error(error);
@@ -65,10 +67,14 @@ const ProfilePage = () => {
             />
             <Button type="submit" variant="contained" color="primary">Réinitialiser le mot de passe</Button>
           </>
-        )}   
+        )}
         </Box>
         <Box component="form" sx={{ display: 'flex', flexDirection: 'column', gap: 2 }} onSubmit={changeEmail}>
           <Typography variant="h6">Changement d'adresse email</Typography>
+          {submittedEmail && (<Typography>Votre Email a bien été modifié.</Typography>)
+          }
+          {!submittedEmail && (
+          <>
           <TextField
             type="newEmail"
             name="newEmail"
@@ -78,6 +84,8 @@ const ProfilePage = () => {
             onChange={(e) => setNewEmail(e.target.value)}
           />
           <Button type="submit" variant="contained" color="primary">Valider</Button>
+          </>
+          )}
         </Box>
       </Paper>
     </Box>

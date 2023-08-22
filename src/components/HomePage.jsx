@@ -4,26 +4,16 @@ import '../App';
 import '../styles.css';
 import AuthContext from '../AuthContext';
 import Dashboard from './dashboard/Dashboard';
-import ListConnections from './pages/ListConnections';
+import ConnectionsManager from './pages/ConnectionsManager';
 import ContainerManager from './pages/ContainerManager';
 import BlockManager from './pages/BlockManager';
 import Others from './pages/Others';
-import IPManagementHelp from '../TutorielPopUp/IpManagementHelp';
+import UsersManagement from './pages/UsersManagement';
 
 const HomePage = () => {
   const { isLoggedIn, logout } = useContext(AuthContext);
   const history = useHistory();
   const [currentContent, setCurrentContent] = useState('dashboard');
-  const [connections, setConnections] = useState([]);
-  const [showTutorial, setShowTutorial] = useState(false);
-
-  const openTutorial = () => {
-    setShowTutorial(true);
-  };
-
-  const closeTutorial = () => {
-    setShowTutorial(false);
-  };
 
   useEffect(() => {
     if (!isLoggedIn) {
@@ -50,22 +40,17 @@ const HomePage = () => {
   const renderContent = () => {
     switch (currentContent) {
       case 'dashboard':
-        return (
-          <Dashboard>
-          </Dashboard>)
+        return (<Dashboard />)
       case 'otherFeatures':
         return (<Others />)
       case 'containerManager':
         return <ContainerManager />
       case 'incomingConnections':
-        return (<ListConnections></ListConnections>)
+        return (<ConnectionsManager />)
+      case 'usersManagement':
+        return(<UsersManagement />)
       case 'ipManagement':
-        return (
-          <div>
-            <BlockManager></BlockManager>
-            <IPManagementHelp />
-          </div>
-        );
+        return (<div><BlockManager /></div>);
       default:
 
     }
@@ -81,7 +66,7 @@ const HomePage = () => {
           <li onClick={() => handleMenuClick('containerManager')}>Manager des conteneurs</li>
           <li onClick={() => handleMenuClick('incomingConnections')}>Connexions entrantes</li>
           <li onClick={() => handleMenuClick('otherFeatures')}>Autres fonctionnalités</li>
-          <li onClick={openTutorial}>Voir le tutoriel</li>
+          <li onClick={() => handleMenuClick('usersManagement')}>Gestion des utilisateurs</li>
         </ul>
       </div>
       <div className="home-content">

@@ -115,7 +115,7 @@ body {
 }
 
 .home-content .content-body {
-  overflow: auto;
+  overflow: hidden;
   background-color: #ffffff;
   padding: 20px;
   border-radius: 10px;
@@ -140,6 +140,7 @@ body {
 }
 
 .home-content .content-body {
+  height: calc(100vh - 110px);
   background-color: #ffffff;
   padding: 20px;
   border-radius: 10px;
