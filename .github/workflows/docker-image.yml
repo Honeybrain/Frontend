@@ -2,8 +2,7 @@ name: Docker Frontend
 
 on:
   push:
-    branches:
-      - S2-3.1/grpc_docker
+    branches: [ main ]
 
 env:
   DOCKER_USER: ${{ secrets.DOCKER_USER }}
