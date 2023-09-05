@@ -1,11 +1,7 @@
-FROM node:18.16.0 AS builder
-
-ARG GENERATE_SOURCEMAP=false
-ENV NODE_OPTIONS="--max-old-space-size=4096"
+FROM node:18.16.0
 
 WORKDIR /app
 
-COPY package.json ./
 COPY . .
 
 RUN yarn install
