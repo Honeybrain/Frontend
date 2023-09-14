@@ -6,6 +6,7 @@ import HomePage from './components/HomePage';
 import LoginPage from './components/LoginPage';
 import ProfilePage from './components/ProfilePage';
 import HoneyPotPage from './components/HoneyPotPage';
+import InvitationSignup from './components/pages/InvitationSignup';
 import { ThemeProvider } from '@mui/material/styles';
 import theme from './components/theme';
 import { ToastContainer } from 'react-toastify';
@@ -61,6 +62,7 @@ function App() {
           </div>
         </ThemeProvider>
       </AuthProvider>
+      <Route path="/signup/:token" component={InvitationSignup} />
     </Router>
   )
 }
