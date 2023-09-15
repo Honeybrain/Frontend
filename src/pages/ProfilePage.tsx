@@ -8,7 +8,7 @@ const ProfilePage = () => {
   const { changeMail } = useChangeMailRPC();
   const { resetPassword } = useResetPasswordRPC();
   const [email, setEmail] = React.useState<string>('');
-  const [newEmail, setNewEmail] = React.useState<string>('');
+  const [password, setPassword] = React.useState<string>('');
   const [submitted, setSubmitted] = React.useState<boolean>(false);
   const [submittedEmail, setSubmittedEmail] = React.useState<boolean>(false);
   const { t } = useTranslation();
@@ -17,12 +17,12 @@ const ProfilePage = () => {
     e.preventDefault();
 
     try {
-      await resetPassword(email);
+      await resetPassword(password);
       setSubmitted(true);
     } catch (error) {
       console.error(error);
     }
-  }, [setSubmitted]);
+  }, [password, setSubmitted]);
 
   const changeEmail = React.useCallback(async (e) => {
     e.preventDefault();
@@ -33,7 +33,7 @@ const ProfilePage = () => {
     } catch (error) {
       console.error(error);
     }
-  }, [setSubmitted]);
+  }, [email, setSubmitted]);
 
   return (
     <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: 'calc(100vh - 110px)'}}>
@@ -45,11 +45,12 @@ const ProfilePage = () => {
           {!submitted && (
           <>
             <TextField
+              type="password"
               name='password'
               label={t('profilePage.newPassword')}
-              value={email}
+              value={password}
               required
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => setPassword(e.target.value)}
             />
             <Button type="submit" variant="contained" color="primary">{t('profilePage.resetPassword')}</Button>
           </>
@@ -62,12 +63,11 @@ const ProfilePage = () => {
           {!submittedEmail && (
           <>
           <TextField
-            type="newEmail"
-            name="newEmail"
+            name="email"
             label={t('profilePage.newEmail')}
-            value = {newEmail}
+            value = {email}
             required
-            onChange={(e) => setNewEmail(e.target.value)}
+            onChange={(e) => setEmail(e.target.value)}
           />
           <Button type="submit" variant="contained" color="primary">{t('profilePage.validate')}</Button>
           </>
