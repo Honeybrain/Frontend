@@ -25,12 +25,12 @@
     "profilePage": {
       "passwordChange": "Changement de mot de passe",
       "resetEmailSent": "Vous allez recevoir un email permettant de réinitialiser votre mot de passe",
-      "emailAddress": "Adresse email",
+      "newPassword": "Nouveau mot de passe",
       "resetPassword": "Réinitialiser le mot de passe",
       "emailChange": "Changement d'adresse email",
       "emailUpdated": "Votre Email a bien été modifié.",
       "newEmail": "Nouvel e-mail",
-      "validate": "Valider"
+      "validate": "Réinitialiser le mail"
     },
     "blacklistPage": {
       "blockedIPs": "IP bloquées",

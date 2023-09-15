@@ -13,7 +13,7 @@ const ProfilePage = () => {
   const [submittedEmail, setSubmittedEmail] = React.useState<boolean>(false);
   const { t } = useTranslation();
 
-  const handleSubmit = React.useCallback(async (e) => {
+  const changePassword = React.useCallback(async (e) => {
     e.preventDefault();
 
     try {
@@ -38,16 +38,15 @@ const ProfilePage = () => {
   return (
     <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: 'calc(100vh - 110px)'}}>
       <Paper sx={{ p: 2, width: '25em' }}>
-        <Box component="form" sx={{ display: 'flex', flexDirection: 'column', gap: 2, marginBottom: 4 }} onSubmit={handleSubmit}>
+        <Box component="form" sx={{ display: 'flex', flexDirection: 'column', gap: 2, marginBottom: 4 }} onSubmit={changePassword}>
           <Typography variant="h6">{t('profilePage.passwordChange')}</Typography>
           {submitted && (<Typography>{t('profilePage.resetEmailSent')}</Typography>)
           }
           {!submitted && (
           <>
             <TextField
-              type="email"
-              name='email'
-              label={t('profilePage.emailAddress')}
+              name='password'
+              label={t('profilePage.newPassword')}
               value={email}
               required
               onChange={(e) => setEmail(e.target.value)}
