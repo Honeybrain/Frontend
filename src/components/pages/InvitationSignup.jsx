@@ -8,6 +8,22 @@ const InvitationSignup = () => {
   
   const { token } = useParams();
 
+
+  checkInvitation = async () => {
+    
+    try {
+      const response = await axios.post('/user.User/validateInvitation', {
+        token,
+      });
+      console.log("Réponse du serveur:", response);
+      if (response.data === true) {
+        setEmail(response.data.email);
+      }
+    } catch (error) {
+      console.error('Erreur lors de la connexion:', error.response.data);
+    }
+  }
+
   const signIn = async () => {
     try {
       const response = await axios.post('/api/user/signIn', {
@@ -24,19 +40,11 @@ const InvitationSignup = () => {
   <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: 'calc(100vh - 110px)'}}>
     <Paper sx={{ p: 2, width: '25em' }}>
       <Box component="form" sx={{ display: 'flex', flexDirection: 'column', gap: 2, marginBottom: 4 }} onSubmit={handleSubmit}>
-        <Typography variant="h6">Création de compte</Typography>
-        {submitted && (<Typography>Entrer votre email et votre mot de passe:</Typography>)
+        <Typography variant="h6">Choisissez votre nouveau mot de passe</Typography>
+        {submitted && (<Typography>Votre compte a été correctement créé</Typography>)
         }
         {!submitted && (
         <>
-        <TextField
-            type="email"
-            name='email'
-            label="email"
-            value={email}
-            required
-            onChange={(e) => setEmail(e.target.value)}
-          />
           <TextField
             type="password"
             name='password'
@@ -46,9 +54,9 @@ const InvitationSignup = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
           <Button type="submit"
-            onClick={(e) => signIn(e, password)} 
+            onClick={() => signIn(email, password)} 
             variant="contained" color="primary">
-            Valider le mot de passe
+            Créer un compte
           </Button>
         </>
       )}
