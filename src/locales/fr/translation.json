@@ -24,7 +24,7 @@
     },
     "profilePage": {
       "passwordChange": "Changement de mot de passe",
-      "resetEmailSent": "Vous allez recevoir un email permettant de réinitialiser votre mot de passe",
+      "resetEmailSent": "Votre mot de passe a bien été modifié.",
       "newPassword": "Nouveau mot de passe",
       "resetPassword": "Réinitialiser le mot de passe",
       "emailChange": "Changement d'adresse email",
