@@ -25,6 +25,7 @@ export const AuthProvider = ({ children }) => {
       try {
         const token = await signIn(email, password);
         localStorage.setItem('token', token);
+        setToken(token);
         setIsLoggedIn(true);
         history.push('/');
       } catch (error) {

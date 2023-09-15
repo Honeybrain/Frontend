@@ -24,13 +24,13 @@
     },
     "profilePage": {
       "passwordChange": "Change Password",
-      "resetEmailSent": "You will receive an email to reset your password",
-      "emailAddress": "Email Address",
+      "resetEmailSent": "Your password has been successfully updated",
+      "newPassword": "New Password",
       "resetPassword": "Reset Password",
       "emailChange": "Change Email Address",
       "emailUpdated": "Your email has been successfully updated",
       "newEmail": "New Email",
-      "validate": "Validate"
+      "validate": "Reset Mail"
     },
     "blacklistPage": {
       "blockedIPs": "Blocked IPs",

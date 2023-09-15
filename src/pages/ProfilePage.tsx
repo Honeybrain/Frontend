@@ -8,21 +8,21 @@ const ProfilePage = () => {
   const { changeMail } = useChangeMailRPC();
   const { resetPassword } = useResetPasswordRPC();
   const [email, setEmail] = React.useState<string>('');
-  const [newEmail, setNewEmail] = React.useState<string>('');
+  const [password, setPassword] = React.useState<string>('');
   const [submitted, setSubmitted] = React.useState<boolean>(false);
   const [submittedEmail, setSubmittedEmail] = React.useState<boolean>(false);
   const { t } = useTranslation();
 
-  const handleSubmit = React.useCallback(async (e) => {
+  const changePassword = React.useCallback(async (e) => {
     e.preventDefault();
 
     try {
-      await resetPassword(email);
+      await resetPassword(password);
       setSubmitted(true);
     } catch (error) {
       console.error(error);
     }
-  }, [setSubmitted]);
+  }, [password, setSubmitted]);
 
   const changeEmail = React.useCallback(async (e) => {
     e.preventDefault();
@@ -33,24 +33,24 @@ const ProfilePage = () => {
     } catch (error) {
       console.error(error);
     }
-  }, [setSubmitted]);
+  }, [email, setSubmitted]);
 
   return (
     <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: 'calc(100vh - 110px)'}}>
       <Paper sx={{ p: 2, width: '25em' }}>
-        <Box component="form" sx={{ display: 'flex', flexDirection: 'column', gap: 2, marginBottom: 4 }} onSubmit={handleSubmit}>
+        <Box component="form" sx={{ display: 'flex', flexDirection: 'column', gap: 2, marginBottom: 4 }} onSubmit={changePassword}>
           <Typography variant="h6">{t('profilePage.passwordChange')}</Typography>
           {submitted && (<Typography>{t('profilePage.resetEmailSent')}</Typography>)
           }
           {!submitted && (
           <>
             <TextField
-              type="email"
-              name='email'
-              label={t('profilePage.emailAddress')}
-              value={email}
+              type="password"
+              name='password'
+              label={t('profilePage.newPassword')}
+              value={password}
               required
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => setPassword(e.target.value)}
             />
             <Button type="submit" variant="contained" color="primary">{t('profilePage.resetPassword')}</Button>
           </>
@@ -63,12 +63,11 @@ const ProfilePage = () => {
           {!submittedEmail && (
           <>
           <TextField
-            type="newEmail"
-            name="newEmail"
+            name="email"
             label={t('profilePage.newEmail')}
-            value = {newEmail}
+            value = {email}
             required
-            onChange={(e) => setNewEmail(e.target.value)}
+            onChange={(e) => setEmail(e.target.value)}
           />
           <Button type="submit" variant="contained" color="primary">{t('profilePage.validate')}</Button>
           </>
