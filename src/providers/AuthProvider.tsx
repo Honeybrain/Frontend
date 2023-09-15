@@ -3,12 +3,10 @@ import { useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import AuthContext from '@contexts/AuthContext'
 import useSignInRPC from '@hooks/backend/userService/useSignInRPC';
-import useSignOutRPC from '@hooks/backend/userService/useSignoutRPC';
 import { useTranslation } from 'react-i18next';
 
 export const AuthProvider = ({ children }) => {
     const { signIn } = useSignInRPC();
-    const { signOut } = useSignOutRPC();
     const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
     const history = useHistory();
     const [token, setToken] = React.useState<string | null>(null);
@@ -36,7 +34,6 @@ export const AuthProvider = ({ children }) => {
   
     const logout = React.useCallback(async () => {
       try {
-        await signOut();
         localStorage.removeItem('token');
         setToken(null);
         setIsLoggedIn(false);
