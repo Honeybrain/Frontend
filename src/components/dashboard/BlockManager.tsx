@@ -14,9 +14,6 @@ const BlockManager = () => {
   const { t } = useTranslation();
 
   const handleClose = React.useCallback(() => {
-    //if (reason === 'clickaway') {
-    //  return;
-    //} // TODO
     setOpen(false);
   }, []);
 

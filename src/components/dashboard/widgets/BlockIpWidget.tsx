@@ -13,17 +13,14 @@ const BlacklistPage = () => {
   const [alertText, setAlertText] = React.useState('');
   const { t } = useTranslation();
 
-  const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
-      return;
-    }
+  const handleClose = React.useCallback(() => {
     setOpen(false);
-  };
+  }, []);
 
   const handleUnblock = React.useCallback(async (ip: string) => {
     try {
       await putWhiteList(ip);
-      setAlertText('IP unblocked successfully');
+      setAlertText(t('blockManager.unblockSuccess'));
       setOpen(true);
     } catch (error) {
       console.error(error);
@@ -72,6 +69,11 @@ const BlacklistPage = () => {
           </List>
         </Box>
       </Paper>
+      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+          {alertText}
+        </Alert>
+      </Snackbar>
     </Grid>
   );
 }
