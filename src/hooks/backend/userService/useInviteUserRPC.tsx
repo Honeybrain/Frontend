@@ -9,7 +9,7 @@ const useInviteUserRPC = () => {
   const inviteUser = React.useCallback( async (email: string) => {
     const request: InviteUserRequest = InviteUserRequest.create();
     request.email = email;
-    request.admin = false;
+    request.admin = true;
     await client.inviteUser(request, {});
   }, []);
 

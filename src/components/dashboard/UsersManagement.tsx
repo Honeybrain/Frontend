@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import {
-  Typography, TextField, Button, Grid, List, ListItem, ListItemText, Box, Select, MenuItem, Card, CardContent
+  Typography, TextField, Button, Grid, List, ListItem, ListItemText, Box, Select, MenuItem, Card, CardContent, Snackbar, Alert
 } from '@mui/material';
 import useGetUsersRPC from '@hooks/backend/userService/useGetUsersRPC';
 import useInviteUserRPC from '@hooks/backend/userService/useInviteUserRPC';
+import useChangeRightsRPC from '@hooks/backend/userService/useChangeRightsRPC';
 
 interface User {
-  _id: string;
   email: string;
   activated: boolean;
   admin: boolean;
@@ -17,58 +17,62 @@ const UsersManagement: React.FC = () => {
   const [email, setEmail] = useState<string>("");
   const [users, setUsers] = useState<User[]>([]);
 
+  const [open, setOpen] = React.useState(false);
+  const [alertText, setAlertText] = React.useState('');
+
   const { getUsers } = useGetUsersRPC();
   const { inviteUser } = useInviteUserRPC();
+  const { changeRights } = useChangeRightsRPC();
 
-  const changeRights = async (e: React.FormEvent, userId: string) => {
-    e.preventDefault();
-    // Logic pour changer les droits ici
-  };
-
-  const myButton = (userId: string) => (
+  const myButton = (email: string, right: boolean) => (
     <>
       <Select
-        value={selectedRights[userId] || ""}
+        value={selectedRights[email] || (right ? "Administrateur" : "Utilisateur")}
         onChange={(e) => {
           setSelectedRights((prevSelectedRights) => ({
             ...prevSelectedRights,
-            [userId]: e.target.value as string,
+            [email]: e.target.value as string,
           }));
+          const admin = e.target.value === "Administrateur";  // Cette ligne transforme la valeur en un booléen
+          changeRights(email, admin);
         }}
+        sx={{ width: '150px' }}
         label="Changer les droits"
       >
         <MenuItem value="Utilisateur">Utilisateur</MenuItem>
         <MenuItem value="Administrateur">Administrateur</MenuItem>
-        <MenuItem value="Propriétaire">Propriétaire</MenuItem>
       </Select>
-      <Button
-        type="submit"
-        variant="contained"
-        color="primary"
-        onClick={(e) => changeRights(e as React.FormEvent, userId)}
-        sx={{ marginLeft: 2 }}
-      >
-        Changer
-      </Button>
     </>
   );
 
   const inviteUserClick = async (email: string) => {
     try {
       await inviteUser(email);
+      setAlertText("Utilisateur invité avec succès!");
+      setOpen(true);
     } catch (error) {
-      console.error("Erreur lors de la récupération des utilisateurs:", error);
+      console.error("Erreur lors de l'invitation", error);
     }
   };
 
   const fetchUsers = async () => {
     try {
-      const fetchedUsers = (await getUsers()).map((userString: string) => JSON.parse(userString) as User);
-      setUsers(fetchedUsers);
+        const fetchedUsers = (await getUsers()).map((userString: string) => JSON.parse(userString) as User);
+        setUsers(fetchedUsers);
+
+        const initialRights: Record<string, string> = {};
+        fetchedUsers.forEach(user => {
+            initialRights[user.email] = user.admin ? "Administrateur" : "Utilisateur";
+        });
+        setSelectedRights(initialRights);
     } catch (error) {
-      console.error("Erreur lors de la récupération des utilisateurs:", error);
+        console.error("Erreur lors de la récupération des utilisateurs:", error);
     }
   };
+
+  const handleClose = React.useCallback(() => {
+    setOpen(false);
+  }, []);
 
   useEffect(() => {
     fetchUsers();
@@ -130,17 +134,22 @@ const UsersManagement: React.FC = () => {
                 borderRadius: 1
               }}>
                 <ListItemText
-                  primary={`Mail: ${user.email}`}
-                  secondary={`ID: ${user._id} | Rights: ${user.admin ? "Administrateur" : "Utilisateur"}`}
+                  primary={`${user.email}`}
+                  secondary={`${user.activated ? "Activé" : "En attente d'activation"}`}
                 />
                 <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                  {myButton(user._id)}
+                  {myButton(user.email, user.admin)}
                 </Box>
               </ListItem>
             ))}
           </List>
         </Box>
       </Grid>
+      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+          {alertText}
+        </Alert>
+      </Snackbar>
     </Grid>
   );
 
