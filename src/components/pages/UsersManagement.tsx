@@ -1,15 +1,15 @@
 import React, { useState, useEffect, useContex} from 'react';
-import { Grid, Typography, Card, Button, CardContent, Box, MenuItem, Select} from '@mui/material';
+import { Grid, Typography, Card, Button, CardContent, Box, MenuItem, Select, TextField} from '@mui/material';
 
 const Item = ({ children }) => (
   <Typography variant="body1">{children}</Typography>
 );
 
 const UsersManagement = () => {
-  const [submittedEmail, setSubmittedEmail] = useState(false);
-  const [selectedRights, setSelectedRights] = useState({});
-  const newEmail = 'example@example.com';
-  const [users, setUsers] = useState([]);
+  const [submittedEmail, setSubmittedEmail] = useState<boolean>(false);
+  const [selectedRights, setSelectedRights] = useState<Array<string>>({});
+  const [email, setEmail] = useState<string>(null);
+  const [users, setUsers] = useState<string>([]);
 
   const changeRights = async (e, userId) => {
     e.preventDefault();
@@ -84,8 +84,23 @@ const UsersManagement = () => {
             </Typography>
           </Grid>
       <Grid item>
+        <Grid item>
+        <Typography variant="h6">Inviter un nouvel utilisateur</Typography>
+        <TextField
+            type="email"
+            name='email'
+            label="email nouvel utilisateur"
+            value={email}
+            required
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <Button type="submit"
+            onClick={() => invitUser(email)} 
+            variant="contained" color="primary">
+            Envoyer l'invitation
+          </Button>
+        </Grid>
         <Grid container justifyContent="space-between" alignItems="center" mb={2}>
-
 
           <Grid item xs>
             <Box

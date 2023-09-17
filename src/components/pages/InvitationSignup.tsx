@@ -2,18 +2,21 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 
 const InvitationSignup = () => {
-  const [password, setPassword] = useState('');
-  const [email, setEmail] = useState('');
-  const [submitted, setSubmitted] = useState(false);
+  const [password, setPassword] = useState<string>('');
+  const [email, setEmail] = useState<string>('');
+  const [submitted, setSubmitted] = useState<Boolean>(false);
   
   const { token } = useParams();
 
 
   checkInvitation = async () => {
-    
     try {
-      const response = await axios.post('/user.User/validateInvitation', {
-        token,
+      const response = await fetch('/user.User/validateInvitation', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
       });
       console.log("Réponse du serveur:", response);
       if (response.data === true) {
@@ -30,6 +33,14 @@ const InvitationSignup = () => {
         email,
         password,
       });
+      const response = await fetch('/api/user/signIn', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+      
       console.log("Réponse du serveur:", response);
     } catch (error) {
       console.error('Erreur lors de la connexion:', error.response.data);
