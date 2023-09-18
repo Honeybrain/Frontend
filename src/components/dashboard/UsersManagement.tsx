@@ -5,11 +5,13 @@ import {
 import useGetUsersRPC from '@hooks/backend/userService/useGetUsersRPC';
 import useInviteUserRPC from '@hooks/backend/userService/useInviteUserRPC';
 import useChangeRightsRPC from '@hooks/backend/userService/useChangeRightsRPC';
+import useDeleteUserRPC from '@hooks/backend/userService/useDeleteUserRPC';
 
 interface User {
   email: string;
   activated: boolean;
   admin: boolean;
+  id: string;
 }
 
 const UsersManagement: React.FC = () => {
@@ -23,6 +25,7 @@ const UsersManagement: React.FC = () => {
   const { getUsers } = useGetUsersRPC();
   const { inviteUser } = useInviteUserRPC();
   const { changeRights } = useChangeRightsRPC();
+  const { deleteUser } = useDeleteUserRPC();
 
   const myButton = (email: string, right: boolean) => (
     <>
@@ -44,6 +47,18 @@ const UsersManagement: React.FC = () => {
       </Select>
     </>
   );
+
+  const deleteButton = (userId: string) => (
+    <Button
+      variant="contained"
+      color="error"
+      onClick={() => {
+        deleteUser(userId);
+      }}
+    >
+      Supprimer
+    </Button>
+  )
 
   const inviteUserClick = async (email: string) => {
     try {
@@ -140,6 +155,9 @@ const UsersManagement: React.FC = () => {
                 />
                 <Box sx={{ display: 'flex', alignItems: 'center' }}>
                   {myButton(user.email, user.admin)}
+                </Box>
+                <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                  {deleteButton(user.id)}
                 </Box>
               </ListItem>
             ))}
