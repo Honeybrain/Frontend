@@ -6,12 +6,11 @@ import { DeleteUserRequest } from '@protos/user';
 const useDeleteUserRPC = () => {
   const client = React.useMemo(() => new UserClient(transport), []);
 
-  const deleteUser = React.useCallback(async (userId: string): Promise<string> => {
+  const deleteUser = React.useCallback(async (email: string) => {
     const request: DeleteUserRequest = DeleteUserRequest.create();
-    request.userId = userId;
+    request.email = email;
 
-    const deleteUserResponse = await client.deleteUser(request, {});
-    return deleteUserResponse.response.token;
+    await client.deleteUser(request, {});
   }, []);
 
   return {

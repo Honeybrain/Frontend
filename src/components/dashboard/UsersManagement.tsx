@@ -48,12 +48,12 @@ const UsersManagement: React.FC = () => {
     </>
   );
 
-  const deleteButton = (userId: string) => (
+  const deleteButton = (email: string) => (
     <Button
       variant="contained"
       color="error"
       onClick={() => {
-        deleteUser(userId);
+        deleteUser(email);
       }}
     >
       Supprimer
@@ -157,7 +157,7 @@ const UsersManagement: React.FC = () => {
                   {myButton(user.email, user.admin)}
                 </Box>
                 <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                  {deleteButton(user.id)}
+                  {deleteButton(user.email)}
                 </Box>
               </ListItem>
             ))}
