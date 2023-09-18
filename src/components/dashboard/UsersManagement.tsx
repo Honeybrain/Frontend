@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import {
-  Typography, TextField, Button, Grid, List, ListItem, ListItemText, Box, Select, MenuItem, Card, CardContent, Snackbar, Alert
+  Typography, TextField, Button, Grid, List, ListItem, ListItemText, Box, Select, MenuItem, Card, CardContent, Snackbar, Alert, IconButton
 } from '@mui/material';
 import useGetUsersRPC from '@hooks/backend/userService/useGetUsersRPC';
 import useInviteUserRPC from '@hooks/backend/userService/useInviteUserRPC';
 import useChangeRightsRPC from '@hooks/backend/userService/useChangeRightsRPC';
 import useDeleteUserRPC from '@hooks/backend/userService/useDeleteUserRPC';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 interface User {
   email: string;
@@ -40,7 +41,7 @@ const UsersManagement: React.FC = () => {
           changeRights(email, admin);
         }}
         sx={{ width: '150px' }}
-        label="Changer les droits"
+        label="Changer les droitas"
       >
         <MenuItem value="Utilisateur">Utilisateur</MenuItem>
         <MenuItem value="Administrateur">Administrateur</MenuItem>
@@ -49,15 +50,12 @@ const UsersManagement: React.FC = () => {
   );
 
   const deleteButton = (email: string) => (
-    <Button
-      variant="contained"
-      color="error"
-      onClick={() => {
-        deleteUser(email);
-      }}
-    >
-      Supprimer
-    </Button>
+    <IconButton edge="end" sx={{ marginLeft: '3px' }} aria-label="delete" onClick={() => {
+      deleteUser(email);
+      fetchUsers();
+    }}>
+        <DeleteIcon color="error" />
+      </IconButton>
   )
 
   const inviteUserClick = async (email: string) => {
