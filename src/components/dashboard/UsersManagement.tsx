@@ -22,6 +22,7 @@ const UsersManagement: React.FC = () => {
 
   const [open, setOpen] = React.useState(false);
   const [alertText, setAlertText] = React.useState('');
+  const [alertSeverity, setAlertSeverity] = useState<'success' | 'error'>('success');
 
   const { getUsers } = useGetUsersRPC();
   const { inviteUser } = useInviteUserRPC();
@@ -38,7 +39,7 @@ const UsersManagement: React.FC = () => {
             [email]: e.target.value as string,
           }));
           const admin = e.target.value === "Administrateur";  // Cette ligne transforme la valeur en un booléen
-          changeRights(email, admin);
+          changeRightsClick(email, admin);
         }}
         sx={{ width: '150px' }}
         label="Changer les droitas"
@@ -50,22 +51,47 @@ const UsersManagement: React.FC = () => {
   );
 
   const deleteButton = (email: string) => (
-    <IconButton edge="end" sx={{ marginLeft: '3px' }} aria-label="delete" onClick={() => {
-      deleteUser(email);
-      fetchUsers();
-    }}>
+    <IconButton edge="end" sx={{ marginLeft: '3px' }} aria-label="delete" onClick={() => { deleteUserClick(email); }}>
         <DeleteIcon color="error" />
       </IconButton>
   )
 
+  const changeRightsClick = async (email: string, admin: boolean) => {
+    try {
+      changeRights(email, admin);
+    } catch (error: any) {
+      setAlertText("Une erreur s'est produite lors du changement de droit de l'utilisateur.");
+      setAlertSeverity('error');
+      setOpen(true);
+    }
+  };
+
+  const deleteUserClick = async (email: string) => {
+    try {
+      deleteUser(email);
+      fetchUsers();
+    } catch (error: any) {
+      setAlertText("Une erreur s'est produite lors de la suppression de l'utilisateur.");
+      setAlertSeverity('error');
+      setOpen(true);
+    }
+  };
+
   const inviteUserClick = async (email: string) => {
     try {
-      await inviteUser(email);
+      inviteUser(email);
       setAlertText("Utilisateur invité avec succès!");
+      setAlertSeverity('success');
       setOpen(true);
-      await fetchUsers();
-    } catch (error) {
-      console.error("Erreur lors de l'invitation", error);
+      fetchUsers();
+    } catch (error: any) {
+      if (error.toString().toLowerCase().includes("exists")) {
+        setAlertText("Un compte avec cet email existe déjà.");
+      } else {
+        setAlertText("Une erreur s'est produite lors de l'invitation de l'utilisateur.");
+      }
+      setAlertSeverity('error');
+      setOpen(true);
     }
   };
 
@@ -163,7 +189,7 @@ const UsersManagement: React.FC = () => {
         </Box>
       </Grid>
       <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+        <Alert onClose={handleClose} severity={alertSeverity} sx={{ width: '100%' }}>
           {alertText}
         </Alert>
       </Snackbar>
