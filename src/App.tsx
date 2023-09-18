@@ -12,6 +12,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { AuthProvider } from '@providers/AuthProvider';
 import './i18n/i18n';
+import InvitationSignup from '@pages/Invitation';
 
 function App() {
   const PrivateRoute = ({ component: Component, ...rest }) => {
@@ -58,6 +59,7 @@ function App() {
               <PrivateRoute path="/" exact component={HomePage} />
               <PrivateRoute path="/profile" component={ProfilePage} />
               <PrivateRoute path="/honeypot" component={HoneyPotPage} />
+              <Route path="/activate/:activationToken" component={InvitationSignup} />
             </Switch>
           </div>
         </ThemeProvider>

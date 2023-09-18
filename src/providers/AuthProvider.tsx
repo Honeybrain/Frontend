@@ -32,6 +32,18 @@ export const AuthProvider = ({ children }) => {
         throw error;
       }
     }, []);
+
+    const loginWithToken = React.useCallback(async (token: string) => {
+      try {
+        localStorage.setItem('token', token);
+        console.log(token);
+        setToken(token);
+        setIsLoggedIn(true);
+        history.push('/');
+      } catch (error) {
+        throw error;
+      }
+    }, []);
   
     const logout = React.useCallback(async () => {
       try {
@@ -53,7 +65,7 @@ export const AuthProvider = ({ children }) => {
     }, []);
   
     return (
-      <AuthContext.Provider value={{ isLoggedIn, token, login, logout }}>
+      <AuthContext.Provider value={{ isLoggedIn, token, login, loginWithToken, logout }}>
         {children}
       </AuthContext.Provider>
     );
