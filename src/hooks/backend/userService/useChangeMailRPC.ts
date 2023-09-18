@@ -1,7 +1,7 @@
 import React from "react";
 import { transport } from "../../../environment";
-import { UserClient } from '@protos/user.client';
-import { EmailRequest } from '@protos/user';
+import { UserClient } from "@protos/user.client";
+import { EmailRequest } from "@protos/user";
 import AuthContext from "@contexts/AuthContext";
 
 const useChangeMailRPC = () => {
@@ -9,12 +9,10 @@ const useChangeMailRPC = () => {
   const { token } = React.useContext(AuthContext);
 
   const changeMail = React.useCallback(async (email: string) => {
-    const request: EmailRequest = EmailRequest.create();
-    if (token) {
-      request.token = token;
-    }
-    request.email = email;
-    await client.changeEmail(request, {});
+    const request: EmailRequest = EmailRequest.create({ email: email });
+    await client.changeEmail(request, {
+      meta: { Authorization: `Bearer ${token}` },
+    });
   }, []);
 
   return {
