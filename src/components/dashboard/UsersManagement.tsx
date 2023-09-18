@@ -50,6 +50,7 @@ const UsersManagement: React.FC = () => {
       await inviteUser(email);
       setAlertText("Utilisateur invité avec succès!");
       setOpen(true);
+      await fetchUsers();
     } catch (error) {
       console.error("Erreur lors de l'invitation", error);
     }
