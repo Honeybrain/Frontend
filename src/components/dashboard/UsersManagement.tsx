@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import {
   Typography, TextField, Button, Grid, List, ListItem, ListItemText, Box, Select, MenuItem, Card, CardContent, Snackbar, Alert, IconButton
 } from '@mui/material';
@@ -7,6 +7,7 @@ import useInviteUserRPC from '@hooks/backend/userService/useInviteUserRPC';
 import useChangeRightsRPC from '@hooks/backend/userService/useChangeRightsRPC';
 import useDeleteUserRPC from '@hooks/backend/userService/useDeleteUserRPC';
 import DeleteIcon from '@mui/icons-material/Delete';
+import AuthContext from "@contexts/AuthContext";
 
 interface User {
   email: string;
@@ -23,6 +24,7 @@ const UsersManagement: React.FC = () => {
   const [open, setOpen] = React.useState(false);
   const [alertText, setAlertText] = React.useState('');
   const [alertSeverity, setAlertSeverity] = useState<'success' | 'error'>('success');
+  const { rights} = useContext(AuthContext);
 
   const { getUsers } = useGetUsersRPC();
   const { inviteUser } = useInviteUserRPC();
@@ -119,6 +121,7 @@ const UsersManagement: React.FC = () => {
   }, []);
 
   return (
+    (rights ? <>
     <Grid container direction="column" spacing={2}>
       <Grid item>
         <Typography variant="h4">
@@ -194,8 +197,10 @@ const UsersManagement: React.FC = () => {
         </Alert>
       </Snackbar>
     </Grid>
+  </>
+  : <></>
+  )
   );
-
 };
 
 export default UsersManagement;

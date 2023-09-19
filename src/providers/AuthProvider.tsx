@@ -10,6 +10,7 @@ export const AuthProvider = ({ children }) => {
     const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
     const history = useHistory();
     const [token, setToken] = React.useState<string | null>(null);
+    const [rights, setRights] = React.useState<boolean | null>(null);
     const { t } = useTranslation();
   
     useEffect(() => {
@@ -23,9 +24,10 @@ export const AuthProvider = ({ children }) => {
   
     const login = React.useCallback(async (email: string, password: string) => {
       try {
-        const token = await signIn(email, password);
-        localStorage.setItem('token', token);
+        const response = await signIn(email, password);
+        localStorage.setItem('token', response.token);
         setToken(token);
+        setRights(rights);
         setIsLoggedIn(true);
         history.push('/');
       } catch (error) {
@@ -53,7 +55,7 @@ export const AuthProvider = ({ children }) => {
     }, []);
   
     return (
-      <AuthContext.Provider value={{ isLoggedIn, token, login, logout }}>
+      <AuthContext.Provider value={{ isLoggedIn, token, rights, login, logout }}>
         {children}
       </AuthContext.Provider>
     );

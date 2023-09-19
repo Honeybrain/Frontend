@@ -10,6 +10,7 @@ import { useTranslation } from 'react-i18next';
 const ContainerManager: React.FC = () => {
   const { containers } = useContainersRPC();
   const { token } = useContext(AuthContext);
+  const { rights } = useContext(AuthContext);
   const { t } = useTranslation();
 
   const getContainerStatus = (status: string) => {
@@ -21,6 +22,7 @@ const ContainerManager: React.FC = () => {
   };
 
   return (
+    (rights ? <>
     <Grid container direction="column">
       <Grid item>
         <Grid container justifyContent="space-between" alignItems="center" mb={2}>
@@ -64,6 +66,9 @@ const ContainerManager: React.FC = () => {
         </Box>
       </Grid>
     </Grid>
+    </>
+  : <></>
+  )
   );
 };
 
