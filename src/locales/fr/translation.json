@@ -110,5 +110,12 @@
     },
     "AuthContext": {
       "logout": "Vous avez été déconnecté avec succès"
+    },
+    "invitationSignup": {
+      "choosePassword": "Choisissez votre nouveau mot de passe",
+      "accountCreated": "Votre compte a été correctement créé",
+      "passwordLabel": "Mot de passe",
+      "usedInvitation": "Invitation déjà utilisée!",
+      "createAccount": "Créer un compte"
     }
 }

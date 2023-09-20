@@ -109,6 +109,13 @@
       "danger": "Danger"
     },
     "AuthContext": {
-      "logout": "You have been successfully logged out  "
+      "logout": "You have been successfully logged out "
+    },
+    "invitationSignup": {
+      "choosePassword": "Choose your new password",
+      "accountCreated": "Your account has been successfully created",
+      "passwordLabel": "Password",
+      "usedInvitation": "Invitation already used!",
+      "createAccount": "Create an account"
     }
 }
