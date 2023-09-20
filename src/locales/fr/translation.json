@@ -117,5 +117,20 @@
       "passwordLabel": "Mot de passe",
       "usedInvitation": "Invitation déjà utilisée!",
       "createAccount": "Créer un compte"
+    },
+    "usersManagement": {
+      "title": "Gestion des utilisateurs",
+      "inviteUser": "Inviter un nouvel utilisateur",
+      "inviteSection": "Inviter un nouvel utilisateur",
+      "emailLabel": "Email nouvel utilisateur",
+      "sendInvitation": "Envoyer l'invitation",
+      "userList": "Liste des utilisateurs",
+      "activated": "Activé",
+      "pendingActivation": "En attente d'activation",
+      "changeRightsError": "Une erreur s'est produite lors du changement de droit de l'utilisateur.",
+      "deleteUserError": "Une erreur s'est produite lors de la suppression de l'utilisateur.",
+      "inviteSuccess": "Utilisateur invité avec succès!",
+      "inviteError": "Une erreur s'est produite lors de l'invitation de l'utilisateur.",
+      "alreadyExists": "Un compte avec cet email existe déjà."
     }
 }

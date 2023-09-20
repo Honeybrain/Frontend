@@ -117,5 +117,20 @@
       "passwordLabel": "Password",
       "usedInvitation": "Invitation already used!",
       "createAccount": "Create an account"
+    },
+    "usersManagement": {
+      "title": "User Management",
+      "inviteUser": "Invite a new user",
+      "inviteSection": "Invite a new user",
+      "emailLabel": "Email new user",
+      "sendInvitation": "Send Invitation",
+      "userList": "List of users",
+      "activated": "Activated",
+      "pendingActivation": "Pending Activation",
+      "changeRightsError": "An error occurred while changing user rights.",
+      "deleteUserError": "An error occurred while deleting the user.",
+      "inviteSuccess": "User successfully invited!",
+      "inviteError": "An error occurred while inviting the user.",
+      "alreadyExists": "An account with this email already exists."
     }
 }
