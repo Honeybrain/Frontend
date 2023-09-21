@@ -91,8 +91,8 @@
       "description": "Description",
       "safe": "Safe",
       "danger": "Danger",
-      "dangerHigh": "High danger level",
-      "dangerMedium": "Medium danger level",
+      "dangerHigh": "He changed his email",
+      "dangerMedium": "He logged into his account",
       "dangerLow": "Low danger level"
     },
     "helpModal": {
