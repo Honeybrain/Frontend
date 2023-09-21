@@ -1,28 +1,43 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Grid, Typography, Card, CardContent, Box } from '@mui/material';
+import { Grid, Typography, Card, CardContent, Box, Button, Dialog, DialogTitle, DialogContent, DialogActions, DialogContentText } from '@mui/material';
 import ErrorIcon from '@mui/icons-material/Error';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import PauseCircleIcon from '@mui/icons-material/PauseCircle';
 import AuthContext from "@contexts/AuthContext";
 import HelpModal from "@components/HelpModal";
 import useContainersRPC from '@hooks/backend/honeypotService/useContainersRPC';
 import { useTranslation } from 'react-i18next';
 
+
 const ContainerManager: React.FC = () => {
   const { containers } = useContainersRPC();
   const { token } = useContext(AuthContext);
-  const { rights } = useContext(AuthContext);
   const { t } = useTranslation();
+  const [elementsActifs, setElementsActifs] = useState<string[]>([]);
 
-  const getContainerStatus = (status: string) => {
+  const getContainerStatus = (status: string, ip: string) => {
     if (status.startsWith('running')) {
-      return <CheckCircleIcon color="success" />;
+      if (elementsActifs.includes(ip)) {
+        return <PauseCircleIcon color="warning" />;
+      } else {
+        return <CheckCircleIcon color="success" />;
+      }
     } else {
       return <ErrorIcon color="error" />;
     }
   };
 
+  const toggleElement = (elementId: string, status: string) => {
+    if (status.startsWith('running')) {
+      if (elementsActifs.includes(elementId)) {
+        setElementsActifs(elementsActifs.filter((id) => id !== elementId));
+      } else {
+        setElementsActifs([...elementsActifs, elementId]);
+      }
+    }
+  };
+
   return (
-    (rights ? <>
     <Grid container direction="column">
       <Grid item>
         <Grid container justifyContent="space-between" alignItems="center" mb={2}>
@@ -44,9 +59,16 @@ const ContainerManager: React.FC = () => {
             marginBottom: '16px', // Add a margin to each child
           },
         }}
-      >
-          {containers && containers.map((container, index) => (
-            <Card variant="outlined" key={index}>
+        >
+        {containers && containers.map((container, index) => (
+          <>
+          <Card variant="outlined" key={index}
+            onClick={() => toggleElement(container.ip, container.status)}
+            style={{
+            backgroundColor: elementsActifs.includes(container.ip) ? 'lightyellow' : 'lightblue',
+            cursor: 'pointer',
+            marginBottom: '16px',
+            }}>
               <CardContent>
                 <Box
                   sx={{
@@ -54,21 +76,19 @@ const ContainerManager: React.FC = () => {
                     justifyContent: 'space-between',
                     alignItems: 'flex-start',
                   }}
-                >
+                  >
                   <Typography variant="h6">{container.name}</Typography>
-                  {getContainerStatus(container.status)}
+                  {getContainerStatus(container.status, container.ip)}
                 </Box>
                 <Typography variant="body2" color="text.secondary">{t('containerManager.status')}: {container.status}</Typography>
                 <Typography variant="body2" color="text.secondary">{t('containerManager.ip')}: {container.ip.split('/')[0]}</Typography>
               </CardContent>
             </Card>
+          </>
           ))}
         </Box>
       </Grid>
     </Grid>
-    </>
-  : <></>
-  )
   );
 };
 

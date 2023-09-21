@@ -16,9 +16,6 @@ const LanguageSwitcher = () => {
     <Box
       display="flex"
       alignItems="center"
-      paddingRight={2}
-      marginRight={2}
-      borderRight={1}
       borderColor="grey.500"
     >
       <ToggleButtonGroup

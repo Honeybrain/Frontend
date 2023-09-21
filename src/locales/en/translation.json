@@ -4,7 +4,8 @@
       "login": "Login",
       "logout": "Logout",
       "profile": "Profile",
-      "home": "Home"
+      "home": "Home",
+      "language": "Language"
     },
     "loginPage": {
       "login": "Login",
