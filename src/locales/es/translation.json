@@ -1,0 +1,114 @@
+{
+    "navbar": {
+      "dashboard": "Panel de control",
+      "login": "Iniciar sesión",
+      "logout": "Cerrar sesión",
+      "profile": "Perfil",
+      "home": "Hogar"
+    },
+    "loginPage": {
+      "login": "Iniciar sesión",
+      "emailPlaceholder": "Correo electrónico",
+      "passwordPlaceholder": "Contraseña",
+      "submit": "Iniciar sesión",
+      "errorMessage": "Nombre de usuario y/o contraseña incorrectos.",
+      "loginSuccess": "Inicio de sesión exitoso, cargando..."
+    },
+    "homePage": {
+      "dashboard": "Panel de control",
+      "ipManagement": "Gestión de IP",
+      "containerManager": "Administrador de contenedores",
+      "incomingConnections": "Conexiones entrantes",
+      "otherFeatures": "Otras Características",
+      "history": "Historia"
+    },
+    "profilePage": {
+      "passwordChange": "Cambio de contraseña",
+      "resetEmailSent": "Su contraseña ha sido cambiada.",
+      "newPassword": "Nueva contraseña",
+      "resetPassword": "Restablecer contraseña",
+      "emailChange": "Cambio de dirección de correo electrónico",
+      "emailUpdated": "Su correo electrónico ha sido modificado.",
+      "newEmail": "Nuevo correo electrónico",
+      "validate": "Restablecer correo electrónico"
+    },
+    "blacklistPage": {
+      "blockedIPs": "IP bloqueadas",
+      "helpText": "Con el widget IP bloqueadas, puede ver las direcciones IP en la lista negra. Esto significa que cualquier intento de acceder al honeypot desde esta dirección IP será bloqueado.\n\nPara cada dirección IP en la lista, se El botón de eliminación está disponible.\n\nPara eliminar una dirección IP de la lista negra, tiene un botón que permite esta eliminación.\n\nAparece una notificación en la pantalla para informarle de la acción que se ha realizado.",
+      "noBlockedIP": "¡Ninguna IP bloqueada!"
+    },
+    "containerMonitorWidget": {
+      "honeypotServices": "Servicios Honeypot",
+      "helpText": "Al usar el widget de administración de contenedores, puede ver una lista de todos los contenedores actualmente en ejecución, junto con su estado y dirección IP. Cada contenedor se muestra en un mapa individual.\n\nEl estado del contenedor puede ser Activo o Abajo indicando si el contenedor se está ejecutando actualmente o no.\n\nLa dirección IP del contenedor también se muestra, lo que facilita ver la dirección de red del contenedor.",
+      "status": "Estado",
+      "ip": "ip"
+    },
+    "logViewerWidget": {
+        "incomingConnections": "Conexiones entrantes",
+        "helpText": "El widget Conexiones entrantes proporciona una vista en tiempo real de los registros de conexión del sistema honeypot.\n\nEstos registros suelen ser registros de eventos generados por el sistema, particularmente intentos de conexión entrantes.\n\nUn honeypot es un recurso de red configurado para atraer y detectar intentos de acceso no autorizados."
+      },
+      "blockManager": {
+        "ipManagement": "Gestión de IP",
+        "helpText": "Puedes agregar una dirección IP a la lista negra. Esto significa que cualquier intento de acceder al honeypot desde esa dirección IP será bloqueado.\n\nEn la pantalla se muestra una lista de todas las direcciones IP actualmente bloqueadas. Para Para cada dirección IP de la lista, hay un botón de eliminación disponible.\n\nPara eliminar una dirección IP de la lista negra, tiene un botón que permite esta eliminación.\n\n- Aparece una notificación en la pantalla para informarle de la acción que se ha realizado.",
+        "blockAnIP": "Bloquear una IP",
+        "ipAddress": "Dirección IP",
+        "blockIP": "Bloquear IP",
+        "currentlyBlocked": "IP actualmente bloqueadas",
+        "blockSuccess": "IP bloqueada exitosamente",
+        "unblockSuccess": "IP desbloqueada exitosamente"
+      },
+      "listConnections": {
+        "title": "Conexiones entrantes",
+        "helpText": "La función Conexiones entrantes proporciona una vista en tiempo real de los registros de conexión al sistema honeypot.\n\nEstos registros suelen ser registros de eventos generados por el sistema, particularmente intentos de conexión entrantes.\n\nUn honeypot es un recurso de red configurado para atraer y detectar intentos de acceso no autorizados."
+      },
+      "containerManager": {
+        "title": "Gestión de contenedores",
+        "helpText": "Al utilizar la administración de contenedores, puede ver una lista de todos los contenedores actualmente en ejecución, junto con su estado y dirección IP. Cada contenedor se muestra en un mapa individual.\n\nL El estado del contenedor puede ser Arriba o Abajo, lo que indica si el contenedor se está ejecutando actualmente o no.\n\nLa dirección IP del contenedor también se muestra, lo que facilita ver la dirección de red del contenedor.",
+        "status": "Estado",
+        "ip": "ip"
+      },
+      "configGenerador": {
+        "title": "Generador de configuración",
+        "helpText": "Esta función, denominada Config Generator, permite al usuario generar y descargar un archivo de configuración para una red con direcciones IP específicas. El usuario puede especificar la cantidad de PC ficticias, su dirección IP, la dirección IP y el puerto de un servidor FTP, así como la subred de la red. Esto le permite configurar HoneyBrain desde el Panel.",
+        "generalConfiguration": "Configuración general",
+        "services": "Servicios",
+        "networkInterfaceLabel": "Interfaz de red",
+        "subnetLabel": "Subred",
+        "dockerfilePathLabel": "Ruta del archivo Docker",
+        "numberOfDummyPCLabel": "Número de PC falsas",
+        "ipAddressForDummyPCLabel": "Dirección IP de la PC falsa",
+        "ipAddressForFTPLabel": "Dirección IP para FTP",
+        "portForFTPLabel": "Puerto para FTP",
+        "downloadConfiguration": "Descargar configuración"
+      },
+      "historyPage": {
+        "title": "Historial de acciones",
+        "search": "Buscar",
+        "date": "Fecha",
+        "time": "tiempo",
+        "type": "Tipo",
+        "user": "Usuario",
+        "description": "Descripción",
+        "safe": "seguro",
+        "danger": "peligroso",
+        "dangerHigh": "Nivel de peligro: alto",
+        "dangerMedium": "Nivel de peligro: medio",
+        "dangerLow": "Nivel de peligro: bajo"
+      },
+      "helpModal": {
+        "help": "ayuda",
+        "helpText": "Aquí puedes poner el texto de ayuda en francés...",
+        "close": "cerca"
+      },
+      "HoneyPotPage": {
+        "current_connections": "Conexiones actuales",
+        "ip_connections": "Conexiones IP",
+        "IP": "IP",
+        "time": "tiempo",
+        "safe": "seguro",
+        "danger": "peligro"
+      },
+      "AuthContext": {
+        "logout": "Tu sesión se ha cerrado correctamente"
+      }
+ }

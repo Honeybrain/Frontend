@@ -1,15 +1,45 @@
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import { useTranslation } from 'react-i18next';
-import { Box }  from '@mui/material';
+import { Box, MenuItem, Select, SelectChangeEvent }  from '@mui/material';
+import { useState } from 'react';
+import { BorderAll } from '@mui/icons-material';
+import { red } from '@mui/material/colors';
+import useChangeLanguageRPC from "@hooks/backend/userService/useChangeLanguageRPC";
+import getUserLanguageRPC from "@hooks/backend/userService/useGetUserLanguageRPC";
 
 const LanguageSwitcher = () => {
   const { i18n } = useTranslation();
+  const { changeLanguage } = useChangeLanguageRPC();
+  const { getUserLanguage } = getUserLanguageRPC();
+  const [lan, setLan] = useState('');
+
+  const fetchUserLanguage = () => {
+    getUserLanguage().then((res) => {
+    console.log("HERE: ", res);
+    i18n.changeLanguage(res);
+    setLan(res);
+  });
+  }
+
+  if (lan == '')
+    fetchUserLanguage();
 
   const handleLanguageSwitch = (event: any, newLang: string) => {
     if (newLang !== null) {
       i18n.changeLanguage(newLang);
     }
+  }
+    const handleLanguageSwitch2 = (event: SelectChangeEvent) => {
+      const newLang = event.target.value;
+      if (newLang !== null) {
+        i18n.changeLanguage(newLang);
+        try {
+          changeLanguage(newLang);
+        } catch(error) {
+          console.log(error);
+        }
+      }
   };
 
   return (
@@ -21,19 +51,18 @@ const LanguageSwitcher = () => {
       borderRight={1}
       borderColor="grey.500"
     >
-      <ToggleButtonGroup
+      <Select
+        sx={{ boxShadow: 'none', '.MuiOutlinedInput-notchedOutline': { borderStyle: 'none' } }}
         color="info"
-        value={i18n.language}
-        exclusive
-        onChange={handleLanguageSwitch}
+        value={lan}
+        label="language"
+        onChange={handleLanguageSwitch2}
       >
-        <ToggleButton value="fr" style={{ backgroundColor: i18n.language === 'fr' ? 'grey' : 'transparent' }}>
-          🇫🇷
-        </ToggleButton>
-        <ToggleButton value="en" style={{ backgroundColor: i18n.language === 'en' ? 'grey' : 'transparent' }}>
-          🇬🇧
-        </ToggleButton>
-      </ToggleButtonGroup>
+        <MenuItem value={"fr"}>🇫🇷</MenuItem>
+        <MenuItem value={"en"}>🇬🇧</MenuItem>
+        <MenuItem value={"es"}>🇪🇸</MenuItem>
+        <MenuItem value={"ch"}>🇨🇳</MenuItem>
+      </Select>
     </Box>
   );
 };

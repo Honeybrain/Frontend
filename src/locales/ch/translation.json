@@ -1,0 +1,114 @@
+{
+    "navbar": {
+      "dashboard": "仪表板",
+      "login": "登录",
+      "logout": "注销",
+      "profile": "个人资料",
+      "home": "家"
+    },
+    "loginPage": {
+      "login": "登录",
+      "emailPlaceholder": "电子邮件",
+      "passwordPlaceholder": "密码",
+      "submit": "登录",
+      "errorMessage": "用户名和/或密码不正确.",
+      "loginSuccess": "登录成功，正在加载..."
+    },
+    "homePage": {
+      "dashboard": "仪表板",
+      "ipManagement": "IP 管理",
+      "containerManager": "容器管理器",
+      "incomingConnections": "传入连接",
+      "otherFeatures": "其他功能",
+      "history": "历史"
+    },
+    "profilePage": {
+      "passwordChange": "密码更改",
+      "resetEmailSent": "您的密码已更改.",
+      "newPassword": "新密码",
+      "resetPassword": "重置密码",
+      "emailChange": "电子邮件地址更改",
+      "emailUpdated": "您的电子邮件已被修改.",
+      "newEmail": "新电子邮件",
+      "validate": "重置电子邮件"
+    },
+    "blacklistPage":{
+      "blockedIPs": "被阻止的 IP",
+      "helpText": "使用阻止的 IP 小部件，您可以看到黑名单中的 IP 地址.这意味着从此 IP 地址访问蜜罐的任何尝试都将被阻止.\n\n对于列表中的每个 IP 地址，都会有一个删除按钮可用.\n\n要从黑名单中删除 IP 地址，您可以使用允许此删除的按钮.\n\n屏幕上会出现一条通知,通知您已执行的操作.",
+      "noBlockedIP": "没有 IP 被阻止！"
+    },
+    "containerMonitorWidget": {
+      "honeypotServices": "蜜罐服务",
+      "helpText": "使用容器管理小部件，您可以查看所有当前正在运行的容器的列表，以及它们的状态和 IP 地址.每个容器都显示在单独的地图上.\n\n容器的状态可以是 Up或 Down 指示容器当前是否正在运行.\n\n还会显示容器的 IP 地址，方便查看容器的网络地址.",
+      "status":"状态",
+      "ip": "IP"
+    },
+    "logViewerWidget": {
+      "incomingConnections": "传入连接",
+      "helpText": "传入连接小部件提供蜜罐系统连接日志的实时视图.\n\n这些日志通常是系统生成的事件的记录,特别是传入连接尝试.\n\n蜜罐是一种网络资源旨在吸引和检测未经授权的访问尝试."
+    },
+    "blockManager": {
+      "ipManagement": "IP 管理",
+      "helpText": "您可以将 IP 地址添加到黑名单.这意味着从该 IP 地址访问蜜罐的任何尝试都将被阻止.\n\n屏幕上会显示所有当前被阻止的 IP 地址的列表.对于列表中的每个 IP 地址都有一个删除按钮.\n\n要从黑名单中删除 IP 地址，您有一个允许删除的按钮.\n\n- 屏幕上会出现一条通知，通知您该 IP 地址已被删除.已执行的操作.",
+      "blockAnIP": "阻止 IP",
+      "ipAddress": "IP 地址",
+      "blockIP": "封锁IP",
+      "currentlyBlocked": "当前阻止的 IP",
+      "blockSuccess": "IP 拦截成功",
+      "unblockSuccess": "IP解封成功"
+    },
+    "listConnections": {
+        "title": "传入连接",
+        "helpText": "传入连接功能提供蜜罐系统连接日志的实时视图.\n\n这些日志通常是系统生成的事件的记录,特别是传入连接尝试.\n\n蜜罐是一个设置网络资源以吸引和检测未经授权的访问尝试."
+      },
+      "containerManager": {
+        "title": "容器管理",
+        "helpText": "使用容器管理，您可以查看所有当前正在运行的容器的列表，以及它们的状态和 IP 地址.每个容器都显示在单独的地图上.\n\nL 容器状态可以是 Up 或 Down 指示容器当前是否正在运行.\n\n还会显示容器的IP地址,方便查看容器的网络地址.",
+        "status":"状态",
+        "ip":"IP"
+      },
+      "configGenerator": {
+        "title": "配置生成器",
+        "helpText": "此功能名为配置生成器，允许用户为具有特定 IP 地址的网络生成和下载配置文件.用户可以指定虚拟 PC 的数量、它们的 IP 地址、虚拟 PC 的 IP 地址和端口FTP 服务器以及网络子网.这允许您从仪表板配置 HoneyBrain.",
+        "generalConfiguration": "常规配置",
+        "services": "服务",
+        "networkInterfaceLabel": "网络接口",
+        "subnetLabel": "子网",
+        "dockerfilePathLabel": "Dockerfile 路径",
+        "numberOfDummyPCLabel": "假 PC 数量",
+        "ipAddressForDummyPCLabel": "假 PC 的 IP 地址",
+        "ipAddressForFTPLabel": "FTP 的 IP 地址",
+        "portForFTPLabel": "FTP 端口",
+        "downloadConfiguration": "下载配置"
+      },
+      "historyPage": {
+        "title": "动作历史",
+        "search": "搜索",
+        "date": "日期",
+        "time": "时间",
+        "type": "类型",
+        "user": "用户",
+        "description": "描述",
+        "safe": "安全",
+        "danger": "危险",
+        "dangerHigh": "危险级别:高",
+        "dangerMedium": "危险级别:中",
+        "dangerLow": "危险级别:低"
+      },
+      "helpModal": {
+        "help": "帮助",
+        "helpText": "在这里您可以输入法语帮助文本...",
+        "close": "关闭"
+      },
+      "HoneyPotPage":{
+        "current_connections": "当前连接",
+        "ip_connections": "IP 连接数",
+        "ip":"IP",
+        "time":"时间",
+        "safe": "安全",
+        "danger": "危险"
+      },
+      "AuthContext":{
+        "logout": "您已注销成功"
+      }
+ }

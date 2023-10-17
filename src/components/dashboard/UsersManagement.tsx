@@ -26,6 +26,7 @@ interface User {
   activated: boolean;
   admin: boolean;
   id: string;
+  lan: string;
 }
 
 const UsersManagement: React.FC = () => {
