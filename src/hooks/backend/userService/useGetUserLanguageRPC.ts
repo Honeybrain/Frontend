@@ -11,7 +11,6 @@ const useGetUserlanguageRPC = () => {
   const getUserLanguage = React.useCallback(async () => {
     if (token == null)
       token = localStorage.getItem("token");
-    console.log(token);
     const request: UserRequest = UserRequest.create();
     const lan = (await client.getUserLanguage(request, {
       meta: { Authorization: `Bearer ${token}` },
