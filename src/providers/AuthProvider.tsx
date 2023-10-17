@@ -42,7 +42,6 @@ export const AuthProvider = ({ children }) => {
   const loginWithToken = React.useCallback(async (token: string) => {
     try {
       localStorage.setItem("token", token);
-      console.log(token);
       setToken(token);
       setIsLoggedIn(true);
       history.push("/");

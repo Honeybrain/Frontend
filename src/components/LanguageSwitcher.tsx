@@ -16,7 +16,6 @@ const LanguageSwitcher = () => {
 
   const fetchUserLanguage = () => {
     getUserLanguage().then((res) => {
-    console.log("HERE: ", res);
     i18n.changeLanguage(res);
     setLan(res);
   });
