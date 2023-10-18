@@ -1,16 +1,22 @@
-FROM node:18.16.0
+FROM node AS builder
 
 WORKDIR /app
 
-COPY . .
-COPY src/environment-prod.ts src/environment.ts
+COPY package.json ./
 
 RUN yarn install
 
-RUN npm install -g serve
+COPY . .
 
-RUN yarn build
+RUN npm run build
+
+
+FROM nginx:alpine
+
+COPY --from=builder /app/dist /usr/share/nginx/html
+
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 EXPOSE 3000
 
-CMD ["serve", "-s", "dist"]
+CMD ["nginx", "-g", "daemon off;"]
