@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useRef } from 'react';
 import { Grid, Typography, Card, CardContent, Box, Button, Dialog, DialogTitle, DialogContent, DialogActions, DialogContentText } from '@mui/material';
 import ErrorIcon from '@mui/icons-material/Error';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
@@ -7,13 +7,70 @@ import AuthContext from "@contexts/AuthContext";
 import HelpModal from "@components/HelpModal";
 import useContainersRPC from '@hooks/backend/honeypotService/useContainersRPC';
 import { useTranslation } from 'react-i18next';
+import Carousel from '@components/Carousel';
 
+export interface ConfirmationDialogRawProps {
+  id: string;
+  keepMounted: boolean;
+  open: boolean;
+  onClose: (value?: string) => void;
+}
+
+let _status: any = null;
+let _IP: any = null;
+
+function ConfirmationDialogRaw(props: ConfirmationDialogRawProps) {
+  const { onClose, open, ...other } = props;
+
+  const handleCancel = () => {
+    onClose('no');
+  };
+
+  const handleOk = () => {
+    onClose('yes');
+  };
+
+  return (
+    <Dialog
+      sx={{ '& .MuiDialog-paper': { width: '80%', maxHeight: 435 } }}
+      maxWidth="xs"
+      open={open}
+      {...other}
+      aria-labelledby="alert-dialog-title"
+      aria-describedby="alert-dialog-description"
+    > 
+      <DialogTitle id="alert-dialog-title">Change container state ?</DialogTitle>
+      <DialogContent dividers>
+        <DialogContentText id="alert-dialog-description">
+          if you accept, you could damage the viability and security of the honeypot.
+        </DialogContentText>
+      </DialogContent>
+      <DialogActions>
+        <Button autoFocus onClick={handleCancel}>Cancel</Button>
+        <Button onClick={handleOk}>Continue</Button>
+      </DialogActions>
+    </Dialog>
+  );
+}
 
 const ContainerManager: React.FC = () => {
   const { containers } = useContainersRPC();
   const { token } = useContext(AuthContext);
   const { t } = useTranslation();
   const [elementsActifs, setElementsActifs] = useState<string[]>([]);
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = (elementId: string, status: string) => {
+    setOpen(true);
+    _IP = elementId,
+    _status = status
+  };
+
+  const handleClose = (newValue?: string) => {
+      setOpen(false);
+      if (newValue === 'yes') 
+        toggleElement(_IP, _status)
+  };
 
   const getContainerStatus = (status: string, ip: string) => {
     if (status.startsWith('running')) {
@@ -27,7 +84,7 @@ const ContainerManager: React.FC = () => {
     }
   };
 
-  const toggleElement = (elementId: string, status: string) => {
+   const toggleElement = (elementId: string, status: string) => {
     if (status.startsWith('running')) {
       if (elementsActifs.includes(elementId)) {
         setElementsActifs(elementsActifs.filter((id) => id !== elementId));
@@ -38,6 +95,7 @@ const ContainerManager: React.FC = () => {
   };
 
   return (
+    <>  
     <Grid container direction="column">
       <Grid item>
         <Grid container justifyContent="space-between" alignItems="center" mb={2}>
@@ -63,7 +121,8 @@ const ContainerManager: React.FC = () => {
         {containers && containers.map((container, index) => (
           <>
           <Card variant="outlined" key={index}
-            onClick={() => toggleElement(container.ip, container.status)}
+            aria-controls="menu-dialog"
+            onClick={() => handleClickOpen(container.ip, container.status)}
             style={{
             backgroundColor: elementsActifs.includes(container.ip) ? 'lightyellow' : 'lightblue',
             cursor: 'pointer',
@@ -86,9 +145,17 @@ const ContainerManager: React.FC = () => {
             </Card>
           </>
           ))}
+          <ConfirmationDialogRaw
+            id="menu-dialog"
+            keepMounted
+            open={open}
+            onClose={handleClose}
+          />
         </Box>
       </Grid>
     </Grid>
+    <Carousel/>
+    </>
   );
 };
 

@@ -64,7 +64,7 @@
     },
     "containerManager": {
       "title": "Gestion des conteneurs",
-      "helpText": "En utilisant le Gestion des conteneurs , vous pouvez voir une liste de tous les conteneurs actuellement en cours d'exécution, ainsi que leur état et leur adresse IP. Chaque conteneur est affiché sur une carte individuelle.\n\nL'état du conteneur peut être Up ou Down indiquant si le conteneur est actuellement en cours d'exécution ou non.\n\nL'adresse IP du conteneur est également affichée, permettant de voir facilement l'adresse réseau du conteneur.",
+      "helpText": "En utilisant la Gestion des conteneurs , vous pouvez voir une liste de tous les conteneurs actuellement en cours d'exécution, ainsi que leur état et leur adresse IP. Chaque conteneur est affiché sur une carte individuelle.\n\nL'état du conteneur peut être Up ou Down indiquant si le conteneur est actuellement en cours d'exécution ou non.\nVous pouvez modifier l'état d'un conteneur en cliquant sur celui ci. ATTENTION!!\n\nL'adresse IP du conteneur est également affichée, permettant de voir facilement l'adresse réseau du conteneur.",
       "status": "État",
       "ip": "IP"
     },
