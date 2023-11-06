@@ -20,138 +20,137 @@ import useChangeRightsRPC from "@hooks/backend/userService/useChangeRightsRPC";
 import useDeleteUserRPC from "@hooks/backend/userService/useDeleteUserRPC";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { RpcError } from "@protobuf-ts/runtime-rpc";
+import { RoleEnum } from "../../_utils/enums/role.enum";
+import { useTranslation } from "react-i18next";
 
 interface User {
   email: string;
+
   activated: boolean;
-  admin: boolean;
+
+  roles: string[];
+
   id: string;
 }
 
 const UsersManagement: React.FC = () => {
-  const [selectedRights, setSelectedRights] = useState<Record<string, string>>(
-    {},
-  );
+  const { t } = useTranslation();
+
   const [email, setEmail] = useState<string>("");
+
   const [users, setUsers] = useState<User[]>([]);
 
-  const [open, setOpen] = React.useState(false);
-  const [alertText, setAlertText] = React.useState("");
-  const [alertSeverity, setAlertSeverity] = useState<"success" | "error">(
-    "success",
-  );
+  const [alert, setAlert] = useState<{
+    content: string;
+    severity: "success" | "error";
+  } | null>(null);
 
   const { getUsers } = useGetUsersRPC();
   const { inviteUser } = useInviteUserRPC();
   const { changeRights } = useChangeRightsRPC();
   const { deleteUser } = useDeleteUserRPC();
 
-  const myButton = (email: string, right: boolean) => (
-    <>
-      <Select
-        value={
-          selectedRights[email] || (right ? "Administrateur" : "Utilisateur")
-        }
-        onChange={async (e) => {
-          setSelectedRights((prevSelectedRights) => ({
-            ...prevSelectedRights,
-            [email]: e.target.value as string,
-          }));
-          const admin = e.target.value === "Administrateur"; // Cette ligne transforme la valeur en un booléen
-          await changeRightsClick(email, admin);
-        }}
-        sx={{ width: "150px" }}
-        label="Changer les droitas"
-      >
-        <MenuItem value="Utilisateur">Utilisateur</MenuItem>
-        <MenuItem value="Administrateur">Administrateur</MenuItem>
-      </Select>
-    </>
-  );
+  const myButton = (user: User) => {
+    const right = user.roles.map((x) => parseInt(x));
+
+    return (
+      <>
+        <Select
+          multiple
+          value={right}
+          onChange={(e) => changeRightsClick(user, e.target.value as number[])}
+          sx={{ width: "150px" }}
+          label="Changer les droits"
+        >
+          {Object.entries(RoleEnum)
+            .filter((x) => typeof x[1] == "number")
+            .map((role) => (
+              <MenuItem key={role[1]} value={role[1]}>
+                {t(`roleEnum.${role[0]}`)}
+              </MenuItem>
+            ))}
+        </Select>
+      </>
+    );
+  };
 
   const deleteButton = (email: string) => (
     <IconButton
       edge="end"
       sx={{ marginLeft: "3px" }}
       aria-label="delete"
-      onClick={() => {
-        deleteUserClick(email);
-      }}
+      onClick={() => deleteUserClick(email)}
     >
       <DeleteIcon color="error" />
     </IconButton>
   );
 
-  const changeRightsClick = async (email: string, admin: boolean) => {
-    try {
-      await changeRights(email, admin);
-    } catch (error: any) {
-      setAlertText(
-        "Une erreur s'est produite lors du changement de droit de l'utilisateur.",
+  const changeRightsClick = (user: User, roles: number[]) =>
+    changeRights(user.email, roles)
+      .then(() => {
+        user.roles = roles.map((x) => x.toString());
+        setUsers((x) => [...x]);
+      })
+      .catch(() =>
+        setAlert({
+          content:
+            "Une erreur s'est produite lors du changement de droit de l'utilisateur.",
+          severity: "error",
+        }),
       );
-      setAlertSeverity("error");
-      setOpen(true);
-    }
-  };
 
   const deleteUserClick = async (email: string) => {
     try {
       await deleteUser(email);
       await fetchUsers();
     } catch (error) {
-      setAlertText(
-        "Une erreur s'est produite lors de la suppression de l'utilisateur.",
-      );
-      setAlertSeverity("error");
-      setOpen(true);
+      setAlert({
+        content:
+          "Une erreur s'est produite lors de la suppression de l'utilisateur.",
+        severity: "error",
+      });
     }
   };
 
   const inviteUserClick = async (email: string) => {
     try {
       await inviteUser(email);
-      setAlertText("Utilisateur invité avec succès!");
-      setAlertSeverity("success");
-      setOpen(true);
+      setAlert({
+        content: "Utilisateur invité avec succès!",
+        severity: "success",
+      });
       await fetchUsers();
     } catch (error) {
-      setAlertSeverity("error");
-      setOpen(true);
       if (error instanceof RpcError) {
         if (error.code == "ALREADY_EXISTS")
-          return setAlertText("Un compte avec cet email existe déjà.");
+          return setAlert({
+            content: "Un compte avec cet email existe déjà.",
+            severity: "error",
+          });
       }
-      setAlertText(
-        "Une erreur s'est produite lors de l'invitation de l'utilisateur.",
-      );
+      setAlert({
+        content:
+          "Une erreur s'est produite lors de l'invitation de l'utilisateur.",
+        severity: "error",
+      });
     }
   };
 
   const fetchUsers = async () => {
     try {
-      const fetchedUsers = (await getUsers()).map(
-        (userString: string) => JSON.parse(userString) as User,
-      );
+      const fetchedUsers = (await getUsers()).map<User>((x) => JSON.parse(x));
       setUsers(fetchedUsers);
-
-      const initialRights: Record<string, string> = {};
-      fetchedUsers.forEach((user) => {
-        initialRights[user.email] = user.admin
-          ? "Administrateur"
-          : "Utilisateur";
-      });
-      setSelectedRights(initialRights);
     } catch (error) {
       console.error("Erreur lors de la récupération des utilisateurs:", error);
     }
   };
 
   const handleClose = React.useCallback(() => {
-    setOpen(false);
+    setAlert(null);
   }, []);
 
   useEffect(() => {
-    fetchUsers();
+    void fetchUsers();
   }, []);
 
   return (
@@ -178,9 +177,7 @@ const UsersManagement: React.FC = () => {
             <Button
               variant="contained"
               color="primary"
-              onClick={() => {
-                inviteUserClick(email);
-              }}
+              onClick={() => inviteUserClick(email)}
             >
               Envoyer l'invitation
             </Button>
@@ -223,7 +220,7 @@ const UsersManagement: React.FC = () => {
                   }`}
                 />
                 <Box sx={{ display: "flex", alignItems: "center" }}>
-                  {myButton(user.email, user.admin)}
+                  {myButton(user)}
                 </Box>
                 <Box sx={{ display: "flex", alignItems: "center" }}>
                   {deleteButton(user.email)}
@@ -233,13 +230,13 @@ const UsersManagement: React.FC = () => {
           </List>
         </Box>
       </Grid>
-      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+      <Snackbar open={!!alert} autoHideDuration={6000} onClose={handleClose}>
         <Alert
           onClose={handleClose}
-          severity={alertSeverity}
+          severity={alert?.severity}
           sx={{ width: "100%" }}
         >
-          {alertText}
+          {alert?.content}
         </Alert>
       </Snackbar>
     </Grid>
