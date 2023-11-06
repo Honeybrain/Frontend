@@ -22,23 +22,15 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { RpcError } from "@protobuf-ts/runtime-rpc";
 import { RoleEnum } from "../../_utils/enums/role.enum";
 import { useTranslation } from "react-i18next";
-
-interface User {
-  email: string;
-
-  activated: boolean;
-
-  roles: string[];
-
-  id: string;
-}
+import { UserDto } from "@protos/user";
 
 const UsersManagement: React.FC = () => {
   const { t } = useTranslation();
 
   const [email, setEmail] = useState<string>("");
 
-  const [users, setUsers] = useState<User[]>([]);
+  const [users, setUsers] = useState<UserDto[]>([]);
+  console.log("-> users", users);
 
   const [alert, setAlert] = useState<{
     content: string;
@@ -50,47 +42,47 @@ const UsersManagement: React.FC = () => {
   const { changeRights } = useChangeRightsRPC();
   const { deleteUser } = useDeleteUserRPC();
 
-  const myButton = (user: User) => {
-    const right = user.roles.map((x) => parseInt(x));
+  const myButton = (user: UserDto) => (
+    <>
+      <Select
+        multiple
+        value={user.roles}
+        onChange={(e) =>
+          changeRightsClick(user, [e.target.value as RoleEnum[]].flat())
+        }
+        sx={{ width: "150px" }}
+        label="Changer les droits"
+      >
+        {Object.entries(RoleEnum)
+          .filter((x) => typeof x[1] == "number")
+          .map((role) => (
+            <MenuItem key={role[1]} value={role[1]}>
+              {t(`roleEnum.${role[0]}`)}
+            </MenuItem>
+          ))}
+      </Select>
+    </>
+  );
 
-    return (
-      <>
-        <Select
-          multiple
-          value={right}
-          onChange={(e) => changeRightsClick(user, e.target.value as number[])}
-          sx={{ width: "150px" }}
-          label="Changer les droits"
-        >
-          {Object.entries(RoleEnum)
-            .filter((x) => typeof x[1] == "number")
-            .map((role) => (
-              <MenuItem key={role[1]} value={role[1]}>
-                {t(`roleEnum.${role[0]}`)}
-              </MenuItem>
-            ))}
-        </Select>
-      </>
-    );
-  };
-
-  const deleteButton = (email: string) => (
+  const deleteButton = (user: UserDto) => (
     <IconButton
       edge="end"
       sx={{ marginLeft: "3px" }}
       aria-label="delete"
-      onClick={() => deleteUserClick(email)}
+      onClick={() => deleteUserClick(user)}
     >
       <DeleteIcon color="error" />
     </IconButton>
   );
 
-  const changeRightsClick = (user: User, roles: number[]) =>
+  const changeRightsClick = (user: UserDto, roles: number[]) =>
     changeRights(user.email, roles)
-      .then(() => {
-        user.roles = roles.map((x) => x.toString());
-        setUsers((x) => [...x]);
-      })
+      .then((newUser) =>
+        setUsers((x) => [
+          ...x.filter((y) => y.id != user.id),
+          newUser.response,
+        ]),
+      )
       .catch(() =>
         setAlert({
           content:
@@ -99,51 +91,47 @@ const UsersManagement: React.FC = () => {
         }),
       );
 
-  const deleteUserClick = async (email: string) => {
-    try {
-      await deleteUser(email);
-      await fetchUsers();
-    } catch (error) {
-      setAlert({
-        content:
-          "Une erreur s'est produite lors de la suppression de l'utilisateur.",
-        severity: "error",
-      });
-    }
-  };
+  const deleteUserClick = (user: UserDto) =>
+    deleteUser(user.email)
+      .then(() => setUsers((x) => [...x.filter((y) => y.id != user.id)]))
+      .catch(() =>
+        setAlert({
+          content:
+            "Une erreur s'est produite lors de la suppression de l'utilisateur.",
+          severity: "error",
+        }),
+      );
 
-  const inviteUserClick = async (email: string) => {
-    try {
-      await inviteUser(email);
-      setAlert({
-        content: "Utilisateur invité avec succès!",
-        severity: "success",
+  const inviteUserClick = (email: string) =>
+    inviteUser(email)
+      .then((x) => {
+        setUsers((y) => [...y, x.response]);
+        setAlert({
+          content: "Utilisateur invité avec succès!",
+          severity: "success",
+        });
+      })
+      .catch((error) => {
+        if (error instanceof RpcError) {
+          if (error.code == "ALREADY_EXISTS")
+            return setAlert({
+              content: "Un compte avec cet email existe déjà.",
+              severity: "error",
+            });
+        }
+        setAlert({
+          content:
+            "Une erreur s'est produite lors de l'invitation de l'utilisateur.",
+          severity: "error",
+        });
       });
-      await fetchUsers();
-    } catch (error) {
-      if (error instanceof RpcError) {
-        if (error.code == "ALREADY_EXISTS")
-          return setAlert({
-            content: "Un compte avec cet email existe déjà.",
-            severity: "error",
-          });
-      }
-      setAlert({
-        content:
-          "Une erreur s'est produite lors de l'invitation de l'utilisateur.",
-        severity: "error",
-      });
-    }
-  };
 
-  const fetchUsers = async () => {
-    try {
-      const fetchedUsers = (await getUsers()).map<User>((x) => JSON.parse(x));
-      setUsers(fetchedUsers);
-    } catch (error) {
-      console.error("Erreur lors de la récupération des utilisateurs:", error);
-    }
-  };
+  const fetchUsers = () =>
+    getUsers()
+      .then(setUsers)
+      .catch((x) =>
+        console.error("Erreur lors de la récupération des utilisateurs:", x),
+      );
 
   const handleClose = React.useCallback(() => {
     setAlert(null);
@@ -223,7 +211,7 @@ const UsersManagement: React.FC = () => {
                   {myButton(user)}
                 </Box>
                 <Box sx={{ display: "flex", alignItems: "center" }}>
-                  {deleteButton(user.email)}
+                  {deleteButton(user)}
                 </Box>
               </ListItem>
             ))}
