@@ -19,13 +19,13 @@ const InvitationSignup: React.FC = () => {
 
   const signIn = async () => {
     try {
-      setError(null); // Clear any previous errors before attempting the operation again
+      setError(null);
       const loginToken = await activateUser(activationToken, password);
       loginWithToken(loginToken);
-      toast.success(t("loginPage.loginSuccess"));
+      toast.success(t('loginPage.loginSuccess'));
       setSubmitted(true);
     } catch (err) {
-      setError("Invitation déjà utilisée!");   // Set the error state
+      setError(t('invitationSignup.usedInvitation'));   // Set the error state
     }
   };
 
@@ -33,14 +33,14 @@ const InvitationSignup: React.FC = () => {
     <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: 'calc(100vh - 110px)' }}>
       <Paper sx={{ p: 2, width: '25em' }}>
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-          <Typography variant="h6">Choisissez votre nouveau mot de passe</Typography>
-          {submitted && (<Typography>Votre compte a été correctement créé</Typography>)}
+          <Typography variant="h6">{t('invitationSignup.choosePassword')}</Typography>
+          {submitted && (<Typography>{t('invitationSignup.accountCreated')}</Typography>)}
           {!submitted && (
             <>
               <TextField
                 type="password"
                 name='password'
-                label="Mot de passe"
+                label={t('invitationSignup.passwordLabel')}
                 value={password}
                 required
                 onChange={(e) => setPassword(e.target.value)}
@@ -49,7 +49,7 @@ const InvitationSignup: React.FC = () => {
                 <Typography color="error" variant="body2">{error}</Typography> // Display error inline
               )}
               <Button type="submit" variant="contained" color="primary" onClick={signIn} >
-                Créer un compte
+                {t('invitationSignup.createAccount')}
               </Button>
             </>
           )}
