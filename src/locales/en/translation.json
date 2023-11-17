@@ -19,6 +19,7 @@
       "ipManagement": "IP Management",
       "containerManager": "Container Manager",
       "incomingConnections": "Incoming Connections",
+      "userManagement": "User Management",
       "otherFeatures": "Other Features",
       "history": "History Page"
     },
@@ -110,5 +111,16 @@
     },
     "AuthContext": {
       "logout": "You have been successfully logged out  "
+    },
+    "userManagement": {
+    "userManagement":"User management",
+    "inviteNewUser":"Invite a new user",
+    "emailNewUser": "new user email",
+    "sendInvite": "send invite",
+    "usersList": "Users list",
+    "user": "user",
+    "admin": "admin",
+    "activated": "activated",
+    "waitingActivation": "waiting for activation"
     }
 }

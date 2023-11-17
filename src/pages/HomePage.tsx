@@ -65,7 +65,7 @@ const HomePage = () => {
           <li onClick={() => handleMenuClick('ipManagement')}>{t('homePage.ipManagement')}</li>
           <li onClick={() => handleMenuClick('containerManager')}>{t('homePage.containerManager')}</li>
           <li onClick={() => handleMenuClick('incomingConnections')}>{t('homePage.incomingConnections')}</li>
-          <li onClick={() => handleMenuClick('usersManagement')}>Gestion des utilisateurs</li>
+          <li onClick={() => handleMenuClick('usersManagement')}>{t('homePage.userManagement')}</li>
           <li onClick={() => handleMenuClick('otherFeatures')}>{t('homePage.otherFeatures')}</li>
         </ul>
       </div>
