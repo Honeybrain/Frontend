@@ -19,6 +19,7 @@
       "ipManagement": "IP 管理",
       "containerManager": "容器管理器",
       "incomingConnections": "传入连接",
+      "userManagement": "用户管理",
       "otherFeatures": "其他功能",
       "history": "历史"
     },
@@ -110,5 +111,16 @@
       },
       "AuthContext":{
         "logout": "您已注销成功"
-      }
+      },
+      "userManagement": {
+      "userManagement":"Gestión de usuarios",
+      "inviteNewUser":"邀请新用户",
+      "emailNewUser": "新用户电子邮件",
+      "sendInvite": "发送邀请",
+      "usersList": "用户列表",
+      "user": "用户",
+      "admin": "行政",
+      "activated": "活性",
+      "waitingActivation": "等待激活"
+    }
  }

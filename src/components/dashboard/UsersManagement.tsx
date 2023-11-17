@@ -20,6 +20,7 @@ import useChangeRightsRPC from "@hooks/backend/userService/useChangeRightsRPC";
 import useDeleteUserRPC from "@hooks/backend/userService/useDeleteUserRPC";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { RpcError } from "@protobuf-ts/runtime-rpc";
+import { useTranslation } from "react-i18next";
 
 interface User {
   email: string;
@@ -46,6 +47,7 @@ const UsersManagement: React.FC = () => {
   const { inviteUser } = useInviteUserRPC();
   const { changeRights } = useChangeRightsRPC();
   const { deleteUser } = useDeleteUserRPC();
+  const { t } = useTranslation();
 
   const myButton = (email: string, right: boolean) => (
     <>
@@ -62,10 +64,10 @@ const UsersManagement: React.FC = () => {
           await changeRightsClick(email, admin);
         }}
         sx={{ width: "150px" }}
-        label="Changer les droitas"
+        label="Changer les droits"
       >
-        <MenuItem value="Utilisateur">Utilisateur</MenuItem>
-        <MenuItem value="Administrateur">Administrateur</MenuItem>
+        <MenuItem value="Utilisateur">{t('userManagement.user')}</MenuItem>
+        <MenuItem value="Administrateur">{t('userManagement.admin')}</MenuItem>
       </Select>
     </>
   );
@@ -158,17 +160,17 @@ const UsersManagement: React.FC = () => {
   return (
     <Grid container direction="column" spacing={2}>
       <Grid item>
-        <Typography variant="h4">Gestion des utilisateurs</Typography>
+        <Typography variant="h4">{t('homePage.userManagement')}</Typography>
       </Grid>
       <Grid item>
         <Typography variant="h6" mb={2}>
-          Inviter un nouvel utilisateur
+          {t('homePage.userManagement')}
         </Typography>
         <Grid container spacing={2} direction="column">
           <Grid item>
             <TextField
               type="email"
-              label="Email nouvel utilisateur"
+              label={t('userManagement.emailNewUser')}
               variant="outlined"
               fullWidth
               value={email}
@@ -183,14 +185,14 @@ const UsersManagement: React.FC = () => {
                 inviteUserClick(email);
               }}
             >
-              Envoyer l'invitation
+              {t('userManagement.sendInvite')}
             </Button>
           </Grid>
         </Grid>
       </Grid>
       <Grid item>
         <Typography variant="h6" gutterBottom>
-          Liste des utilisateurs
+          {t('userManagement.usersList')}
         </Typography>
       </Grid>
       <Grid item xs sx={{ marginBottom: 0.4 }}>
@@ -220,7 +222,7 @@ const UsersManagement: React.FC = () => {
                 <ListItemText
                   primary={`${user.email}`}
                   secondary={`${
-                    user.activated ? "Activé" : "En attente d'activation"
+                    user.activated ? t('userManagement.activated') : t('userManagement.waitingActivation')
                   }`}
                 />
                 <Box sx={{ display: "flex", alignItems: "center" }}>

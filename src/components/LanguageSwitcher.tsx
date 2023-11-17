@@ -33,6 +33,7 @@ const LanguageSwitcher = () => {
       const newLang = event.target.value;
       if (newLang !== null) {
         i18n.changeLanguage(newLang);
+        setLan(newLang);
         try {
           changeLanguage(newLang);
         } catch(error) {

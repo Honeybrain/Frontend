@@ -19,6 +19,7 @@
       "ipManagement": "Gestión de IP",
       "containerManager": "Administrador de contenedores",
       "incomingConnections": "Conexiones entrantes",
+      "userManagement": "Gestión de usuarios",
       "otherFeatures": "Otras Características",
       "history": "Historia"
     },
@@ -67,7 +68,7 @@
         "status": "Estado",
         "ip": "ip"
       },
-      "configGenerador": {
+      "configGenerator": {
         "title": "Generador de configuración",
         "helpText": "Esta función, denominada Config Generator, permite al usuario generar y descargar un archivo de configuración para una red con direcciones IP específicas. El usuario puede especificar la cantidad de PC ficticias, su dirección IP, la dirección IP y el puerto de un servidor FTP, así como la subred de la red. Esto le permite configurar HoneyBrain desde el Panel.",
         "generalConfiguration": "Configuración general",
@@ -110,5 +111,16 @@
       },
       "AuthContext": {
         "logout": "Tu sesión se ha cerrado correctamente"
-      }
+      },
+      "userManagement": {
+      "userManagement":"Gestión de usuarios",
+      "inviteNewUser":"Invitar a un nuevo usuario",
+      "emailNewUser": "correo electrónico de nuevo usuario",
+      "sendInvite": "Enviar invitación",
+      "usersList": "lista de usuarios",
+      "user": "usuario",
+      "admin": "administración",
+      "activated": "activado",
+      "waitingActivation": "esperando activación"
+  }
  }
