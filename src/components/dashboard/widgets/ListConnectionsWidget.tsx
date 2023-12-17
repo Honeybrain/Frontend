@@ -10,8 +10,8 @@ const LogViewerWidget = () => {
   const { t } = useTranslation();
 
   return (
-    <Grid item xs={12} style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
-      <Paper sx={{ p: 2, flex: 1, display: 'flex', flexDirection: 'column', margin: '1em', overflow: 'auto' }}>
+    <Box style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+      <Paper sx={{ p: 2, flex: 1, display: 'flex', flexDirection: 'column', margin: '1em' }}>
         <Grid container justifyContent="space-between" alignItems="center" mb={2}>
           <Grid item>
             <Typography variant="h6" mb={2}>{t('logViewerWidget.incomingConnections')}</Typography>
@@ -27,11 +27,11 @@ const LogViewerWidget = () => {
             language="plaintext"
             theme="vs"
             value={dashboard.logs}
-            options={{ selectOnLineNumbers: true, readOnly: true }}
+            options={{ selectOnLineNumbers: true, readOnly: true, automaticLayout: true }}
           />
         </Box>
       </Paper>
-    </Grid >
+    </Box >
   );
 };
 

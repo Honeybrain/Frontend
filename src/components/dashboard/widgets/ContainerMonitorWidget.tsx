@@ -19,8 +19,8 @@ const ContainerMonitorWidget = () => {
   };
 
   return (
-    <Grid item xs={12}>
-      <Paper sx={{ p: 2, height: '360px', width: '25em', maxWidth: '100%', margin: '1em', overflow: 'hidden' }}>
+    <>
+      <Paper sx={{ flexShrink: 1, p: 2, height: '360px', width: '25em', minWidth: '20rem', margin: '1em', overflow: 'hidden' }}>
         <Grid container justifyContent="space-between" alignItems="center" mb={2}>
           <Grid item>
           <Typography variant="h6" mb={2}>{t('containerMonitorWidget.honeypotServices')}</Typography>
@@ -58,7 +58,7 @@ const ContainerMonitorWidget = () => {
           ))}
         </Box>
       </Paper>
-    </Grid>
+    </>
   );
 };
 
