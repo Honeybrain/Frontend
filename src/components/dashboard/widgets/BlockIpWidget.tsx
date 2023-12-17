@@ -28,8 +28,8 @@ const BlacklistPage = () => {
   }, []);
 
   return (
-    <Grid item xs={12}>
-      <Paper sx={{ p: 2, height: '360px', width: '25em', maxWidth: '100%', margin: '1em', overflow: 'hidden'}}>
+    <>
+      <Paper sx={{ p: 2, height: '360px', width: '25rem', minWidth: '10rem', margin: '1em'}}>
         <Grid container justifyContent="space-between" alignItems="center" mb={2}>
           <Grid item>
             <Typography variant="h6" mb={2}>{t('blacklistPage.blockedIPs')}</Typography>
@@ -40,6 +40,7 @@ const BlacklistPage = () => {
         </Grid>
         <Box
           sx={{
+            flexShrink: 2,
             height: '80%',
             overflow: 'auto',
             '& > *': {
@@ -74,7 +75,7 @@ const BlacklistPage = () => {
           {alertText}
         </Alert>
       </Snackbar>
-    </Grid>
+    </>
   );
 }
 

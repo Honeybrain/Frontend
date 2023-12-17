@@ -1,13 +1,13 @@
-import { AppBar, Toolbar, Typography, Button } from '@mui/material';
+import { AppBar, Toolbar, Typography, Button, Box } from '@mui/material';
 import '../styles.css';
 import { makeStyles } from '@mui/styles';
-
 import React, { useContext } from 'react';
 import AuthContext from "@contexts/AuthContext";
 import { Link } from 'react-router-dom';
 import theme from '../theme';
 import { useTranslation } from "react-i18next";
 import LanguageSwitcher from './LanguageSwitcher';
+import Logo from "../images/honeybrainicon.png"
 
 const useStyles = makeStyles({
   title: {
@@ -34,6 +34,17 @@ const Navbar = () => {
   return (
     <AppBar position="static">
       <Toolbar>
+        <Box
+        component="img"
+        sx={{
+          height: "40px",
+          margin: "12px",
+          borderRadius: "12px",
+          width: "auto"
+        }}
+        alt="logo"
+        src={Logo}
+        ></Box>
         <Typography variant="h6" className={classes.title}>
           {t('navbar.dashboard')}
         </Typography>

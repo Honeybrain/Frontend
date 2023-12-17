@@ -1,7 +1,7 @@
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import { useTranslation } from 'react-i18next';
-import { Box, MenuItem, Select, SelectChangeEvent }  from '@mui/material';
+import { Box, MenuItem, Select, SelectChangeEvent, Divider }  from '@mui/material';
 import { useState } from 'react';
 import { BorderAll } from '@mui/icons-material';
 import { red } from '@mui/material/colors';
@@ -47,8 +47,6 @@ const LanguageSwitcher = () => {
       display="flex"
       alignItems="center"
       paddingRight={2}
-      marginRight={2}
-      borderRight={1}
       borderColor="grey.500"
     >
       <Select
@@ -63,6 +61,7 @@ const LanguageSwitcher = () => {
         <MenuItem value={"es"}>🇪🇸</MenuItem>
         <MenuItem value={"ch"}>🇨🇳</MenuItem>
       </Select>
+    <Divider sx={{bgcolor: "grey", margin: "6px 0 6px 10px"}} orientation='vertical' flexItem/>
     </Box>
   );
 };

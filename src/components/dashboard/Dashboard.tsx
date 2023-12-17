@@ -2,25 +2,21 @@ import '../../styles.css';
 import BlockIpWidget from './widgets/BlockIpWidget';
 import LogViewerWidget from './widgets/ListConnectionsWidget';
 import ContainerMonitorWidget from './widgets/ContainerMonitorWidget';
-import { Grid } from '@mui/material';
+import { Grid, Box, Container } from '@mui/material';
 import { DashboardProvider } from '@providers/DashboardProvider';
 
 const Dashboard = () => {
   return (
     <DashboardProvider>
-      <Grid container direction="column" style={{ height: '100%' }}>
-        <Grid item container>
-          <Grid item xs={4}>
+      <Box display={"flex"} flexDirection={"column"} height={"100%"}>
+        <Box display={"flex"} flexDirection={"row"} minWidth={"30rem !important"}>
             <ContainerMonitorWidget />
-          </Grid>
-          <Grid item xs={4}>
             <BlockIpWidget />
-          </Grid>
-        </Grid>
-        <Grid item style={{ flexGrow: 1 }}>
+        </Box>
+        <Box style={{ flexGrow: 1 }}>
           <LogViewerWidget />
-        </Grid>
-      </Grid>
+        </Box>
+      </Box>
     </DashboardProvider>
   );
 };
