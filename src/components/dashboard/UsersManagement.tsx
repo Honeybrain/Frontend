@@ -30,7 +30,6 @@ const UsersManagement: React.FC = () => {
   const [email, setEmail] = useState<string>("");
 
   const [users, setUsers] = useState<UserDto[]>([]);
-  console.log("-> users", users);
 
   const [alert, setAlert] = useState<{
     content: string;

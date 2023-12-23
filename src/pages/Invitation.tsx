@@ -20,8 +20,8 @@ const InvitationSignup: React.FC = () => {
   const signIn = async () => {
     try {
       setError(null); // Clear any previous errors before attempting the operation again
-      const loginToken = await activateUser(activationToken, password);
-      loginWithToken(loginToken);
+      const activateUserResponse = await activateUser(activationToken, password);
+      loginWithToken(activateUserResponse);
       toast.success(t("loginPage.loginSuccess"));
       setSubmitted(true);
     } catch (err) {
