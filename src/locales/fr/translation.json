@@ -20,6 +20,7 @@
     "containerManager": "Manager des conteneurs",
     "incomingConnections": "Connexions entrantes",
     "userManagement": "Gestion des utilisateurs",
+    "mobileLink": "Mobile Link",
     "otherFeatures": "Autres fonctionnalités",
     "history": "Historique"
   },
@@ -116,8 +117,8 @@
     "userManagement":"Gestion des utilisateurs",
     "inviteNewUser":"Inviter un nouvel utilisateur",
     "emailNewUser": "Email nouvel utilisateur",
-    "sendInvite": "envoyer l'invitation",
-    "usersList": "liste des utilisateurs",
+    "sendInvite": "Envoyer l'invitation",
+    "usersList": "Liste des utilisateurs",
     "activated": "activé",
     "waitingActivation": "en attente d'activation"
   },
@@ -129,5 +130,18 @@
     "CAN_READ_LOGS": "Lire les logs",
     "CAN_MANAGE_CONFIGURATION": "Gérer la configuration",
     "CAN_READ_SERVICES": "Lire les services"
-  }
+  },
+  "mobileLink": {
+    "mobileLink": "Mobile Link",
+    "accessDistance": "Liez votre mobile pour un accès à distance 🚀",
+    "installWireguardStep": "1. Installez Wireguard",
+    "installWireguardDescription": "Installez l'application Wireguard sur votre téléphone Mobile.",
+    "scanQRCodeStep": "2. Scannez le QR code avec votre application Wireguard",
+    "scanQRCodeDescription": "Scannez ce QR code avec l'application Wireguard pour se connecter à votre réseau local.",
+    "downloadAppStep": "3. Téléchargez Honeybrain Mobile",
+    "downloadAppDescription": "Téléchargez l'application Mobile à ce lien :",
+    "loadingQRCode": "Chargement du QR code...",
+    "qrCodeUnavailable": "QR code non disponible",
+    "blockManagerHelpText": "Le client VPN sert de passerelle sécurisée pour accéder à distance à la suite HoneyBrain, au-delà de votre réseau local. En établissant une connexion protégée, il garantit que seuls les utilisateurs autorisés peuvent administrer la suite de sécurité. Cette fonctionnalité est cruciale pour maintenir l'intégrité et la confidentialité de votre réseau. Elle vous permet de gérer les configurations, surveiller les activités et mettre à jour les mesures de sécurité de n'importe où, vous assurant un contrôle total sur votre environnement de cybersécurité."
+  }  
 }

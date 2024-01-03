@@ -10,6 +10,7 @@ import { useTranslation } from "react-i18next";
 import UsersManagement from "../components/dashboard/UsersManagement";
 import { HaveRoles } from "../_utils/function/have-roles";
 import { RoleEnum } from "@protos/user";
+import MobileLink from "@components/dashboard/MobileLink";
 
 const HomePage = () => {
   const { isLoggedIn, user } = useContext(AuthContext);
@@ -57,6 +58,8 @@ const HomePage = () => {
         );
       case "usersManagement":
         return <UsersManagement />;
+      case "mobileLink":
+        return <MobileLink />;
       default:
     }
   };
@@ -87,6 +90,9 @@ const HomePage = () => {
               {t('homePage.userManagement')}
             </li>
           )}
+          <li onClick={() => handleMenuClick("mobileLink")}>
+            {t("homePage.mobileLink")}
+          </li>
           <li onClick={() => handleMenuClick("otherFeatures")}>
             {t("homePage.otherFeatures")}
           </li>

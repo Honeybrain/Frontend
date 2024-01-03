@@ -20,6 +20,7 @@
       "containerManager": "Container Manager",
       "incomingConnections": "Incoming Connections",
       "userManagement": "User Management",
+      "mobileLink": "Mobile Link",
       "otherFeatures": "Other Features",
       "history": "History Page"
     },
@@ -113,14 +114,27 @@
       "logout": "You have been successfully logged out  "
     },
     "userManagement": {
-    "userManagement":"User management",
-    "inviteNewUser":"Invite a new user",
-    "emailNewUser": "new user email",
-    "sendInvite": "send invite",
-    "usersList": "Users list",
-    "user": "user",
-    "admin": "admin",
-    "activated": "activated",
-    "waitingActivation": "waiting for activation"
+      "userManagement":"User management",
+      "inviteNewUser":"Invite a new user",
+      "emailNewUser": "new user email",
+      "sendInvite": "send invite",
+      "usersList": "Users list",
+      "user": "user",
+      "admin": "admin",
+      "activated": "activated",
+      "waitingActivation": "waiting for activation"
+    },
+    "mobileLink": {
+      "mobileLink": "Mobile Link",
+      "accessDistance": "Link your mobile for remote access 🚀",
+      "installWireguardStep": "1. Install Wireguard",
+      "installWireguardDescription": "Install the Wireguard app on your Mobile phone.",
+      "scanQRCodeStep": "2. Scan the QR code with your Wireguard app",
+      "scanQRCodeDescription": "Scan this QR code with the Wireguard app to connect to your local network.",
+      "downloadAppStep": "3. Download Honeybrain Mobile",
+      "downloadAppDescription": "Download the Mobile app at this link:",
+      "loadingQRCode": "Loading QR code...",
+      "qrCodeUnavailable": "QR code not available",
+      "blockManagerHelpText": "The VPN client serves as a secure gateway to access the HoneyBrain suite remotely, beyond your local network. By establishing a protected connection, it ensures that only authorized users can administer the security suite. This feature is crucial for maintaining the integrity and confidentiality of your network. It allows you to manage configurations, monitor activities, and update security measures from anywhere, ensuring you have full control over your cybersecurity environment."
     }
 }
