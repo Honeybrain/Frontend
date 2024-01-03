@@ -120,7 +120,7 @@
     "usersList": "liste des utilisateurs",
     "activated": "activé",
     "waitingActivation": "en attente d'activation"
-  }
+  },
   "roleEnum": {
     "ADMIN": "Administrateur",
     "CAN_INVITE": "Inviter",

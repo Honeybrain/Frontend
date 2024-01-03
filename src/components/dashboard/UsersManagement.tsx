@@ -23,7 +23,6 @@ import { RpcError } from "@protobuf-ts/runtime-rpc";
 import { RoleEnum } from "../../_utils/enums/role.enum";
 import { useTranslation } from "react-i18next";
 import { UserDto } from "@protos/user";
-import { useTranslation } from "react-i18next";
 
 interface User {
   email: string;
@@ -37,7 +36,6 @@ const UsersManagement: React.FC = () => {
   const { t } = useTranslation();
 
   const [email, setEmail] = useState<string>("");
-
   const [users, setUsers] = useState<UserDto[]>([]);
 
   const [alert, setAlert] = useState<{
@@ -49,7 +47,6 @@ const UsersManagement: React.FC = () => {
   const { inviteUser } = useInviteUserRPC();
   const { changeRights } = useChangeRightsRPC();
   const { deleteUser } = useDeleteUserRPC();
-  const { t } = useTranslation();
 
   const myButton = (user: UserDto) => (
     <>
