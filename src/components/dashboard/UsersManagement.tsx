@@ -20,6 +20,9 @@ import useChangeRightsRPC from "@hooks/backend/userService/useChangeRightsRPC";
 import useDeleteUserRPC from "@hooks/backend/userService/useDeleteUserRPC";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { RpcError } from "@protobuf-ts/runtime-rpc";
+import { RoleEnum } from "../../_utils/enums/role.enum";
+import { useTranslation } from "react-i18next";
+import { UserDto } from "@protos/user";
 import { useTranslation } from "react-i18next";
 
 interface User {
@@ -31,17 +34,16 @@ interface User {
 }
 
 const UsersManagement: React.FC = () => {
-  const [selectedRights, setSelectedRights] = useState<Record<string, string>>(
-    {},
-  );
-  const [email, setEmail] = useState<string>("");
-  const [users, setUsers] = useState<User[]>([]);
+  const { t } = useTranslation();
 
-  const [open, setOpen] = React.useState(false);
-  const [alertText, setAlertText] = React.useState("");
-  const [alertSeverity, setAlertSeverity] = useState<"success" | "error">(
-    "success",
-  );
+  const [email, setEmail] = useState<string>("");
+
+  const [users, setUsers] = useState<UserDto[]>([]);
+
+  const [alert, setAlert] = useState<{
+    content: string;
+    severity: "success" | "error";
+  } | null>(null);
 
   const { getUsers } = useGetUsersRPC();
   const { inviteUser } = useInviteUserRPC();
@@ -49,112 +51,103 @@ const UsersManagement: React.FC = () => {
   const { deleteUser } = useDeleteUserRPC();
   const { t } = useTranslation();
 
-  const myButton = (email: string, right: boolean) => (
+  const myButton = (user: UserDto) => (
     <>
       <Select
-        value={
-          selectedRights[email] || (right ? "Administrateur" : "Utilisateur")
+        multiple
+        value={user.roles}
+        onChange={(e) =>
+          changeRightsClick(user, [e.target.value as RoleEnum[]].flat())
         }
-        onChange={async (e) => {
-          setSelectedRights((prevSelectedRights) => ({
-            ...prevSelectedRights,
-            [email]: e.target.value as string,
-          }));
-          const admin = e.target.value === "Administrateur"; // Cette ligne transforme la valeur en un booléen
-          await changeRightsClick(email, admin);
-        }}
         sx={{ width: "150px" }}
         label="Changer les droits"
       >
-        <MenuItem value="Utilisateur">{t('userManagement.user')}</MenuItem>
-        <MenuItem value="Administrateur">{t('userManagement.admin')}</MenuItem>
+        {Object.entries(RoleEnum)
+          .filter((x) => typeof x[1] == "number")
+          .map((role) => (
+            <MenuItem key={role[1]} value={role[1]}>
+              {t(`roleEnum.${role[0]}`)}
+            </MenuItem>
+          ))}
       </Select>
     </>
   );
 
-  const deleteButton = (email: string) => (
+  const deleteButton = (user: UserDto) => (
     <IconButton
       edge="end"
       sx={{ marginLeft: "3px" }}
       aria-label="delete"
-      onClick={() => {
-        deleteUserClick(email);
-      }}
+      onClick={() => deleteUserClick(user)}
     >
       <DeleteIcon color="error" />
     </IconButton>
   );
 
-  const changeRightsClick = async (email: string, admin: boolean) => {
-    try {
-      await changeRights(email, admin);
-    } catch (error: any) {
-      setAlertText(
-        "Une erreur s'est produite lors du changement de droit de l'utilisateur.",
+  const changeRightsClick = (user: UserDto, roles: number[]) =>
+    changeRights(user.email, roles)
+      .then((newUser) =>
+        setUsers((x) => [
+          ...x.filter((y) => y.id != user.id),
+          newUser.response,
+        ]),
+      )
+      .catch(() =>
+        setAlert({
+          content:
+            "Une erreur s'est produite lors du changement de droit de l'utilisateur.",
+          severity: "error",
+        }),
       );
-      setAlertSeverity("error");
-      setOpen(true);
-    }
-  };
 
-  const deleteUserClick = async (email: string) => {
-    try {
-      await deleteUser(email);
-      await fetchUsers();
-    } catch (error) {
-      setAlertText(
-        "Une erreur s'est produite lors de la suppression de l'utilisateur.",
+  const deleteUserClick = (user: UserDto) =>
+    deleteUser(user.email)
+      .then(() => setUsers((x) => [...x.filter((y) => y.id != user.id)]))
+      .catch(() =>
+        setAlert({
+          content:
+            "Une erreur s'est produite lors de la suppression de l'utilisateur.",
+          severity: "error",
+        }),
       );
-      setAlertSeverity("error");
-      setOpen(true);
-    }
-  };
 
-  const inviteUserClick = async (email: string) => {
-    try {
-      await inviteUser(email);
-      setAlertText("Utilisateur invité avec succès!");
-      setAlertSeverity("success");
-      setOpen(true);
-      await fetchUsers();
-    } catch (error) {
-      setAlertSeverity("error");
-      setOpen(true);
-      if (error instanceof RpcError) {
-        if (error.code == "ALREADY_EXISTS")
-          return setAlertText("Un compte avec cet email existe déjà.");
-      }
-      setAlertText(
-        "Une erreur s'est produite lors de l'invitation de l'utilisateur.",
-      );
-    }
-  };
-
-  const fetchUsers = async () => {
-    try {
-      const fetchedUsers = (await getUsers()).map(
-        (userString: string) => JSON.parse(userString) as User,
-      );
-      setUsers(fetchedUsers);
-
-      const initialRights: Record<string, string> = {};
-      fetchedUsers.forEach((user) => {
-        initialRights[user.email] = user.admin
-          ? "Administrateur"
-          : "Utilisateur";
+  const inviteUserClick = (email: string) =>
+    inviteUser(email)
+      .then((x) => {
+        setUsers((y) => [...y, x.response]);
+        setAlert({
+          content: "Utilisateur invité avec succès!",
+          severity: "success",
+        });
+      })
+      .catch((error) => {
+        if (error instanceof RpcError) {
+          if (error.code == "ALREADY_EXISTS")
+            return setAlert({
+              content: "Un compte avec cet email existe déjà.",
+              severity: "error",
+            });
+        }
+        setAlert({
+          content:
+            "Une erreur s'est produite lors de l'invitation de l'utilisateur.",
+          severity: "error",
+        });
       });
-      setSelectedRights(initialRights);
-    } catch (error) {
-      console.error("Erreur lors de la récupération des utilisateurs:", error);
-    }
-  };
+
+  const fetchUsers = () =>
+    getUsers()
+      .then(setUsers)
+      .catch((x) =>
+        console.error("Erreur lors de la récupération des utilisateurs:", x),
+      );
 
   const handleClose = React.useCallback(() => {
-    setOpen(false);
+    setAlert(null);
   }, []);
 
   useEffect(() => {
-    fetchUsers();
+    void fetchUsers();
   }, []);
 
   return (
@@ -181,9 +174,7 @@ const UsersManagement: React.FC = () => {
             <Button
               variant="contained"
               color="primary"
-              onClick={() => {
-                inviteUserClick(email);
-              }}
+              onClick={() => inviteUserClick(email)}
             >
               {t('userManagement.sendInvite')}
             </Button>
@@ -226,23 +217,23 @@ const UsersManagement: React.FC = () => {
                   }`}
                 />
                 <Box sx={{ display: "flex", alignItems: "center" }}>
-                  {myButton(user.email, user.admin)}
+                  {myButton(user)}
                 </Box>
                 <Box sx={{ display: "flex", alignItems: "center" }}>
-                  {deleteButton(user.email)}
+                  {deleteButton(user)}
                 </Box>
               </ListItem>
             ))}
           </List>
         </Box>
       </Grid>
-      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+      <Snackbar open={!!alert} autoHideDuration={6000} onClose={handleClose}>
         <Alert
           onClose={handleClose}
-          severity={alertSeverity}
+          severity={alert?.severity}
           sx={{ width: "100%" }}
         >
-          {alertText}
+          {alert?.content}
         </Alert>
       </Snackbar>
     </Grid>
