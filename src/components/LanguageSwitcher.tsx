@@ -16,9 +16,9 @@ const LanguageSwitcher = () => {
 
   const fetchUserLanguage = () => {
     getUserLanguage().then((res) => {
-    i18n.changeLanguage(res);
-    setLan(res);
-  });
+      i18n.changeLanguage(res);
+      setLan(res);
+    });
   }
 
   if (lan == '')
