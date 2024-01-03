@@ -19,6 +19,7 @@
     "ipManagement": "Gestion des IP",
     "containerManager": "Manager des conteneurs",
     "incomingConnections": "Connexions entrantes",
+    "userManagement": "Gestion des utilisateurs",
     "otherFeatures": "Autres fonctionnalités",
     "history": "Historique"
   },
@@ -111,6 +112,15 @@
   "AuthContext": {
     "logout": "Vous avez été déconnecté avec succès"
   },
+  "userManagement": {
+    "userManagement":"Gestion des utilisateurs",
+    "inviteNewUser":"Inviter un nouvel utilisateur",
+    "emailNewUser": "Email nouvel utilisateur",
+    "sendInvite": "envoyer l'invitation",
+    "usersList": "liste des utilisateurs",
+    "activated": "activé",
+    "waitingActivation": "en attente d'activation"
+  }
   "roleEnum": {
     "ADMIN": "Administrateur",
     "CAN_INVITE": "Inviter",

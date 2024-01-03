@@ -84,7 +84,7 @@ const HomePage = () => {
           </li>
           {HaveRoles(user, [RoleEnum.CAN_INVITE]) && (
             <li onClick={() => handleMenuClick("usersManagement")}>
-              Gestion des utilisateurs
+              {t('homePage.userManagement')}
             </li>
           )}
           <li onClick={() => handleMenuClick("otherFeatures")}>
