@@ -83,12 +83,12 @@ const UsersManagement: React.FC = () => {
 
   const changeRightsClick = (user: UserDto, roles: number[]) =>
     changeRights(user.email, roles)
-      .then((newUser) =>
-        setUsers((x) => [
-          ...x.filter((y) => y.id != user.id),
-          newUser.response,
-        ]),
-      )
+      .then((newUser) => {
+        const user = users.find((x) => x.id == newUser.response.id);
+        if (!user) return;
+        user.roles = newUser.response.roles;
+        setUsers([...users]);
+      })
       .catch(() =>
         setAlert({
           content:
