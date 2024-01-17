@@ -32,6 +32,15 @@ const Navbar = () => {
   const handleLogout = () => {
     logout();
   };
+
+  const handleToggleNightMode = () => {
+    toggleNightMode().then(() => {
+      window.location.reload();
+    }).catch(err => {
+      console.error('Erreur while switching night mode', err);
+    });
+  };
+
   const classes = useStyles();
 
   return (
@@ -40,7 +49,7 @@ const Navbar = () => {
         <Typography variant="h6" className={classes.title}>
           {t('navbar.dashboard')}
         </Typography>
-        <IconButton onClick={toggleNightMode} color="inherit">
+        <IconButton onClick={handleToggleNightMode} color="inherit">
           {isNightMode ? <Brightness4Icon /> : <Brightness7Icon />}
         </IconButton>
         <LanguageSwitcher />
