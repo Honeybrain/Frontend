@@ -11,12 +11,20 @@ import UsersManagement from "../components/dashboard/UsersManagement";
 import { HaveRoles } from "../_utils/function/have-roles";
 import { RoleEnum } from "@protos/user";
 import MobileLink from "@components/dashboard/MobileLink";
+import { useNightModeContext } from '../contexts/NightModeContext';
+import '../styles.css';
 
 const HomePage = () => {
   const { isLoggedIn, user } = useContext(AuthContext);
   const history = useHistory();
   const [currentContent, setCurrentContent] = useState("dashboard");
   const { t } = useTranslation();
+  const { isNightMode } = useNightModeContext();
+  const contentClassName = isNightMode ? "home-content night-mode" : "home-content"; 
+  const contentBodyClassName = isNightMode ? "content-body night-mode" : "content-body"; 
+  const containerClassName = isNightMode ? "home-container night-mode" : "home-container"; 
+  const sidebarClassName = isNightMode ? "home-sidebar night-mode" : "home-sidebar"; 
+  const h3ClassName = isNightMode ? "night-mode-text" : "";
 
   useEffect(() => {
     if (!isLoggedIn) {
@@ -65,9 +73,10 @@ const HomePage = () => {
   };
 
   return (
-    <div className="home-container">
-      <div className="home-sidebar">
-        <h3>HoneyPot</h3>
+    // <div className={containerClassName}>
+    <div className={containerClassName}>
+      <div className={sidebarClassName}>
+        <h3 className={h3ClassName}>HoneyPot</h3>
         <ul>
           <li onClick={() => handleMenuClick("dashboard")}>
             {t("homePage.dashboard")}
@@ -98,10 +107,11 @@ const HomePage = () => {
           </li>
         </ul>
       </div>
-      <div className="home-content">
-        <div className="content-body">{renderContent()}</div>
+      <div className={contentClassName}>
+        <div className={contentBodyClassName}>{renderContent()}</div>
       </div>
     </div>
+    // </div>
   );
 };
 

@@ -7,13 +7,16 @@ import useBlackListRPC from '@hooks/backend/honeypotService/useBlackListRPC';
 import { useTranslation } from 'react-i18next';
 import { AppGalleryButton, AppStoreButton, ButtonsContainer, GooglePlayButton } from 'react-mobile-app-button';
 import useMobileRPC from '@hooks/backend/mobileService/useMobileRPC';
+import { NightModeContext } from '@contexts/NightModeContext';
+import { useContext } from "react";
 
 const MobileLink = () => {
   const { t } = useTranslation();
-
+  const { isNightMode } = useContext(NightModeContext);
   const { getWireguardConfig } = useMobileRPC();
   const [qrCode, setQrCode] = React.useState('');
   const [isLoading, setIsLoading] = React.useState(true);
+  const paperStyle = isNightMode ? { backgroundColor: '#262626', color: 'white' } : {};
 
   React.useEffect(() => {
     const fetchQrCode = async () => {
@@ -44,7 +47,7 @@ const MobileLink = () => {
       </Grid>
       <Grid item xs style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
         <Box flex={1} display="flex" justifyContent="center" alignItems="center">
-          <Paper sx={{ p: 2, width: '50em' }}>
+          <Paper sx={{ ...paperStyle, p: 2, width: '50em' }}>
             <Grid container justifyContent="space-between" alignItems="center" marginBottom="15px">
               <Grid item>
                 <Typography variant="h5">{t('mobileLink.accessDistance')}</Typography>

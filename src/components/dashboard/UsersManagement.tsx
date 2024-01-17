@@ -23,7 +23,8 @@ import { RpcError } from "@protobuf-ts/runtime-rpc";
 import { RoleEnum } from "../../_utils/enums/role.enum";
 import { useTranslation } from "react-i18next";
 import { UserDto } from "@protos/user";
-
+import { useContext } from "react";
+import { NightModeContext } from '@contexts/NightModeContext';
 interface User {
   email: string;
   activated: boolean;
@@ -34,10 +35,21 @@ interface User {
 
 const UsersManagement: React.FC = () => {
   const { t } = useTranslation();
-
+  const { isNightMode } = useContext(NightModeContext); 
   const [email, setEmail] = useState<string>("");
   const [users, setUsers] = useState<UserDto[]>([]);
-
+  const textStyle = isNightMode ? { color: 'white' } : {};
+  const listItemStyle = isNightMode
+    ? { bgcolor: 'action.hover', color: 'white' }
+    : { bgcolor: 'background.default', color: 'inherit' };
+    const textFieldStyle = isNightMode 
+    ? { 
+        InputLabelProps: { style: { color: 'white' } }, 
+        inputProps: { style: { color: 'white' } },
+        sx: { borderBottom: '1px solid white' }
+      } 
+    : {};
+  const listItemTextStyle = isNightMode ? { color: 'white' } : {};
   const [alert, setAlert] = useState<{
     content: string;
     severity: "success" | "error";
@@ -150,10 +162,10 @@ const UsersManagement: React.FC = () => {
   return (
     <Grid container direction="column" spacing={2}>
       <Grid item>
-        <Typography variant="h4">{t('homePage.userManagement')}</Typography>
+        <Typography variant="h4"sx={textStyle}>{t('homePage.userManagement')}</Typography>
       </Grid>
       <Grid item>
-        <Typography variant="h6" mb={2}>
+        <Typography variant="h6" sx={textStyle} mb={2}>
           {t('homePage.userManagement')}
         </Typography>
         <Grid container spacing={2} direction="column">
@@ -165,6 +177,7 @@ const UsersManagement: React.FC = () => {
               fullWidth
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              {...textFieldStyle}
             />
           </Grid>
           <Grid item>
@@ -179,7 +192,7 @@ const UsersManagement: React.FC = () => {
         </Grid>
       </Grid>
       <Grid item>
-        <Typography variant="h6" gutterBottom>
+        <Typography variant="h6" sx={textStyle} gutterBottom>
           {t('userManagement.usersList')}
         </Typography>
       </Grid>
@@ -199,21 +212,16 @@ const UsersManagement: React.FC = () => {
             {users.map((user, index) => (
               <ListItem
                 key={index}
-                sx={{
-                  my: 1,
-                  px: 2,
-                  bgcolor:
-                    index % 2 === 0 ? "action.hover" : "background.default",
-                  borderRadius: 1,
-                }}
+                sx={{ bgcolor: isNightMode ? 'action.hover' : 'background.default' }}
               >
                 <ListItemText
+                  sx={listItemTextStyle}
                   primary={`${user.email}`}
                   secondary={`${
                     user.activated ? t('userManagement.activated') : t('userManagement.waitingActivation')
                   }`}
                 />
-                <Box sx={{ display: "flex", alignItems: "center" }}>
+                <Box sx={{ display: "flex", alignItems: "center"}}>
                   {myButton(user)}
                 </Box>
                 <Box sx={{ display: "flex", alignItems: "center" }}>

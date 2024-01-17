@@ -5,6 +5,7 @@ import HelpModal from "@components/HelpModal";
 import useBlackListRPC from '@hooks/backend/honeypotService/useBlackListRPC';
 import DashboardContext from '@contexts/DashboardContext';
 import { useTranslation } from 'react-i18next';
+import { useNightModeContext } from '../../../contexts/NightModeContext'
 
 const BlacklistPage = () => {
   const { putWhiteList } = useBlackListRPC();
@@ -12,6 +13,9 @@ const BlacklistPage = () => {
   const [open, setOpen] = React.useState(false);
   const [alertText, setAlertText] = React.useState('');
   const { t } = useTranslation();
+  const { isNightMode } = useNightModeContext();
+  const paperStyle = isNightMode ? { p: 2, height: '360px', width: '25em', maxWidth: '100%', margin: '1em', overflow: 'hidden', backgroundColor: '#424242', color: 'white' } : { p: 2, height: '360px', width: '25em', maxWidth: '100%', margin: '1em', overflow: 'hidden' };
+  const listItemStyle = isNightMode ? { my: 1, px: 2, borderRadius: 1, backgroundColor: '#333' } : { my: 1, px: 2, borderRadius: 1, bgcolor: 'background.default' };
 
   const handleClose = React.useCallback(() => {
     setOpen(false);
@@ -29,7 +33,7 @@ const BlacklistPage = () => {
 
   return (
     <Grid item xs={12}>
-      <Paper sx={{ p: 2, height: '360px', width: '25em', maxWidth: '100%', margin: '1em', overflow: 'hidden'}}>
+      <Paper sx={paperStyle}>
         <Grid container justifyContent="space-between" alignItems="center" mb={2}>
           <Grid item>
             <Typography variant="h6" mb={2}>{t('blacklistPage.blockedIPs')}</Typography>
@@ -47,17 +51,12 @@ const BlacklistPage = () => {
             },
           }}
         >
-          { dashboard.blacklist && dashboard.blacklist.length == 0 && <h4>{t('blacklistPage.noBlockedIP')}</h4> }
+          { dashboard.blacklist && dashboard.blacklist.length == 0 && <Typography variant="h6" style={isNightMode ? { color: 'white' } : {}}>{t('blacklistPage.noBlockedIP')}</Typography> }
           <List sx={{ overflow: 'auto' }}>
           {dashboard.blacklist && dashboard.blacklist.map((blacklistedIP, index) => (
             <React.Fragment key={index}>
-              <ListItem sx={{
-                my: 1,
-                px: 2,
-                bgcolor: index % 2 === 0 ? 'action.hover' : 'background.default',
-                borderRadius: 1
-              }}>
-                <ListItemText primary={blacklistedIP} />
+                <ListItem sx={listItemStyle}>
+                <ListItemText primary={blacklistedIP} primaryTypographyProps={{ style: isNightMode ? { color: 'white' } : {} }} />
                 <ListItemSecondaryAction>
                   <IconButton edge="end" aria-label="delete" onClick={() => handleUnblock(blacklistedIP)}>
                     <DeleteIcon color="error" />

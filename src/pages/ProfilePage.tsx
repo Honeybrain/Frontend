@@ -3,6 +3,8 @@ import { TextField, Box, Button, Paper, Typography } from "@mui/material";
 import useChangeMailRPC from "@hooks/backend/userService/useChangeMailRPC";
 import useResetPasswordRPC from "@hooks/backend/userService/useResetPasswordRPC";
 import { useTranslation } from "react-i18next";
+import { NightModeContext } from '@contexts/NightModeContext';
+import { useContext } from "react";
 
 const ProfilePage = () => {
   const { changeMail } = useChangeMailRPC();
@@ -12,7 +14,16 @@ const ProfilePage = () => {
   const [submitted, setSubmitted] = React.useState<boolean>(false);
   const [submittedEmail, setSubmittedEmail] = React.useState<boolean>(false);
   const { t } = useTranslation();
+  const { isNightMode } = useContext(NightModeContext); // Utilisez le contexte NightModeContext
+  const paperStyle = isNightMode ? { p: 2, width: "25em", backgroundColor: "#262626", color: "white" } : { p: 2, width: "25em" }; // Style conditionnel pour Paper
 
+  const textFieldStyle = isNightMode 
+  ? { 
+      InputLabelProps: { style: { color: 'white' } }, 
+      inputProps: { style: { color: 'white' } },
+      sx: { borderBottom: '1px solid white' }
+    } 
+  : {};
   const changePassword = React.useCallback(
     async (e) => {
       e.preventDefault();
@@ -49,7 +60,7 @@ const ProfilePage = () => {
         height: "calc(100vh - 110px)",
       }}
     >
-      <Paper sx={{ p: 2, width: "25em" }}>
+      <Paper sx={paperStyle}>
         <Box
           component="form"
           sx={{
@@ -75,6 +86,7 @@ const ProfilePage = () => {
                 value={password}
                 required
                 onChange={(e) => setPassword(e.target.value)}
+                {...textFieldStyle}
               />
               <Button type="submit" variant="contained" color="primary">
                 {t("profilePage.resetPassword")}
@@ -99,6 +111,7 @@ const ProfilePage = () => {
                 value={email}
                 required
                 onChange={(e) => setEmail(e.target.value)}
+                {...textFieldStyle}
               />
               <Button type="submit" variant="contained" color="primary">
                 {t("profilePage.validate")}
