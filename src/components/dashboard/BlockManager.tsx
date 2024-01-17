@@ -5,6 +5,8 @@ import { Divider } from '@mui/material';
 import HelpModal from "@components/HelpModal";
 import useBlackListRPC from '@hooks/backend/honeypotService/useBlackListRPC';
 import { useTranslation } from 'react-i18next';
+import { NightModeContext } from '@contexts/NightModeContext';
+import { useContext } from "react";
 
 const BlockManager = () => {
   const { blacklist, putBlackList, putWhiteList } = useBlackListRPC();
@@ -12,7 +14,14 @@ const BlockManager = () => {
   const [open, setOpen] = React.useState(false);
   const [alertText, setAlertText] = React.useState('');
   const { t } = useTranslation();
-
+  const { isNightMode } = useContext(NightModeContext);
+  const textFieldStyle = isNightMode 
+  ? { 
+      InputLabelProps: { style: { color: 'white' } }, 
+      inputProps: { style: { color: 'white' } },
+      sx: { borderBottom: '1px solid white' }
+    } 
+  : {};
   const handleClose = React.useCallback(() => {
     setOpen(false);
   }, []);
@@ -64,6 +73,7 @@ const BlockManager = () => {
               autoFocus
               value={ip}
               onChange={(e) => setIp(e.target.value)}
+              {...textFieldStyle}
             />
           </Grid>
           <Grid item>

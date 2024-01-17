@@ -8,13 +8,16 @@ import { HaveRoles } from "../../_utils/function/have-roles";
 import { RoleEnum } from "@protos/user";
 import { useContext } from "react";
 import AuthContext from "@contexts/AuthContext";
+import { NightModeContext } from '@contexts/NightModeContext'; // Assurez-vous que ce chemin est correct
 
 const Dashboard = () => {
   const { user } = useContext(AuthContext);
+  const { isNightMode } = useContext(NightModeContext);
+  const containerClassName = isNightMode ? "dashboard-container night-mode" : "dashboard-container";
 
   return (
     <DashboardProvider>
-      <Grid container direction="column" style={{ height: "100%" }}>
+      <Grid container direction="column" style={{ height: "100%" }} className={containerClassName}>
         <Grid item container>
           {HaveRoles(user, [RoleEnum.CAN_READ_SERVICES]) && (
             <Grid item xs={4}>

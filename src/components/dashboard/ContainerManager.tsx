@@ -6,11 +6,16 @@ import AuthContext from "@contexts/AuthContext";
 import HelpModal from "@components/HelpModal";
 import useContainersRPC from '@hooks/backend/honeypotService/useContainersRPC';
 import { useTranslation } from 'react-i18next';
+import { NightModeContext } from '@contexts/NightModeContext'; // Importez le contexte du mode nuit
 
 const ContainerManager: React.FC = () => {
   const { containers } = useContainersRPC();
   const { token } = useContext(AuthContext);
   const { t } = useTranslation();
+  const { isNightMode } = useContext(NightModeContext); // Utilisez le contexte du mode nuit
+  const cardStyle = isNightMode 
+    ? { backgroundColor: '#424242', color: 'white' } 
+    : {};
 
   const getContainerStatus = (status: string) => {
     if (status.startsWith('running')) {
@@ -44,7 +49,7 @@ const ContainerManager: React.FC = () => {
         }}
       >
           {containers && containers.map((container, index) => (
-            <Card variant="outlined" key={index}>
+            <Card variant="outlined" key={index} sx={cardStyle}>
               <CardContent>
                 <Box
                   sx={{
@@ -56,8 +61,8 @@ const ContainerManager: React.FC = () => {
                   <Typography variant="h6">{container.name}</Typography>
                   {getContainerStatus(container.status)}
                 </Box>
-                <Typography variant="body2" color="text.secondary">{t('containerManager.status')}: {container.status}</Typography>
-                <Typography variant="body2" color="text.secondary">{t('containerManager.ip')}: {container.ip.split('/')[0]}</Typography>
+                <Typography variant="body2" sx={{ color: isNightMode ? 'white' : 'inherit' }}>{t('containerManager.status')}: {container.status}</Typography>
+                <Typography variant="body2" sx={{ color: isNightMode ? 'white' : 'inherit' }}>{t('containerManager.ip')}: {container.ip.split('/')[0]}</Typography>
               </CardContent>
             </Card>
           ))}

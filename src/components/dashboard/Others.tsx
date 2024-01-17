@@ -3,6 +3,8 @@ import '../../styles.css';
 import { Grid, TextField, Box, Button, Paper, Typography } from '@mui/material';
 import HelpModal from '@components/HelpModal';
 import { useTranslation } from 'react-i18next';
+import { NightModeContext } from '@contexts/NightModeContext';
+import { useContext } from "react";
 
 const getRandomDummyPcIPAddresses = (subnet: string, numServices: number) => {
     const subnetParts = subnet.split('/');
@@ -10,6 +12,7 @@ const getRandomDummyPcIPAddresses = (subnet: string, numServices: number) => {
     const subnetMask = parseInt(subnetParts[1]);
     const maxNumServices = Math.pow(2, 32 - subnetMask) - 2;
     const ipAddresses: string[] = [];
+    const { isNightMode } = useContext(NightModeContext);
 
     if (numServices > maxNumServices)
         numServices = maxNumServices;
@@ -36,6 +39,18 @@ const generateRandomIP = (baseIP: string, subnetMask: number) => {
     return randomIPParts.join('.');
 };
 
+const getTextFieldStyles = (isNightMode) => ({
+    '& label': { color: isNightMode ? 'white' : 'inherit' },
+    '& input': { color: isNightMode ? 'white' : 'inherit' },
+    '& .MuiOutlinedInput-root': {
+      '& fieldset': { borderColor: isNightMode ? 'white' : 'inherit' },
+      '&:hover fieldset': { borderColor: isNightMode ? 'white' : 'inherit' },
+      '&.Mui-focused fieldset': { borderColor: isNightMode ? 'white' : 'inherit' }
+    }
+  });
+  
+
+
 const Others = () => {
     const [dummyPcNumServices, setDummyPcNumServices] = useState<number>(2);
     const [ftpIPAddress, setFtpIPAddress] = useState<string>('192.168.1.10');
@@ -45,7 +60,9 @@ const Others = () => {
     const [dockerPath, setDockerPath] = useState<string>('/home/shop/Dockerfile');
     const [dummyPcIPAddresses, setDummyPcIPAddresses] = useState<string[]>(getRandomDummyPcIPAddresses(subnet, 2));
     const { t } = useTranslation();
-
+    const { isNightMode } = useContext(NightModeContext);
+    const paperStyle = isNightMode ? { backgroundColor: '#262626', color: 'white' } : {};
+    const textFieldStyles = getTextFieldStyles(isNightMode);
     const handleDummyPcNumServicesChange = (event: ChangeEvent<HTMLInputElement>) => {
         const numServices = parseInt(event.target.value) > 5 ? 5 : parseInt(event.target.value) < 0 ? 0 : parseInt(event.target.value);
         setDummyPcNumServices(numServices);
@@ -78,7 +95,6 @@ const Others = () => {
             subnet: subnet,
             docker: dockerPath,
         };
-
         const dataStr = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(configData, null, 4));
         const downloadAnchorNode = document.createElement('a');
         downloadAnchorNode.setAttribute('href', dataStr);
@@ -90,7 +106,7 @@ const Others = () => {
 
     return (
         <Box flex={1} display="flex" justifyContent="center" alignItems="center">
-            <Paper sx={{ p: 2, width: '50em' }}>
+            <Paper sx={{ ...paperStyle, p: 2, width: '50em' }}>
                 <Grid container justifyContent="space-between" alignItems="center" >
                     <Grid item>
                         <Typography variant="h5">{t('configGenerator.title')}</Typography>
@@ -112,7 +128,8 @@ const Others = () => {
                                     value={netinterface}
                                     onChange={(e) => setNetinterface(e.target.value)}
                                     fullWidth
-                                />
+                                    sx={getTextFieldStyles(isNightMode)}
+                                    />
                             </Grid>
                             <Grid item>
                                 <TextField
@@ -122,6 +139,7 @@ const Others = () => {
                                     value={subnet}
                                     onChange={(e) => setSubnet(e.target.value)}
                                     fullWidth
+                                    sx={getTextFieldStyles(isNightMode)}
                                 />
                             </Grid>
                             <Grid item>
@@ -132,6 +150,7 @@ const Others = () => {
                                     value={dockerPath}
                                     onChange={(e) => setDockerPath(e.target.value)}
                                     fullWidth
+                                    sx={getTextFieldStyles(isNightMode)}
                                 />
                             </Grid>
                         </Grid>
@@ -148,6 +167,7 @@ const Others = () => {
                                     value={dummyPcNumServices}
                                     onChange={handleDummyPcNumServicesChange}
                                     fullWidth
+                                    sx={getTextFieldStyles(isNightMode)}
                                 />
                             </Grid>
                             {dummyPcIPAddresses.map((ipAddress, index) => (
@@ -159,6 +179,7 @@ const Others = () => {
                                         value={ipAddress}
                                         onChange={(event: any) => handleDummyPcIPAddressChange(index, event)}
                                         fullWidth
+                                        sx={getTextFieldStyles(isNightMode)}
                                     />
                                 </Grid>
                             ))}
@@ -170,6 +191,7 @@ const Others = () => {
                                     value={ftpIPAddress}
                                     onChange={(e) => setFtpIPAddress(e.target.value)}
                                     fullWidth
+                                    sx={getTextFieldStyles(isNightMode)}
                                 />
                             </Grid>
                             <Grid item>
@@ -180,6 +202,7 @@ const Others = () => {
                                     value={ftpPort}
                                     onChange={(e) => setFtpPort(e.target.value)}
                                     fullWidth
+                                    sx={getTextFieldStyles(isNightMode)}
                                 />
                             </Grid>
                         </Grid>

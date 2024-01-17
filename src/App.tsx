@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import AuthContext from "@contexts/AuthContext";
 import Navbar from '@components/Navbar';
@@ -13,10 +13,22 @@ import 'react-toastify/dist/ReactToastify.css';
 import { AuthProvider } from '@providers/AuthProvider';
 import './i18n/i18n';
 import InvitationSignup from '@pages/Invitation';
+import { NightModeProvider, NightModeContext } from '@contexts/NightModeContext';
+import './styles.css'
 
 function App() {
+  
   const PrivateRoute = ({ component: Component, ...rest }) => {
-    const { isLoggedIn } = React.useContext(AuthContext);
+    const { isNightMode } = useContext(NightModeContext);
+
+    useEffect(() => {
+      if (isNightMode) {
+        document.body.classList.add('night-mode-body');
+      } else {
+        document.body.classList.remove('night-mode-body');
+      }
+    }, [isNightMode]);
+    const { isLoggedIn } = useContext(AuthContext);
     return (
       <Route
         {...rest}
@@ -32,7 +44,7 @@ function App() {
   };
 
   const PublicRoute = ({ component: Component, ...rest }) => {
-    const { isLoggedIn } = React.useContext(AuthContext);
+    const { isLoggedIn } = useContext(AuthContext);
     return (
       <Route
         {...rest}
@@ -47,25 +59,37 @@ function App() {
     );
   };
 
+  const { isNightMode } = useContext(NightModeContext);
+
+  useEffect(() => {
+    if (isNightMode) {
+      document.body.classList.add('night-mode-body');
+    } else {
+      document.body.classList.remove('night-mode-body');
+    }
+  }, [isNightMode]);
+
   return (
     <Router>
       <AuthProvider>
-        <ToastContainer />
-        <ThemeProvider theme={theme}>
-          <div className="App">
-            <Navbar />
-            <Switch>
-              <PublicRoute path="/login" component={LoginPage} />
-              <PrivateRoute path="/" exact component={HomePage} />
-              <PrivateRoute path="/profile" component={ProfilePage} />
-              <PrivateRoute path="/honeypot" component={HoneyPotPage} />
-              <Route path="/activate/:activationToken" component={InvitationSignup} />
-            </Switch>
-          </div>
-        </ThemeProvider>
+        <NightModeProvider>
+          <ToastContainer />
+          <ThemeProvider theme={theme}>
+            <div className="App">
+              <Navbar />
+              <Switch>
+                <PublicRoute path="/login" component={LoginPage} />
+                <PrivateRoute path="/" exact component={HomePage} />
+                <PrivateRoute path="/profile" component={ProfilePage} />
+                <PrivateRoute path="/honeypot" component={HoneyPotPage} />
+                <Route path="/activate/:activationToken" component={InvitationSignup} />
+              </Switch>
+            </div>
+          </ThemeProvider>
+        </NightModeProvider>
       </AuthProvider>
     </Router>
-  )
+  );
 }
 
 export default App;

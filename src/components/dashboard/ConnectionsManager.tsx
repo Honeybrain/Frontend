@@ -3,10 +3,14 @@ import MonacoEditor from 'react-monaco-editor';
 import HelpModal from '@components/HelpModal';
 import useLogsRPC from '@hooks/backend/honeypotService/useLogsRPC';
 import { useTranslation } from 'react-i18next';
+import { NightModeContext } from '@contexts/NightModeContext';
+import { useContext } from "react";
 
 const ListConnections = () => {
 	const { logs } = useLogsRPC();
 	const { t } = useTranslation();
+	const { isNightMode } = useContext(NightModeContext); 
+	const editorTheme = isNightMode ? "vs-dark" : "vs";
 
 	return (
 		<Box flex={1}>
@@ -23,7 +27,7 @@ const ListConnections = () => {
 						width="100%"
 						height="100%"
 						language="plaintext"
-						theme="vs"
+						theme={editorTheme}
 						value={logs}
 						options={{ selectOnLineNumbers: true, readOnly: true }}
 				/>

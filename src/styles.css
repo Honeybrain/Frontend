@@ -250,3 +250,45 @@ body {
 .error-message {
   color: red;
 }
+
+/* nightmode */
+.night-mode {
+  background-color: #262626; /* couleur de fond pour le mode nuit */
+  color: #ffffff; /* couleur de texte pour le mode nuit */
+}
+
+.night-mode-body {
+  background-color: #313131; /* couleur de fond pour le mode nuit */
+  color: #ffffff; /* couleur de texte pour le mode nuit */
+  font-family: 'Roboto', sans-serif;
+
+}
+
+.home-content.night-mode {
+  background-color: #313131; 
+  padding: 0 20px;
+}
+
+.content-body.night-mode {
+  background-color: #262626; 
+}
+
+.content-body.night-mode {
+  background-color: #262626; 
+}
+
+.home-container.night-mode {
+  background-color: #262626; 
+  display: flex;
+  margin: 20px;
+  height: calc(100vh - 110px);
+}
+
+.home-sidebar.night-mode {
+  background-color: #262626; 
+  border-radius: 10%;
+}
+
+.home-sidebar .night-mode-text {
+  color: #ffffff;
+}
