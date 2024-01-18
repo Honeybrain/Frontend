@@ -15,6 +15,8 @@ const BlockManager = () => {
   const [alertText, setAlertText] = React.useState('');
   const { t } = useTranslation();
   const { isNightMode } = useContext(NightModeContext);
+  const nightModeBgColor1 = 'color1ForNightMode';
+  const nightModeBgColor2 = 'color2ForNightMode';
   const textFieldStyle = isNightMode 
   ? { 
       InputLabelProps: { style: { color: 'white' } }, 
@@ -110,7 +112,9 @@ const BlockManager = () => {
                 <ListItem key={index} sx={{
                   my: 1,
                   px: 2,
-                  bgcolor: index % 2 === 0 ? 'action.hover' : 'background.default',
+                  bgcolor: isNightMode 
+                  ? (index % 2 === 0 ? nightModeBgColor1 : nightModeBgColor2) 
+                  : (index % 2 === 0 ? 'action.hover' : 'background.default'),                  
                   borderRadius: 1
                 }}>
                   <ListItemText primary={blacklistedIP} />
