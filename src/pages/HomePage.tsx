@@ -116,12 +116,6 @@ const HomePage = () => {
   };
 
   return (<>
-    {showCarousel ? 
-    <div className={containerClassName}>
-        <CarrouselPage heading={""} slides={slideData} /> 
-    </div>
-    :
-    // <div className={containerClassName}>
     <div className={containerClassName}>
       <div className={sidebarClassName}>
         <h3 className={h3ClassName}>HoneyPot</h3>
@@ -159,7 +153,7 @@ const HomePage = () => {
         <div className={contentBodyClassName}>{renderContent()}</div>
       </div>
     </div>
-  }</>);
+  </>);
 };
 
 export default HomePage;
