@@ -1,6 +1,7 @@
 import "../../styles.css";
 import BlockIpWidget from "./widgets/BlockIpWidget";
 import LogViewerWidget from "./widgets/ListConnectionsWidget";
+import ChartsWidget from "./widgets/chartsWidget";
 import ContainerMonitorWidget from "./widgets/ContainerMonitorWidget";
 import { Grid } from "@mui/material";
 import { DashboardProvider } from "@providers/DashboardProvider";
@@ -27,6 +28,11 @@ const Dashboard = () => {
           {HaveRoles(user, [RoleEnum.CAN_READ_IP]) && (
             <Grid item xs={4}>
               <BlockIpWidget />
+            </Grid>
+          )}
+          {HaveRoles(user, [RoleEnum.CAN_READ_SERVICES]) && (
+            <Grid item xs={4}>
+              <ChartsWidget />
             </Grid>
           )}
         </Grid>
