@@ -44,6 +44,11 @@
       "status":"状态",
       "ip": "IP"
     },
+    "chartsWidget": {
+      "charts": "图表",
+      "blockedIPsYear": "IP 被封半年",
+      "helpText": "这些图表允许处理和更好地理解生成的数据。."
+    },
     "logViewerWidget": {
       "incomingConnections": "传入连接",
       "helpText": "传入连接小部件提供蜜罐系统连接日志的实时视图.\n\n这些日志通常是系统生成的事件的记录,特别是传入连接尝试.\n\n蜜罐是一种网络资源旨在吸引和检测未经授权的访问尝试."
