@@ -45,6 +45,11 @@
       "status": "Status",
       "ip": "IP"
     },
+    "chartsWidget": {
+      "charts": "Charts",
+      "blockedIPsYear": "IPs blocked for half year",
+      "helpText": "These graphs allow processing and better understanding of the data generated."
+    },
     "logViewerWidget": {
       "incomingConnections": "Incoming Connections",
       "helpText": "The Incoming Connections widget provides a real-time view of the connection logs to the honeypot system.\n\nThese logs are typically records of events produced by the system, especially incoming connection attempts.\n\nA honeypot is a network resource set up to attract and detect unauthorized access attempts."

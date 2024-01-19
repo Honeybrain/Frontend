@@ -12,7 +12,39 @@ import { HaveRoles } from "../_utils/function/have-roles";
 import { RoleEnum } from "@protos/user";
 import MobileLink from "@components/dashboard/MobileLink";
 import { useNightModeContext } from '../contexts/NightModeContext';
+import CarrouselPage  from './CarrouselPage';
+import ImageDashboard from './../../images/dashboard.png'
+import ImageContainerManager from '../../images/containerManager.png'
+import ImageIpManagment from '../../images/ipManagment.png'
+import ImageMobilLink from '../../images/mobileLink.png'
 import '../styles.css';
+
+const slideData = [
+  {
+    index: 0,
+    headline: 'Dasboard',
+    button: 'go to dashboard',
+    src: `${ImageDashboard}`
+  },
+  {
+    index: 1,
+    headline: 'Ip Management',
+    button: 'go manage',
+    src: `${ImageIpManagment}`
+  },
+  {
+    index: 2,
+    headline: 'Container Manager',
+    button: 'go manage',
+    src: `${ImageContainerManager}`
+  },
+  {
+    index: 3,
+    headline: 'Link to Mobil',
+    button: 'go to link',
+    src: `${ImageMobilLink}`
+  }
+]
 
 const HomePage = () => {
   const { isLoggedIn, user } = useContext(AuthContext);
@@ -25,6 +57,17 @@ const HomePage = () => {
   const containerClassName = isNightMode ? "home-container night-mode" : "home-container"; 
   const sidebarClassName = isNightMode ? "home-sidebar night-mode" : "home-sidebar"; 
   const h3ClassName = isNightMode ? "night-mode-text" : "";
+  const [showCarousel, setShowCarousel] = useState(true);
+
+  useEffect(() => {
+    if (user && user.id) {
+      const hasVisitedBefore = localStorage.getItem(`visited_${user?.id}`);
+      if (!hasVisitedBefore) {
+        setShowCarousel(true);
+        localStorage.setItem(`visited_${user?.id}`, 'true');
+      }
+    }
+  }, [user]);
 
   useEffect(() => {
     if (!isLoggedIn) {
@@ -72,7 +115,12 @@ const HomePage = () => {
     }
   };
 
-  return (
+  return (<>
+    {showCarousel ? 
+    <div className={containerClassName}>
+        <CarrouselPage heading={""} slides={slideData} /> 
+    </div>
+    :
     // <div className={containerClassName}>
     <div className={containerClassName}>
       <div className={sidebarClassName}>
@@ -111,8 +159,7 @@ const HomePage = () => {
         <div className={contentBodyClassName}>{renderContent()}</div>
       </div>
     </div>
-    // </div>
-  );
+  }</>);
 };
 
 export default HomePage;

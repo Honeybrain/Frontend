@@ -44,6 +44,11 @@
       "status": "Estado",
       "ip": "ip"
     },
+    "chartsWidget": {
+      "charts": "Gráficos",
+      "blockedIPsYear": "IP bloqueada durante medio año",
+      "helpText": "Estos gráficos permiten procesar y comprender mejor los datos generados."
+    },
     "logViewerWidget": {
         "incomingConnections": "Conexiones entrantes",
         "helpText": "El widget Conexiones entrantes proporciona una vista en tiempo real de los registros de conexión del sistema honeypot.\n\nEstos registros suelen ser registros de eventos generados por el sistema, particularmente intentos de conexión entrantes.\n\nUn honeypot es un recurso de red configurado para atraer y detectar intentos de acceso no autorizados."
