@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { Grid, Typography, Card, CardContent, Box } from '@mui/material';
+import React, { useState, useContext } from 'react';
+import { Grid, Typography, Card, CardContent, Box, Button, Dialog, DialogTitle, DialogContent, DialogActions, DialogContentText } from '@mui/material';
 import ErrorIcon from '@mui/icons-material/Error';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import AuthContext from "@contexts/AuthContext";
@@ -7,6 +7,50 @@ import HelpModal from "@components/HelpModal";
 import useContainersRPC from '@hooks/backend/honeypotService/useContainersRPC';
 import { useTranslation } from 'react-i18next';
 import { NightModeContext } from '@contexts/NightModeContext'; // Importez le contexte du mode nuit
+
+export interface ConfirmationDialogRawProps {
+  id: string;
+  keepMounted: boolean;
+  open: boolean;
+  onClose: (value?: string) => void;
+}
+
+let _status: any = null;
+let _IP: any = null;
+
+function ConfirmationDialogRaw(props: ConfirmationDialogRawProps) {
+  const { onClose, open, ...other } = props;
+
+  const handleCancel = () => {
+    onClose('no');
+  };
+
+  const handleOk = () => {
+    onClose('yes');
+  };
+
+  return (
+    <Dialog
+      sx={{ '& .MuiDialog-paper': { width: '80%', maxHeight: 435 } }}
+      maxWidth="xs"
+      open={open}
+      {...other}
+      aria-labelledby="alert-dialog-title"
+      aria-describedby="alert-dialog-description"
+    > 
+      <DialogTitle id="alert-dialog-title">Change container state ?</DialogTitle>
+      <DialogContent dividers>
+        <DialogContentText id="alert-dialog-description">
+          if you accept, you could damage the viability and security of the honeypot.
+        </DialogContentText>
+      </DialogContent>
+      <DialogActions>
+        <Button autoFocus onClick={handleCancel}>Cancel</Button>
+        <Button onClick={handleOk}>Continue</Button>
+      </DialogActions>
+    </Dialog>
+  );
+}
 
 const ContainerManager: React.FC = () => {
   const { containers } = useContainersRPC();
@@ -16,6 +60,29 @@ const ContainerManager: React.FC = () => {
   const cardStyle = isNightMode 
     ? { backgroundColor: '#424242', color: 'white' } 
     : {};
+  const [open, setOpen] = useState(false);
+  const [elementsActifs, setElementsActifs] = useState<string[]>([]);
+
+  const handleClickOpen = (elementId: string, status: string) => {
+    setOpen(true);
+    _IP = elementId,
+    _status = status
+  };
+
+  const handleClose = (newValue?: string) => {
+      setOpen(false);
+      if (newValue === 'yes') 
+        toggleElement(_IP, _status)
+  };
+    
+
+  const toggleElement = (elementId: string, status: string) => {
+    if (status.startsWith('running')) {
+      if (elementsActifs.includes(elementId)) {
+        setElementsActifs(elementsActifs.filter((id) => id !== elementId));
+      }
+    }
+  };
 
   const getContainerStatus = (status: string) => {
     if (status.startsWith('running')) {
@@ -49,7 +116,12 @@ const ContainerManager: React.FC = () => {
         }}
       >
           {containers && containers.map((container, index) => (
-            <Card variant="outlined" key={index} sx={cardStyle}>
+            <Card 
+              variant="outlined" 
+              key={index} 
+              sx={cardStyle}
+              onClick={() => handleClickOpen(container.ip, container.status)}
+              >
               <CardContent>
                 <Box
                   sx={{
@@ -66,6 +138,12 @@ const ContainerManager: React.FC = () => {
               </CardContent>
             </Card>
           ))}
+          <ConfirmationDialogRaw
+            id="menu-dialog"
+            keepMounted
+            open={open}
+            onClose={handleClose}
+          />
         </Box>
       </Grid>
     </Grid>
