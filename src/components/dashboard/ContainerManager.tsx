@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 import { Grid, Typography, Card, CardContent, Box, Button, Dialog, DialogTitle, DialogContent, DialogActions, DialogContentText } from '@mui/material';
 import ErrorIcon from '@mui/icons-material/Error';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import PauseCircleIcon from '@mui/icons-material/PauseCircle';
 import AuthContext from "@contexts/AuthContext";
 import HelpModal from "@components/HelpModal";
 import useContainersRPC from '@hooks/backend/honeypotService/useContainersRPC';
@@ -12,7 +13,7 @@ export interface ConfirmationDialogRawProps {
   id: string;
   keepMounted: boolean;
   open: boolean;
-  onClose: (value?: string) => void;
+  onClose: (value: string) => void;
 }
 
 let _status: any = null;
@@ -62,6 +63,7 @@ const ContainerManager: React.FC = () => {
     : {};
   const [open, setOpen] = useState(false);
   const [elementsActifs, setElementsActifs] = useState<string[]>([]);
+  const [hoveredElement, setHoveredElement] = useState<string | null>(null);
 
   const handleClickOpen = (elementId: string, status: string) => {
     setOpen(true);
@@ -69,24 +71,37 @@ const ContainerManager: React.FC = () => {
     _status = status
   };
 
-  const handleClose = (newValue?: string) => {
+  const handleClose = (newValue: string) => {
       setOpen(false);
-      if (newValue === 'yes') 
+      if (newValue.localeCompare('yes') === 0)
         toggleElement(_IP, _status)
   };
     
-
-  const toggleElement = (elementId: string, status: string) => {
-    if (status.startsWith('running')) {
-      if (elementsActifs.includes(elementId)) {
-        setElementsActifs(elementsActifs.filter((id) => id !== elementId));
-      }
-    }
+  const handleMouseEnter = (elementId: string) => {
+    setHoveredElement(elementId);
   };
 
-  const getContainerStatus = (status: string) => {
+  const handleMouseLeave = () => {
+    setHoveredElement(null);
+  };
+
+  const toggleElement = (elementId: string, status: string) => {
+    setElementsActifs(prevElementsActifs => {
+      if (prevElementsActifs.includes(elementId)) {
+        return prevElementsActifs.filter(id => id !== elementId);
+      } else {
+        return [...prevElementsActifs, elementId];
+    }
+    });  
+  };
+
+  const getContainerStatus = (elementId: string, status: string) => {
     if (status.startsWith('running')) {
-      return <CheckCircleIcon color="success" />;
+      if (elementsActifs.find((id) => elementId === id)) {
+        return <PauseCircleIcon color="warning" />;
+      } else {
+        return <CheckCircleIcon color="success" />;
+      }
     } else {
       return <ErrorIcon color="error" />;
     }
@@ -118,9 +133,14 @@ const ContainerManager: React.FC = () => {
           {containers && containers.map((container, index) => (
             <Card 
               variant="outlined" 
-              key={index} 
-              sx={cardStyle}
+              key={index}
+              onMouseEnter={() => handleMouseEnter(container.ip)}
+              onMouseLeave={handleMouseLeave}
               onClick={() => handleClickOpen(container.ip, container.status)}
+              sx={{
+                ...cardStyle,
+                backgroundColor: hoveredElement === container.ip ? '#f0f0f0' : cardStyle.backgroundColor,
+              }}
               >
               <CardContent>
                 <Box
@@ -131,7 +151,7 @@ const ContainerManager: React.FC = () => {
                   }}
                 >
                   <Typography variant="h6">{container.name}</Typography>
-                  {getContainerStatus(container.status)}
+                  {getContainerStatus(container.ip, container.status)}
                 </Box>
                 <Typography variant="body2" sx={{ color: isNightMode ? 'white' : 'inherit' }}>{t('containerManager.status')}: {container.status}</Typography>
                 <Typography variant="body2" sx={{ color: isNightMode ? 'white' : 'inherit' }}>{t('containerManager.ip')}: {container.ip.split('/')[0]}</Typography>
