@@ -9,8 +9,9 @@ import { NightModeContext } from '@contexts/NightModeContext';
 import { useContext } from "react";
 
 const BlockManager = () => {
-  const { blacklist, putBlackList, putWhiteList } = useBlackListRPC();
+  const { blacklist, putBlackList, putWhiteList, blockCountry } = useBlackListRPC();
   const [ip, setIp] = React.useState('');
+  const [country, setCountry] = React.useState('');
   const [open, setOpen] = React.useState(false);
   const [alertText, setAlertText] = React.useState('');
   const { t } = useTranslation();
@@ -50,6 +51,18 @@ const BlockManager = () => {
     }
   };
 
+  const handleBlockCountry = async (e) => {
+    e.preventDefault();
+    try {
+      await blockCountry(country);
+      setCountry('');
+      setAlertText(t('blockManager.blockCountrySuccess'));
+      setOpen(true);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <Grid container direction="column">
       <Grid item>
@@ -59,6 +72,29 @@ const BlockManager = () => {
           </Grid>
           <Grid item>
             <HelpModal helpText={t('blockManager.helpText')}/>
+          </Grid>
+        </Grid>
+      </Grid>
+      <Grid item xs sx={{ marginBottom: 4 }}>
+        <Typography variant="h6" mb={2}>{t('blockManager.blockACountry')}</Typography>
+        <Grid container spacing={2} direction="column" alignItems="stretch" component="form" onSubmit={handleBlockCountry}>
+          <Grid item>
+            <TextField
+              variant="outlined"
+              required
+              fullWidth
+              id="country"
+              label={t('blockManager.countryCode')}
+              autoFocus
+              value={country}
+              onChange={(e) => setCountry(e.target.value)}
+              {...textFieldStyle}
+            />
+          </Grid>
+          <Grid item>
+            <Button type="submit" variant="contained" color="primary">
+              {t('blockManager.blockCountry')}
+            </Button>
           </Grid>
         </Grid>
       </Grid>

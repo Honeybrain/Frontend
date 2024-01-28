@@ -63,7 +63,11 @@
     "blockIP": "Bloquer IP",
     "currentlyBlocked": "IPs actuellement bloquées",
     "blockSuccess": "IP bloquée avec succès",
-    "unblockSuccess": "IP débloquée avec succès"
+    "unblockSuccess": "IP débloquée avec succès",
+    "blockCountrySuccess": "Pays bloqué avec succès",
+    "blockACountry": "Bloquer un pays",
+    "blockCountry": "Bloquer le pays",
+    "countryCode": "Code du pays"
   },
   "listConnections": {
     "title": "Connexions entrantes",
