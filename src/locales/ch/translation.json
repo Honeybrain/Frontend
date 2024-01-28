@@ -19,6 +19,7 @@
       "ipManagement": "IP 管理",
       "containerManager": "容器管理器",
       "incomingConnections": "传入连接",
+      "rulesManager": "规则管理",
       "userManagement": "用户管理",
       "otherFeatures": "其他功能",
       "history": "历史"
@@ -127,5 +128,11 @@
       "admin": "行政",
       "activated": "活性",
       "waitingActivation": "等待激活"
-    }
- }
+    },
+    "rulesManager": {
+      "saveSuccess": "配置保存成功",
+      "saveChanges": "保存更改",
+      "fail2BanConfig": "Fail2Ban 配置",
+      "suricataConfig": "Suricata 配置"
+  }  
+}

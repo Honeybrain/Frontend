@@ -17,8 +17,9 @@
     "homePage": {
       "dashboard": "Dashboard",
       "ipManagement": "IP Management",
-      "containerManager": "Container Manager",
+      "containerManager": "Container Management",
       "incomingConnections": "Incoming Connections",
+      "rulesManager": "Rules Management",
       "userManagement": "User Management",
       "mobileLink": "Mobile Link",
       "otherFeatures": "Other Features",
@@ -141,5 +142,11 @@
       "loadingQRCode": "Loading QR code...",
       "qrCodeUnavailable": "QR code not available",
       "blockManagerHelpText": "The VPN client serves as a secure gateway to access the HoneyBrain suite remotely, beyond your local network. By establishing a protected connection, it ensures that only authorized users can administer the security suite. This feature is crucial for maintaining the integrity and confidentiality of your network. It allows you to manage configurations, monitor activities, and update security measures from anywhere, ensuring you have full control over your cybersecurity environment."
+    },
+    "rulesManager": {
+      "saveSuccess": "Configuration saved successfully",
+      "saveChanges": "Save changes",
+      "fail2BanConfig": "Fail2Ban Configuration",
+      "suricataConfig": "Suricata Configuration"
     }
 }

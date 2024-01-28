@@ -18,6 +18,7 @@ import ImageContainerManager from '../../images/containerManager.png'
 import ImageIpManagment from '../../images/ipManagment.png'
 import ImageMobilLink from '../../images/mobileLink.png'
 import '../styles.css';
+import RulesManager from "@components/dashboard/RulesManager";
 
 const slideData = [
   {
@@ -99,6 +100,8 @@ const HomePage = () => {
         return <Others />;
       case "containerManager":
         return <ContainerManager />;
+      case "rulesManager":
+        return <RulesManager />;
       case "incomingConnections":
         return <ConnectionsManager />;
       case "ipManagement":
@@ -136,6 +139,11 @@ const HomePage = () => {
           <li onClick={() => handleMenuClick("incomingConnections")}>
             {t("homePage.incomingConnections")}
           </li>
+          {HaveRoles(user, [RoleEnum.CAN_MANAGE_CONFIGURATION]) && (
+            <li onClick={() => handleMenuClick("rulesManager")}>
+              {t("homePage.rulesManager")}
+            </li>
+          )}
           {HaveRoles(user, [RoleEnum.CAN_INVITE]) && (
             <li onClick={() => handleMenuClick("usersManagement")}>
               {t('homePage.userManagement')}

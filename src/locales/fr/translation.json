@@ -17,8 +17,9 @@
   "homePage": {
     "dashboard": "Tableau de bord",
     "ipManagement": "Gestion des IP",
-    "containerManager": "Manager des conteneurs",
+    "containerManager": "Gestion des conteneurs",
     "incomingConnections": "Connexions entrantes",
+    "rulesManager": "Gestion des régles",
     "userManagement": "Gestion des utilisateurs",
     "mobileLink": "Mobile Link",
     "otherFeatures": "Autres fonctionnalités",
@@ -148,5 +149,11 @@
     "loadingQRCode": "Chargement du QR code...",
     "qrCodeUnavailable": "QR code non disponible",
     "blockManagerHelpText": "Le client VPN sert de passerelle sécurisée pour accéder à distance à la suite HoneyBrain, au-delà de votre réseau local. En établissant une connexion protégée, il garantit que seuls les utilisateurs autorisés peuvent administrer la suite de sécurité. Cette fonctionnalité est cruciale pour maintenir l'intégrité et la confidentialité de votre réseau. Elle vous permet de gérer les configurations, surveiller les activités et mettre à jour les mesures de sécurité de n'importe où, vous assurant un contrôle total sur votre environnement de cybersécurité."
-  }  
+  },
+  "rulesManager": {
+    "saveSuccess": "Configuration enregistrée avec succès",
+    "saveChanges": "Enregistrer les modifications",
+    "fail2BanConfig": "Configuration de Fail2Ban",
+    "suricataConfig": "Configuration de Suricata"
+  }
 }
