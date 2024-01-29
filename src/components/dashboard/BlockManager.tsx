@@ -9,11 +9,12 @@ import { NightModeContext } from '@contexts/NightModeContext';
 import { useContext } from "react";
 
 const BlockManager = () => {
-  const { blacklist, putBlackList, putWhiteList, blockCountry } = useBlackListRPC();
+  const { blacklist, putBlackList, putWhiteList, blockCountry, getBlockedCountries } = useBlackListRPC();
   const [ip, setIp] = React.useState('');
   const [country, setCountry] = React.useState('');
   const [open, setOpen] = React.useState(false);
   const [alertText, setAlertText] = React.useState('');
+  const [blockedCountries, setBlockedCountries] = React.useState<string[]>([]);
   const { t } = useTranslation();
   const { isNightMode } = useContext(NightModeContext);
   const nightModeBgColor1 = 'color1ForNightMode';
@@ -50,6 +51,21 @@ const BlockManager = () => {
         console.error(error);
     }
   };
+
+  React.useEffect(() => {
+    const fetchBlockedCountries = async () => {
+      try {
+        const countries = await getBlockedCountries();
+        setBlockedCountries(countries);
+      } catch (error) {
+        console.error('Error fetching blocked countries:', error);
+      }
+    };
+  
+    fetchBlockedCountries();
+  }, [getBlockedCountries]);
+  
+
 
   const handleBlockCountry = async (e) => {
     e.preventDefault();
@@ -97,6 +113,26 @@ const BlockManager = () => {
             </Button>
           </Grid>
         </Grid>
+      </Grid>
+      <Grid item xs>
+        <Typography variant="h6" component="h2" gutterBottom mt={2}>
+          {t('blockManager.currentlyBlockedCountries')}
+        </Typography>
+        <List>
+         {blockedCountries.map((country, index) => (
+        <ListItem key={index} sx={{
+          my: 1,
+          px: 2,
+          bgcolor: isNightMode 
+          ? (index % 2 === 0 ? nightModeBgColor1 : nightModeBgColor2) 
+          : (index % 2 === 0 ? 'action.hover' : 'background.default'),
+         borderRadius: 1
+       }}>
+      <ListItemText primary={country} />
+        {/* Vous pouvez ajouter ici des actions comme un bouton pour débloquer le pays */}
+      </ListItem>
+        ))}
+        </List>
       </Grid>
       <Grid item xs sx={{ marginBottom: 0.4 }}>
         <Typography variant="h6" mb={2}>{t('blockManager.blockAnIP')}</Typography>

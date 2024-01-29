@@ -67,7 +67,8 @@
     "blockCountrySuccess": "Country successfully blocked",
     "blockACountry": "Block a Country",
     "blockCountry": "Block Country",
-    "countryCode": "Country Code"
+    "countryCode": "Country Code",
+    "currentlyBlockedCountries": "Countries currently blocked"
   },
   "listConnections": {
     "title": "Incoming Connections",

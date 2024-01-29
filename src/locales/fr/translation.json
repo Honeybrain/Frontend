@@ -67,7 +67,8 @@
     "blockCountrySuccess": "Pays bloqué avec succès",
     "blockACountry": "Bloquer un pays",
     "blockCountry": "Bloquer le pays",
-    "countryCode": "Code du pays"
+    "countryCode": "Code du pays",
+    "currentlyBlockedCountries": "Pays actuellement bloqués"
   },
   "listConnections": {
     "title": "Connexions entrantes",

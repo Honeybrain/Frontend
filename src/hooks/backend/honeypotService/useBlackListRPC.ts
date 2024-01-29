@@ -1,7 +1,7 @@
 import React from "react";
 import { transport } from "../../../environment";
 import { BlacklistClient } from '@protos/blacklist.client';
-import { GetBlackListRequest, PutWhiteListRequest, PutBlackListRequest, BlockCountryRequest} from '@protos/blacklist';
+import { GetBlackListRequest, PutWhiteListRequest, PutBlackListRequest, BlockCountryRequest, GetBlockCountryRequest} from '@protos/blacklist';
 
 const useBlackListRPC = () => {
   const client = React.useMemo(() => new BlacklistClient(transport), []);
@@ -35,6 +35,18 @@ const useBlackListRPC = () => {
     await client.blockCountry(request, {});;
   }, []);
 
+  const getBlockedCountries = React.useCallback(async () => {
+    const request = GetBlockCountryRequest.create();
+    try {
+      const call = client.getBlockCountry(request, {});
+      const response = await call.response;
+      return response.countries;
+    } catch (error) {
+      console.error('Error fetching blocked countries:', error);
+      throw error;
+    }
+  }, [client]);  
+
   React.useEffect(() => {
     getBlackList();
 
@@ -48,6 +60,7 @@ const useBlackListRPC = () => {
     blacklist,
     putBlackList,
     putWhiteList,
+    getBlockedCountries,
   };
 };
 
