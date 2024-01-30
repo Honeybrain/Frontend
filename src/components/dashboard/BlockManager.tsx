@@ -9,11 +9,12 @@ import { NightModeContext } from '@contexts/NightModeContext';
 import { useContext } from "react";
 
 const BlockManager = () => {
-  const { blacklist, putBlackList, putWhiteList, blockCountry } = useBlackListRPC();
+  const { blacklist, putBlackList, putWhiteList, blockCountry, getBlockedCountries } = useBlackListRPC();
   const [ip, setIp] = React.useState('');
   const [country, setCountry] = React.useState('');
   const [open, setOpen] = React.useState(false);
   const [alertText, setAlertText] = React.useState('');
+  const [blockedCountries, setBlockedCountries] = React.useState<string[]>([]);
   const { t } = useTranslation();
   const { isNightMode } = useContext(NightModeContext);
   const nightModeBgColor1 = 'color1ForNightMode';
@@ -51,6 +52,28 @@ const BlockManager = () => {
     }
   };
 
+  // React.useEffect(() => {
+  //   const fetchBlockedCountries = async () => {
+  //     try {
+  //       const countries = await getBlockedCountries();
+  //       setBlockedCountries(countries);
+  //     } catch (error) {
+  //       console.error('Error fetching blocked countries:', error);
+  //     }
+  //   };
+  
+  //   fetchBlockedCountries();
+  // }, [getBlockedCountries]);
+  
+  const refreshBlockedCountries = async () => {
+    try {
+      const countries = await getBlockedCountries();
+      setBlockedCountries(countries);
+    } catch (error) {
+      console.error('Error fetching blocked countries:', error);
+    }
+  };
+
   const handleBlockCountry = async (e) => {
     e.preventDefault();
     try {
@@ -58,10 +81,16 @@ const BlockManager = () => {
       setCountry('');
       setAlertText(t('blockManager.blockCountrySuccess'));
       setOpen(true);
+      refreshBlockedCountries();
     } catch (error) {
       console.error(error);
     }
   };
+
+  React.useEffect(() => {
+    refreshBlockedCountries();
+  }, [refreshBlockedCountries]);
+  
 
   return (
     <Grid container direction="column">
@@ -98,6 +127,33 @@ const BlockManager = () => {
           </Grid>
         </Grid>
       </Grid>
+      <Grid item xs>
+      <Typography variant="h6" component="h2" gutterBottom mt={2}>
+        {t('blockManager.currentlyBlockedCountries')}
+      </Typography>
+      <List>
+        {blockedCountries.length > 0 ? (
+          blockedCountries.map((country, index) => (
+            <ListItem key={index} sx={{
+              my: 1,
+              px: 2,
+              bgcolor: isNightMode 
+                ? (index % 2 === 0 ? nightModeBgColor1 : nightModeBgColor2) 
+                : (index % 2 === 0 ? 'action.hover' : 'background.default'),
+              borderRadius: 1
+            }}>
+              <ListItemText primary={country} />
+              {/* Ajouter des actions pour chaque pays si nécessaire */}
+            </ListItem>
+          ))
+        ) : (
+          <Typography sx={{ px: 2 }}>{t('blockManager.noBlockedCountries')}</Typography>
+        )}
+      </List>
+    </Grid>
+
+    {/* Séparateur */}
+    <Divider sx={{ my: 4 }} />
       <Grid item xs sx={{ marginBottom: 0.4 }}>
         <Typography variant="h6" mb={2}>{t('blockManager.blockAnIP')}</Typography>
         <Grid container spacing={2} direction="column" alignItems="stretch" component="form" onSubmit={handleSubmit}>
