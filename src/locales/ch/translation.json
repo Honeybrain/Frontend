@@ -67,7 +67,8 @@
     "blockACountry": "阻止一个国家",
     "blockCountry": "阻止国家",
     "countryCode": "国家代码",
-    "currentlyBlockedCountries": "目前被封鎖的國家"
+    "currentlyBlockedCountries": "目前被封鎖的國家",
+    "noBlockedCountries": "尚未有國家被封鎖"
   },
   "listConnections": {
     "title": "传入连接",
