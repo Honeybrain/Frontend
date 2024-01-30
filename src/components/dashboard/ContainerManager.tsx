@@ -120,16 +120,16 @@ const ContainerManager: React.FC = () => {
         </Grid>
       </Grid>
       <Grid item xs>
-      <Box
-        sx={{
-          height: '100%',
-          maxHeight: 'calc(100vh - 220px)', // Set max height
-          overflow: 'auto',
-          '& > *': {
-            marginBottom: '16px', // Add a margin to each child
-          },
-        }}
-      >
+        <Box
+          sx={{
+            height: '100%',
+            maxHeight: 'calc(100vh - 220px)', // Set max height
+            overflow: 'auto',
+            '& > *': {
+              marginBottom: '16px', // Add a margin to each child
+            },
+          }}
+        >
           {containers && containers.map((container, index) => (
             <Card 
               variant="outlined" 
