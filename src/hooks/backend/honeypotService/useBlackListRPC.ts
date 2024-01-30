@@ -35,6 +35,12 @@ const useBlackListRPC = () => {
     await client.blockCountry(request, {});;
   }, []);
 
+  const unblockCountry = React.useCallback(async (country: string) => {
+    const request: BlockCountryRequest = BlockCountryRequest.create();
+    request.countryCode = country;
+    await client.unblockCountry(request, {});;
+  }, []);
+
   const getBlockedCountries = React.useCallback(async () => {
     const request = GetBlockCountryRequest.create();
     try {
@@ -57,6 +63,7 @@ const useBlackListRPC = () => {
 
   return {
     blockCountry,
+    unblockCountry,
     blacklist,
     putBlackList,
     putWhiteList,

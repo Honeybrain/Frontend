@@ -64,6 +64,7 @@
     "currentlyBlocked": "Currently Blocked IPs",
     "blockSuccess": "IP blocked successfully",
     "unblockSuccess": "IP unblocked successfully",
+    "unblockCountrySuccess": "Country unblocked successfully",
     "blockCountrySuccess": "Country successfully blocked",
     "blockACountry": "Block a Country",
     "blockCountry": "Block Country",

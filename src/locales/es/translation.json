@@ -63,6 +63,7 @@
     "currentlyBlocked": "IP actualmente bloqueadas",
     "blockSuccess": "IP bloqueada exitosamente",
     "unblockSuccess": "IP desbloqueada exitosamente",
+    "unblockCountrySuccess": "País desbloqueado con éxito",
     "blockCountrySuccess": "País bloqueado con éxito",
     "blockACountry": "Bloquear un País",
     "blockCountry": "Bloquear País",

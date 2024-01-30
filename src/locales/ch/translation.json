@@ -63,6 +63,7 @@
     "currentlyBlocked": "当前阻止的 IP",
     "blockSuccess": "IP 拦截成功",
     "unblockSuccess": "IP解封成功",
+    "unblockCountrySuccess": "成功解锁的国家",
     "blockCountrySuccess": "成功阻止国家",
     "blockACountry": "阻止一个国家",
     "blockCountry": "阻止国家",

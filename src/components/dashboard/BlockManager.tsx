@@ -28,6 +28,7 @@ const BlockManager = () => {
     putBlackList,
     putWhiteList,
     blockCountry,
+    unblockCountry,
     getBlockedCountries,
   } = useBlackListRPC();
   const [ip, setIp] = React.useState("");
@@ -89,6 +90,16 @@ const BlockManager = () => {
       setAlertText(t("blockManager.blockCountrySuccess"));
       setOpen(true);
       refreshBlockedCountries();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleUnblockCountry = async (country) => {
+    try {
+      await unblockCountry(country);
+      setAlertText(t("blockManager.unblockCountrySuccess"));
+      setOpen(true);
     } catch (error) {
       console.error(error);
     }
@@ -182,6 +193,15 @@ const BlockManager = () => {
                       borderRadius: 1,
                     }}
                   >
+                    <ListItemSecondaryAction>
+                        <IconButton
+                          edge="end"
+                          aria-label="delete"
+                          onClick={() => handleUnblockCountry(country)}
+                        >
+                          <DeleteIcon color="error" />
+                        </IconButton>
+                      </ListItemSecondaryAction>
                     <ListItemText primary={country} />
                     {/* Ajouter des actions pour chaque pays si nécessaire */}
                   </ListItem>
