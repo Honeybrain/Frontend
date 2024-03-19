@@ -5,6 +5,7 @@ import HelpModal from '@components/HelpModal';
 import { useTranslation } from 'react-i18next';
 import { NightModeContext } from '@contexts/NightModeContext';
 import { useContext } from "react";
+import useReconfigRPC from '@hooks/backend/honeypotService/useReconfigRPC';
 
 const getRandomDummyPcIPAddresses = (subnet: string, numServices: number) => {
     const subnetParts = subnet.split('/');
@@ -50,8 +51,8 @@ const getTextFieldStyles = (isNightMode) => ({
   });
   
 
-
 const Others = () => {
+    const { reconfigure } = useReconfigRPC();
     const [dummyPcNumServices, setDummyPcNumServices] = useState<number>(2);
     const [ftpIPAddress, setFtpIPAddress] = useState<string>('192.168.1.10');
     const [ftpPort, setFtpPort] = useState<string>('21');
@@ -81,7 +82,7 @@ const Others = () => {
         setDummyPcIPAddresses(updatedIPAddresses);
     };
 
-    const handleDownload = () => {
+    const handleReconfig = async (e) => {
         const configData = {
             dummy_pc: {
                 num_services: dummyPcNumServices,
@@ -96,12 +97,20 @@ const Others = () => {
             docker: dockerPath,
         };
         const dataStr = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(configData, null, 4));
-        const downloadAnchorNode = document.createElement('a');
+        /*const downloadAnchorNode = document.createElement('a');
         downloadAnchorNode.setAttribute('href', dataStr);
         downloadAnchorNode.setAttribute('download', 'honeybrain_config.json');
         document.body.appendChild(downloadAnchorNode); // required for Firefox
         downloadAnchorNode.click();
-        downloadAnchorNode.remove();
+        downloadAnchorNode.remove();*/
+        e.preventDefault();
+        try {
+            console.log(configData)
+            await reconfigure(JSON.stringify(configData, null, 4));
+        } catch (error) {
+            console.error("error is : " + error);
+        }
+        
     };
 
     return (
@@ -210,7 +219,7 @@ const Others = () => {
                 </Grid>
                 <Grid item>
                     <Box width="100%" display="flex" justifyContent="center">
-                        <Button variant="contained" color="primary" onClick={handleDownload}>
+                        <Button variant="contained" color="primary" onClick={handleReconfig}>
                             {t('configGenerator.downloadConfiguration')}
                         </Button>
                     </Box>
