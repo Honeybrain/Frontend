@@ -91,6 +91,7 @@
     "dockerfilePathLabel": "Dockerfile 路径",
     "numberOfDummyPCLabel": "假 PC 数量",
     "ipAddressForDummyPCLabel": "假 PC 的 IP 地址",
+    "ipAddressesForDummyPCsLabel": "假冒 PC 的 IP 地址",
     "ipAddressForFTPLabel": "FTP 的 IP 地址",
     "portForFTPLabel": "FTP 端口",
     "downloadConfiguration": "应用配置",

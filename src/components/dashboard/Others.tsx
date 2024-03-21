@@ -124,36 +124,8 @@ const Others = () => {
                     </Grid>
                 </Grid>
                 <Grid container spacing={2} mb={3} direction="row">
-                    {/* General Configuration */}
-                    <Grid item xs={6}>
-                        <Typography variant="h6" mb={2}>{t('configGenerator.generalConfiguration')}</Typography>
-                        <Grid container spacing={2} direction="column" alignItems="stretch">
-                            <Grid item>
-                                <TextField
-                                    type="text"
-                                    variant="outlined"
-                                    label={t('configGenerator.subnetLabel')}
-                                    value={subnet}
-                                    onChange={(e) => setSubnet(e.target.value)}
-                                    fullWidth
-                                    sx={getTextFieldStyles(isNightMode)}
-                                />
-                            </Grid>
-                            <Grid item>
-                                <TextField
-                                    type="text"
-                                    variant="outlined"
-                                    label={t('configGenerator.dockerfilePathLabel')}
-                                    value={dockerPath}
-                                    onChange={(e) => setDockerPath(e.target.value)}
-                                    fullWidth
-                                    sx={getTextFieldStyles(isNightMode)}
-                                />
-                            </Grid>
-                        </Grid>
-                    </Grid>
                     {/* Services Configuration */}
-                    <Grid item xs={6}>
+                    <Grid item xs={12}>
                         <Typography variant="h6" mb={2}>{t('configGenerator.services')}</Typography>
                         <Grid container spacing={2} direction="column" alignItems="stretch">
                             <Grid item>
@@ -175,7 +147,6 @@ const Others = () => {
                                     onChange={(e) => setDummyPcIPAddresses(e.target.value)}
                                     fullWidth
                                     sx={getTextFieldStyles(isNightMode)}
-                                    helperText={t('configGenerator.ipAddressesForDummyPCsHelp')}
                                 />
                             </Grid>
                             <Grid item>

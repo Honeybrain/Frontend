@@ -91,6 +91,7 @@
     "subnetLabel": "Subnet",
     "dockerfilePathLabel": "Dockerfile path",
     "numberOfDummyPCLabel": "Number of dummy PC",
+    "ipAddressesForDummyPCsLabel": "IP addresses for dummy PCs",
     "ipAddressForDummyPCLabel": "IP Address for dummy PC",
     "ipAddressForFTPLabel": "IP Address for FTP",
     "portForFTPLabel": "Port for FTP",

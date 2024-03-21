@@ -91,6 +91,7 @@
     "subnetLabel": "Sous-réseau",
     "dockerfilePathLabel": "Chemin du Dockerfile",
     "numberOfDummyPCLabel": "Nombre de faux PC",
+    "ipAddressesForDummyPCsLabel": "Adresses IP pour les faux PC",
     "ipAddressForDummyPCLabel": "Adresse IP pour le faux PC",
     "ipAddressForFTPLabel": "Adresse IP pour le FTP",
     "portForFTPLabel": "Port pour le FTP",
