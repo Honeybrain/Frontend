@@ -94,7 +94,8 @@
     "ipAddressForDummyPCLabel": "IP Address for dummy PC",
     "ipAddressForFTPLabel": "IP Address for FTP",
     "portForFTPLabel": "Port for FTP",
-    "downloadConfiguration": "Download Configuration"
+    "downloadConfiguration": "Apply Configuration",
+    "configurationApplied": "Configuration applied"
   },
   "historyPage": {
     "title": "Action History",

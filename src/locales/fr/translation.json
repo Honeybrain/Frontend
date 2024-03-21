@@ -94,7 +94,8 @@
     "ipAddressForDummyPCLabel": "Adresse IP pour le faux PC",
     "ipAddressForFTPLabel": "Adresse IP pour le FTP",
     "portForFTPLabel": "Port pour le FTP",
-    "downloadConfiguration": "Télécharger la Configuration"
+    "downloadConfiguration": "Appliquer la Configuration",
+    "configurationApplied": "Configuration appliquée"
   },
   "historyPage": {
     "title": "Historique des actions",

@@ -93,7 +93,8 @@
     "ipAddressForDummyPCLabel": "Dirección IP de la PC falsa",
     "ipAddressForFTPLabel": "Dirección IP para FTP",
     "portForFTPLabel": "Puerto para FTP",
-    "downloadConfiguration": "Descargar configuración"
+    "downloadConfiguration": "Aplicar configuración",
+    "configurationApplied": "Configuración aplicada"
   },
   "historyPage": {
     "title": "Historial de acciones",

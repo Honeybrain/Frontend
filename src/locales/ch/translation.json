@@ -93,7 +93,8 @@
     "ipAddressForDummyPCLabel": "假 PC 的 IP 地址",
     "ipAddressForFTPLabel": "FTP 的 IP 地址",
     "portForFTPLabel": "FTP 端口",
-    "downloadConfiguration": "下载配置"
+    "downloadConfiguration": "应用配置",
+    "configurationApplied": "已应用的配置"
   },
   "historyPage": {
     "title": "动作历史",
