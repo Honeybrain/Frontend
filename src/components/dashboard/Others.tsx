@@ -68,9 +68,10 @@ const Others = () => {
 
     const handleReconfig = async (e) => {
         setIsReconfiguring(true);
+        const numServices = dummyPcIPAddresses ? dummyPcIPAddresses.split(',').filter(Boolean).length : 0;
         const configData = {
             dummy_pc: {
-                num_services: dummyPcNumServices,
+                num_services: numServices,
                 ip_addresses: dummyPcIPAddresses.split(',').map(ip => ip.trim()),
             },
             ftp: {
@@ -128,16 +129,6 @@ const Others = () => {
                     <Grid item xs={12}>
                         <Typography variant="h6" mb={2}>{t('configGenerator.services')}</Typography>
                         <Grid container spacing={2} direction="column" alignItems="stretch">
-                            <Grid item>
-                                <TextField
-                                    type="number"
-                                    variant="outlined"
-                                    label={t('configGenerator.numberOfDummyPCLabel')}
-                                    value={dummyPcNumServices}
-                                    fullWidth
-                                    sx={getTextFieldStyles(isNightMode)}
-                                />
-                            </Grid>
                             <Grid item>
                                 <TextField
                                     type="text"
